@@ -97,17 +97,17 @@ export default {
     SidebarNav,
     InfoData
   },
-  data() {
+  data () {
     return {
-      anamnesis : {
-        keluhan : '',
-        riwayat_penyakit : '',
-        nadi : '',
-        tekanan_darah : '',
-        suhu_tubuh : '',
-        respirator_rate : '',
-        berat_badan : '',
-        tinggi_badan : '',
+      anamnesis: {
+        keluhan: '',
+        riwayat_penyakit: '',
+        nadi: '',
+        tekanan_darah: '',
+        suhu_tubuh: '',
+        respirator_rate: '',
+        berat_badan: '',
+        tinggi_badan: ''
       }
     }
   }

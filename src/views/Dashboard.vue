@@ -102,22 +102,22 @@ import SidebarNav from '@/components/SidebarNav.vue'
 import InfoData from '@/components/InfoData.vue'
 
 export default {
-    name: 'dashboard',
-    components: {
-      SidebarNav,
-      InfoData
-    },
-    data() {
-      return {
-        pasien : [
-          { nama_pasien : 'Insan Carono', Rekam_Medis : 201801 },
-          { nama_pasien : 'Insan Carono2', Rekam_Medis : 201802 },
-          { nama_pasien : 'Insan Carono3', Rekam_Medis : 201803 },
-          { nama_pasien : 'Insan Carono4', Rekam_Medis : 201804 }
-        ]
-      }
+  name: 'dashboard',
+  components: {
+    SidebarNav,
+    InfoData
+  },
+  data () {
+    return {
+      pasien: [
+        { nama_pasien: 'Insan Carono', Rekam_Medis: 201801 },
+        { nama_pasien: 'Insan Carono2', Rekam_Medis: 201802 },
+        { nama_pasien: 'Insan Carono3', Rekam_Medis: 201803 },
+        { nama_pasien: 'Insan Carono4', Rekam_Medis: 201804 }
+      ]
     }
   }
+}
 
 </script>
 

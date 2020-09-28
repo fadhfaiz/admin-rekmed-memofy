@@ -71,18 +71,18 @@ export default {
     SidebarNav,
     InfoData
   },
-  data() {
+  data () {
     return {
-      pasien : {
-        nama_pasien : '',
-        nik : '',
-        no_hp : '',
-        tgl_lahir : '',
-        alamat_pasien : ''
+      pasien: {
+        nama_pasien: '',
+        nik: '',
+        no_hp: '',
+        tgl_lahir: '',
+        alamat_pasien: ''
       }
     }
   },
-  methods : {
+  methods: {
 
   }
 }

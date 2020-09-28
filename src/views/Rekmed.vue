@@ -101,12 +101,12 @@ export default {
     SidebarNav,
     InfoData
   },
-  data() {
+  data () {
     return {
-      pasien : [
-        { id : 201801, nama_pasien : 'Insan Carono', alamat_pasien : 'Racoon City', tgl_daftar : '30 Januari 2020', bpjs : 'Ya'},
-        { id : 201802, nama_pasien : 'Insan Carono1', alamat_pasien : 'Racoon City', tgl_daftar : '30 Januari 2020', bpjs : 'Ya'},
-        { id : 201803, nama_pasien : 'Insan Carono2', alamat_pasien : 'Racoon City', tgl_daftar : '30 Januari 2020', bpjs : 'Ya'}
+      pasien: [
+        { id: 201801, nama_pasien: 'Insan Carono', alamat_pasien: 'Racoon City', tgl_daftar: '30 Januari 2020', bpjs: 'Ya' },
+        { id: 201802, nama_pasien: 'Insan Carono1', alamat_pasien: 'Racoon City', tgl_daftar: '30 Januari 2020', bpjs: 'Ya' },
+        { id: 201803, nama_pasien: 'Insan Carono2', alamat_pasien: 'Racoon City', tgl_daftar: '30 Januari 2020', bpjs: 'Ya' }
       ]
     }
   }

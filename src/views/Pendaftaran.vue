@@ -23,17 +23,17 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Nama Pasien</label>
-            <input type="text" class="form-control" id="nama_pasien">
+            <input type="text" class="form-control" v-model="pasien.nama" required>
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">NIK</label>
-            <input type="text" class="form-control" id="id_pasien">
+            <input type="text" class="form-control" v-model="pasien.nik" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputCity">Nomor HP</label>
-            <input type="text" class="form-control" id="no_pasien">
+            <input type="text" class="form-control" v-model="pasien.no_hp" required="">
           </div>
           <div class="form-group col-md-6">
             <label for="inputState">Jenis Kelamin</label>
@@ -46,14 +46,14 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Tanggal Lahir</label>
-            <input type="date" class="form-control" id="ttl_pasien">
+            <input type="date" class="form-control" v-model="pasien.tgl_lahir" required>
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Alamat</label>
-            <input type="text" class="form-control" id="alamat_pasien">
+            <input type="text" class="form-control" v-model="pasien.alamat_pasien" required>
           </div>
         </div>
-          <router-link to="/anamnesis"><button type="submit" class="btn btn-success mt-2" style="float: right; width: 20%;">Daftar</button></router-link>
+          <router-link to="/anamnesis"><button type="submit" class="btn btn-success mt-2" style="float: right; width: 20%;" @click.prevent="simpan">Daftar</button></router-link>
           <button type="reset" class="btn btn-warning mr-3 mt-2" style="float: right;">Reset</button>
       </form>
     </div>
@@ -70,6 +70,20 @@ export default {
   components: {
     SidebarNav,
     InfoData
+  },
+  data() {
+    return {
+      pasien : {
+        nama_pasien : '',
+        nik : '',
+        no_hp : '',
+        tgl_lahir : '',
+        alamat_pasien : ''
+      }
+    }
+  },
+  methods : {
+
   }
 }
 

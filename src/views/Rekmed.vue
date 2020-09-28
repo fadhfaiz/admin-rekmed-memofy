@@ -50,45 +50,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row" class="text-center">201801</th>
-              <td>Insan Carono</td>
-              <td>New York City</td>
-              <td>30 Januari 2021</td>
-              <td>Ya</td>
-              <td class="text-center">
-                <button class="btn btn-warning btn-sm mr-2">Update</button>
-                <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#hapus_pasien">Hapus</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-center">201802</th>
-              <td>Maya Intantri</td>
-              <td>Racoon City</td>
-              <td>06 Desember 2022</td>
-              <td>Tidak</td>
-              <td class="text-center">
-                <button class="btn btn-warning btn-sm mr-2">Update</button>
-                <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#hapus_pasien">Hapus</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-center">201803</th>
-              <td>Faadihilah Ahnaf Faiz</td>
-              <td>Jawa Selatan</td>
-              <td>12 Oktober 2023</td>
-              <td>Tidak</td>
-              <td class="text-center">
-                <button class="btn btn-warning btn-sm mr-2">Update</button>
-                <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#hapus_pasien">Hapus</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-center">201804</th>
-              <td>Wahyu Shofyan Listya</td>
-              <td>Kalimantan Tenggara</td>
-              <td>21 Agustus 2024</td>
-              <td>Ya</td>
+            <tr v-for="(row, index) in pasien" :key="index">
+              <th scope="row" class="text-center">{{ row.id }}</th>
+              <td>{{ row.nama_pasien }}</td>
+              <td>{{ row.alamat_pasien }}</td>
+              <td>{{ row.tgl_daftar }}</td>
+              <td>{{ row.bpjs }}</td>
               <td class="text-center">
                 <button class="btn btn-warning btn-sm mr-2">Update</button>
                 <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#hapus_pasien">Hapus</button>
@@ -133,6 +100,15 @@ export default {
   components: {
     SidebarNav,
     InfoData
+  },
+  data() {
+    return {
+      pasien : [
+        { id : 201801, nama_pasien : 'Insan Carono', alamat_pasien : 'Racoon City', tgl_daftar : '30 Januari 2020', bpjs : 'Ya'},
+        { id : 201802, nama_pasien : 'Insan Carono1', alamat_pasien : 'Racoon City', tgl_daftar : '30 Januari 2020', bpjs : 'Ya'},
+        { id : 201803, nama_pasien : 'Insan Carono2', alamat_pasien : 'Racoon City', tgl_daftar : '30 Januari 2020', bpjs : 'Ya'}
+      ]
+    }
   }
 }
 

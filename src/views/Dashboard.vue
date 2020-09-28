@@ -37,37 +37,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row" class="text-center">24</th>
-              <td>Insan Carono</td>
-              <td class="text-center">201801</td>
-              <td class="text-center">
-                <button class="btn btn-info btn-sm mr-2" type="button" data-toggle="modal" data-target="#proses_antrian">Proses</button>
-                <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-center">25</th>
-              <td>Maya Intantri</td>
-              <td class="text-center">201802</td>
-              <td class="text-center">
-                <button class="btn btn-info btn-sm mr-2" type="button" data-toggle="modal" data-target="#proses_antrian">Proses</button>
-                <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-center">26</th>
-              <td>Faadihilah Ahnaf Faiz</td>
-              <td class="text-center">201803</td>
-              <td class="text-center">
-                <button class="btn btn-info btn-sm mr-2" type="button" data-toggle="modal" data-target="#proses_antrian">Proses</button>
-                <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-center">27</th>
-              <td>Wahyu Shofyan Listya</td>
-              <td class="text-center">201804</td>
+            <tr v-for="(row, index) in pasien" :key="index">
+              <th scope="row" class="text-center">{{ index+1 }}</th>
+              <td>{{ row.nama_pasien }}</td>
+              <td class="text-center">{{ row.Rekam_Medis }}</td>
               <td class="text-center">
                 <button class="btn btn-info btn-sm mr-2" type="button" data-toggle="modal" data-target="#proses_antrian">Proses</button>
                 <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
@@ -129,12 +102,22 @@ import SidebarNav from '@/components/SidebarNav.vue'
 import InfoData from '@/components/InfoData.vue'
 
 export default {
-  name: 'dashboard',
-  components: {
-    SidebarNav,
-    InfoData
+    name: 'dashboard',
+    components: {
+      SidebarNav,
+      InfoData
+    },
+    data() {
+      return {
+        pasien : [
+          { nama_pasien : 'Insan Carono', Rekam_Medis : 201801 },
+          { nama_pasien : 'Insan Carono2', Rekam_Medis : 201802 },
+          { nama_pasien : 'Insan Carono3', Rekam_Medis : 201803 },
+          { nama_pasien : 'Insan Carono4', Rekam_Medis : 201804 }
+        ]
+      }
+    }
   }
-}
 
 </script>
 

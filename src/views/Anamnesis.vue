@@ -14,41 +14,41 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Keluhan</label>
-            <input type="text" class="form-control" id="nama_pasien">
+            <input type="text" class="form-control" v-model="anamnesis.keluhan">
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Riwayat Penyakit</label>
-            <input type="text" class="form-control" id="id_pasien">
+            <input type="text" class="form-control" v-model="anamnesis.riwayat_penyakit">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Nadi</label>
-            <input type="text" class="form-control" id="nama_pasien">
+            <input type="text" class="form-control" v-model="anamnesis.nadi">
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Tekanan Darah</label>
-            <input type="text" class="form-control" id="id_pasien">
+            <input type="text" class="form-control" v-model="anamnesis.tekanan_darah">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Suhu Tubuh</label>
-            <input type="text" class="form-control" id="nama_pasien">
+            <input type="text" class="form-control" v-model="anamnesis.suhu_tubuh">
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Respirator Rate</label>
-            <input type="text" class="form-control" id="id_pasien">
+            <input type="text" class="form-control" v-model="anamnesis.respirator_rate">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Berat Badan</label>
-            <input type="text" class="form-control" id="nama_pasien">
+            <input type="text" class="form-control" v-model="anamnesis.berat_badan">
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Tinggi Badan</label>
-            <input type="text" class="form-control" id="id_pasien">
+            <input type="text" class="form-control" v-model="anamnesis.tinggi_badan">
           </div>
         </div>
 
@@ -96,6 +96,20 @@ export default {
   components: {
     SidebarNav,
     InfoData
+  },
+  data() {
+    return {
+      anamnesis : {
+        keluhan : '',
+        riwayat_penyakit : '',
+        nadi : '',
+        tekanan_darah : '',
+        suhu_tubuh : '',
+        respirator_rate : '',
+        berat_badan : '',
+        tinggi_badan : '',
+      }
+    }
   }
 }
 

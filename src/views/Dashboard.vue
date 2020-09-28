@@ -38,7 +38,7 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row" class="text-center">23</th>
+              <th scope="row" class="text-center">24</th>
               <td>Insan Carono</td>
               <td class="text-center">201801</td>
               <td class="text-center">
@@ -47,7 +47,7 @@
               </td>
             </tr>
             <tr>
-              <th scope="row" class="text-center">24</th>
+              <th scope="row" class="text-center">25</th>
               <td>Maya Intantri</td>
               <td class="text-center">201802</td>
               <td class="text-center">
@@ -56,7 +56,7 @@
               </td>
             </tr>
             <tr>
-              <th scope="row" class="text-center">25</th>
+              <th scope="row" class="text-center">26</th>
               <td>Faadihilah Ahnaf Faiz</td>
               <td class="text-center">201803</td>
               <td class="text-center">
@@ -65,7 +65,7 @@
               </td>
             </tr>
             <tr>
-              <th scope="row" class="text-center">26</th>
+              <th scope="row" class="text-center">27</th>
               <td>Wahyu Shofyan Listya</td>
               <td class="text-center">201804</td>
               <td class="text-center">

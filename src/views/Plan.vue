@@ -1,3 +1,4 @@
+<!-- eslint-disable -->
 <template>
   <div class="plan">
     <!-- Sidebar -->
@@ -16,48 +17,251 @@
       <div>
         <div id="accordion">
           <div class="card plan-card-kotak">
-            <div class="card-header plan-card-kotak btn btn-link plan-hover-atas" id="headingSatu" data-toggle="collapse" data-target="#collapseSatu" aria-expanded="false" aria-controls="collapseSatu">
+            <div class="card-header plan-card-kotak btn btn-link plan-hover-atas" id="headingSatu"
+              data-toggle="collapse" data-target="#collapseSatu" aria-expanded="false" aria-controls="collapseSatu">
               <h5 class="mb-0 text-left">
-                  Rencana Diagnostik (D)
+                Rencana Diagnostik (D)
               </h5>
             </div>
             <div id="collapseSatu" class="collapse show" aria-labelledby="headingSatu" data-parent="#accordion">
               <div class="card-body plan-card-kotak">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="card">
+                      <div class="card-header font-weight-bold">
+                        Daftar Diagnosis
+                      </div>
+                      <div class="card-body">
+                        <div class="form-inline mb-4">
+                          <input type="text" th scope="col" style="width: 17rem;" class="form-control mr-1"
+                            id="cari_data_pasien" placeholder="Cari / tambah diagnosis" v-model="keluhan_pasien">
+                          <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Tambah
+                              data <i class="fa fa-plus-circle"></i></button></router-link>
+                        </div>
+                        <div class="assesment_terpilih kiri">
+                          <table v-if="keluhan_pasien != ''" class="table table-hover table-bordered">
+                            <thead>
+                              <tr class="text-center bg-dark" style="color: white;">
+                                <th scope="col">ID</th>
+                                <th scope="col" style="width: 20rem;">Diagnosis</th>
+                                <th scope="col">Proses</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(row, index) in pasien" :key="index">
+                                <th scope="row" class="text-center">P0{{ index+1 }}</th>
+                                <td class="text-center">{{ row.Rekam_Medis }}</td>
+                                <td class="text-center">
+                                  <button class="btn btn-info btn-sm mr-2" type="button" data-toggle="modal"
+                                    data-target="#proses_antrian"><i style="float: left;"
+                                      class="fa fa-arrow-right"></i></button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header font-weight-bold">
+                      Assesment Terpilih
+                    </div>
+                    <div class="card-body assesment_terpilih kanan">
+                      <div class="card" style="width: 26rem;">
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">Demam<span><button class="btn btn-danger btn-sm float-right"
+                                type="button" data-toggle="modal" data-target="#hapus_subjektif"><i style="float: left;"
+                                  class="fa fa-times"></i></button></span></li>
+                          <li class="list-group-item">Stress<span><button class="btn btn-danger btn-sm float-right"
+                                type="button" data-toggle="modal" data-target="#hapus_subjektif"><i style="float: left;"
+                                  class="fa fa-times"></i></button></span></li>
+                          <li class="list-group-item">Batuk tak berdahak<span><button
+                                class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal"
+                                data-target="#hapus_subjektif"><i style="float: left;"
+                                  class="fa fa-times"></i></button></span></li>
+                          <li class="list-group-item">Galau sepanjang hari<span><button
+                                class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal"
+                                data-target="#hapus_subjektif"><i style="float: left;"
+                                  class="fa fa-times"></i></button></span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
               </div>
             </div>
           </div>
           <div class="card plan-card-kotak">
-            <div class="card-header plan-card-kotak btn btn-link plan-hover-atas" id="headingDua" data-toggle="collapse" data-target="#collapseDua" aria-expanded="false" aria-controls="collapseDua">
+            <div class="card-header plan-card-kotak btn btn-link plan-hover-atas" id="headingDua" data-toggle="collapse"
+              data-target="#collapseDua" aria-expanded="false" aria-controls="collapseDua">
               <h5 class="mb-0 text-left">
-                  Rencana Terapi / Tindakan (Tx)
+                Rencana Terapi / Tindakan (Tx)
               </h5>
             </div>
             <div id="collapseDua" class="collapse" aria-labelledby="headingDua" data-parent="#accordion">
               <div class="card-body plan-card-kotak">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="card">
+                      <div class="card-header font-weight-bold">
+                        Daftar Diagnosis
+                      </div>
+                      <div class="card-body">
+                        <div class="form-inline mb-4">
+                          <input type="text" th scope="col" style="width: 17rem;" class="form-control mr-1"
+                            id="cari_data_pasien" placeholder="Cari / tambah diagnosis" v-model="keluhan_pasien">
+                          <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Tambah
+                              data <i class="fa fa-plus-circle"></i></button></router-link>
+                        </div>
+                        <div class="assesment_terpilih kiri">
+                          <table v-if="keluhan_pasien != ''" class="table table-hover table-bordered">
+                            <thead>
+                              <tr class="text-center bg-dark" style="color: white;">
+                                <th scope="col">ID</th>
+                                <th scope="col" style="width: 20rem;">Diagnosis</th>
+                                <th scope="col">Proses</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(row, index) in pasien" :key="index">
+                                <th scope="row" class="text-center">P0{{ index+1 }}</th>
+                                <td class="text-center">{{ row.Rekam_Medis }}</td>
+                                <td class="text-center">
+                                  <button class="btn btn-info btn-sm mr-2" type="button" data-toggle="modal"
+                                    data-target="#proses_antrian"><i style="float: left;"
+                                      class="fa fa-arrow-right"></i></button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header font-weight-bold">
+                      Assesment Terpilih
+                    </div>
+                    <div class="card-body assesment_terpilih kanan">
+                      <div class="card" style="width: 26rem;">
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">Demam<span><button class="btn btn-danger btn-sm float-right"
+                                type="button" data-toggle="modal" data-target="#hapus_subjektif"><i style="float: left;"
+                                  class="fa fa-times"></i></button></span></li>
+                          <li class="list-group-item">Stress<span><button class="btn btn-danger btn-sm float-right"
+                                type="button" data-toggle="modal" data-target="#hapus_subjektif"><i style="float: left;"
+                                  class="fa fa-times"></i></button></span></li>
+                          <li class="list-group-item">Batuk tak berdahak<span><button
+                                class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal"
+                                data-target="#hapus_subjektif"><i style="float: left;"
+                                  class="fa fa-times"></i></button></span></li>
+                          <li class="list-group-item">Galau sepanjang hari<span><button
+                                class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal"
+                                data-target="#hapus_subjektif"><i style="float: left;"
+                                  class="fa fa-times"></i></button></span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
               </div>
             </div>
           </div>
           <div class="card plan-card-kotak">
-            <div class="card-header plan-card-kotak btn btn-link plan-hover-atas" id="headingTiga" data-toggle="collapse" data-target="#collapseTiga" aria-expanded="true" aria-controls="collapseTiga">
+            <div class="card-header plan-card-kotak btn btn-link plan-hover-atas" id="headingTiga"
+              data-toggle="collapse" data-target="#collapseTiga" aria-expanded="true" aria-controls="collapseTiga">
               <h5 class="mb-0 text-left">
-                  Rencana Edukasi (E)
+                Rencana Edukasi (E)
               </h5>
             </div>
             <div id="collapseTiga" class="collapse" aria-labelledby="headingTiga" data-parent="#accordion">
               <div class="card-body plan-card-kotak">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="card">
+                      <div class="card-header font-weight-bold">
+                        Daftar Diagnosis
+                      </div>
+                      <div class="card-body">
+                        <div class="form-inline mb-4">
+                          <input type="text" th scope="col" style="width: 17rem;" class="form-control mr-1"
+                            id="cari_data_pasien" placeholder="Cari / tambah diagnosis" v-model="keluhan_pasien">
+                          <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Tambah
+                              data <i class="fa fa-plus-circle"></i></button></router-link>
+                        </div>
+                        <div class="assesment_terpilih kiri">
+                          <table v-if="keluhan_pasien != ''" class="table table-hover table-bordered">
+                            <thead>
+                              <tr class="text-center bg-dark" style="color: white;">
+                                <th scope="col">ID</th>
+                                <th scope="col" style="width: 20rem;">Diagnosis</th>
+                                <th scope="col">Proses</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(row, index) in pasien" :key="index">
+                                <th scope="row" class="text-center">P0{{ index+1 }}</th>
+                                <td class="text-center">{{ row.Rekam_Medis }}</td>
+                                <td class="text-center">
+                                  <button class="btn btn-info btn-sm mr-2" type="button" data-toggle="modal"
+                                    data-target="#proses_antrian"><i style="float: left;"
+                                      class="fa fa-arrow-right"></i></button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header font-weight-bold">
+                      Assesment Terpilih
+                    </div>
+                    <div class="card-body assesment_terpilih kanan">
+                      <div class="card" style="width: 26rem;">
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">Demam<span><button class="btn btn-danger btn-sm float-right"
+                                type="button" data-toggle="modal" data-target="#hapus_subjektif"><i style="float: left;"
+                                  class="fa fa-times"></i></button></span></li>
+                          <li class="list-group-item">Stress<span><button class="btn btn-danger btn-sm float-right"
+                                type="button" data-toggle="modal" data-target="#hapus_subjektif"><i style="float: left;"
+                                  class="fa fa-times"></i></button></span></li>
+                          <li class="list-group-item">Batuk tak berdahak<span><button
+                                class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal"
+                                data-target="#hapus_subjektif"><i style="float: left;"
+                                  class="fa fa-times"></i></button></span></li>
+                          <li class="list-group-item">Galau sepanjang hari<span><button
+                                class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal"
+                                data-target="#hapus_subjektif"><i style="float: left;"
+                                  class="fa fa-times"></i></button></span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- </div> -->
   </div>
 </template>
 
 <script>
+// eslint-disable
 // @ is an alias to /src
 import SidebarNav from '@/components/SidebarNav.vue'
 
@@ -84,32 +288,34 @@ export default {
 </script>
 
 <style>
-.assesment_terpilih {
-  overflow-y: scroll;
-}
+  .assesment_terpilih {
+    overflow-y: scroll;
+  }
 
-/* .assesment_terpilih::-webkit-scrollbar {
+  /* .assesment_terpilih::-webkit-scrollbar {
   display: none;
 } */
 
-.kanan {
-  height: 400px;
-}
+  .kanan {
+    height: 300px;
+  }
 
-.plan-card-kotak {
-  border-radius: 0px;
-}
+  .plan-card-kotak {
+    border-radius: 0px;
+  }
 
-a {
-  text-decoration: none;
-}
+  a {
+    text-decoration: none;
+  }
 
-.plan-hover-atas {
-  background-color: #28a745;
-  border-radius: 0px !important;
-  color: #fff !important;
-}
-.plan-hover-atas:hover {
-  background-color: #15c73c;
-}
+  .plan-hover-atas {
+    background-color: #28a745;
+    border-radius: 0px !important;
+    color: #fff !important;
+  }
+
+  .plan-hover-atas:hover {
+    background-color: #15c73c;
+  }
+
 </style>

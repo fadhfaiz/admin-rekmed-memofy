@@ -12,23 +12,23 @@
       <h2 class="my-3 font-weight-bold">Form Subjektif</h2>
 
       <form>
-        <div class="form-inline mb-3">
+        <div class="form-inline mb-4">
           <input type="text" class="form-control mr-3 w-75" id="cari_data_pasien" placeholder="Keluhan pasien">
           <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Tambah data <i
                 class="fa fa-plus-circle"></i></button></router-link>
         </div>
 
-        <div class="card">
+        <div class="card" id="subjektif-page">
           <div class="card-header">
             <i style="float: left;" class="fa fa-id-card"></i>
           </div>
           <div class="card-body">
             <div class="card" style="width: 24rem;">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">Demam<span><button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_subjektif">X</button></span></li>
-                <li class="list-group-item">Stress<span><button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_subjektif">X</button></span></li>
-                <li class="list-group-item">Batuk tak berdahak<span><button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_subjektif">X</button></span></li>
-                <li class="list-group-item">Galau sepanjang hari<span><button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_subjektif">X</button></span></li>
+                <li class="list-group-item">Demam<span><button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_subjektif"><i style="float: left;" class="fa fa-times"></i></button></span></li>
+                <li class="list-group-item">Stress<span><button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_subjektif"><i style="float: left;" class="fa fa-times"></i></button></span></li>
+                <li class="list-group-item">Batuk tak berdahak<span><button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_subjektif"><i style="float: left;" class="fa fa-times"></i></button></span></li>
+                <li class="list-group-item">Galau sepanjang hari<span><button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_subjektif"><i style="float: left;" class="fa fa-times"></i></button></span></li>
               </ul>
             </div>
           </div>
@@ -74,5 +74,8 @@ export default {
 </script>
 
 <style>
-
+#subjektif-page {
+  overflow-y: scroll;
+  height: 400px;
+}
 </style>

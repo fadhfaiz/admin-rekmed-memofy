@@ -40,7 +40,7 @@
 
         <table class="table table-hover table-bordered">
           <thead>
-            <tr class="text-center bg-success" style="color: white;">
+            <tr class="text-center bg-dark" style="color: white;">
               <th scope="col">ID Rekam Medis</th>
               <th scope="col">Nama Pasien</th>
               <th scope="col">Alamat</th>

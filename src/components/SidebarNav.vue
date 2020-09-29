@@ -5,25 +5,44 @@
       <div class="container sidebar-header">
         <img src="/new-gojek.png" class="img-fluid w-50 rounded mx-auto d-block">
         <h3 class="mt-3 text-center">Klinik Tong Fang</h3>
-        <p class="text-center text-xs" style="color: white;">Senin, 28 September 2020</p>
+        <p class="text-center text-xs" style="color: white;">Selasa, 29 September 2020</p>
       </div>
 
       <ul class="list-unstyled components">
-        <div class="container text-center text-md"><p>dr. Azhari, Sp.PA.</p></div>
+        <div class="container text-center text-md">
+          <p>dr. Azhari, Sp.PA.</p>
+        </div>
         <li class="container">
           <router-link to="/">Dashboard <i style="float: right;" class="fas fa-angle-right mt-1"></i></router-link>
         </li>
         <li class="container">
-          <router-link to="/pendaftaran">Pendaftaran <i style="float: right;" class="fas fa-angle-right mt-1"></i></router-link>
+          <router-link to="/pendaftaran">Pendaftaran <i style="float: right;" class="fas fa-angle-right mt-1"></i>
+          </router-link>
         </li>
         <li class="container">
-          <router-link to="/anamnesis">Anamnesis <i style="float: right;" class="fas fa-angle-right mt-1"></i></router-link>
+          <a href="#soapSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Form SOAP</a>
+          <ul class="collapse list-unstyled" id="soapSubmenu">
+            <li>
+              <router-link to="/subjektif">Subjektif</router-link>
+            </li>
+            <li>
+              <router-link to="/anamnesis">Objektif</router-link>
+            </li>
+            <li>
+              <router-link to="/assesment">Assesment</router-link>
+            </li>
+            <li>
+              <router-link to="/plan">Plan</router-link>
+            </li>
+          </ul>
         </li>
         <li class="container">
-          <router-link to="/rekmed">Rekam Medis <i style="float: right;" class="fas fa-angle-right mt-1"></i></router-link>
+          <router-link to="/rekmed">Rekam Medis <i style="float: right;" class="fas fa-angle-right mt-1"></i>
+          </router-link>
         </li>
         <li class="container">
-          <router-link to="/resep-dokter">Resep Dokter <i style="float: right;" class="fas fa-angle-right mt-1"></i></router-link>
+          <router-link to="/resep-dokter">Resep Dokter <i style="float: right;" class="fas fa-angle-right mt-1"></i>
+          </router-link>
         </li>
         <hr width="82%" style="background: #D7E0E0;">
         <li class="container">
@@ -45,14 +64,17 @@
 export default {
   name: 'SidebarNav'
 }
+
 </script>
 
 <style scoped>
-a {
-  color: #fff;
-}
-a:hover {
-  color: #ffffff !important;
-  /* background: #ecf3f3 !important; */
-}
+  a {
+    color: #fff;
+  }
+
+  a:hover {
+    color: #ffffff !important;
+    /* background: #ecf3f3 !important; */
+  }
+
 </style>

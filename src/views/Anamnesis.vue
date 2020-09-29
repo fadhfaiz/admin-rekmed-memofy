@@ -7,7 +7,7 @@
     <div id="content">
 
       <!-- Infodata -->
-      <InfoData />
+      <!-- <InfoData /> -->
 
       <h2 class="my-3 font-weight-bold">Form Anamnesis Pasien</h2>
       <form>
@@ -51,6 +51,12 @@
             <input type="text" class="form-control" v-model="anamnesis.tinggi_badan">
           </div>
         </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="exampleFormControlTextarea1">Hasil Pemeriksaan</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+        </div>
 
           <div class="row">
             <div class="col">
@@ -89,13 +95,10 @@
 <script>
 // @ is an alias to /src
 import SidebarNav from '@/components/SidebarNav.vue'
-import InfoData from '@/components/InfoData.vue'
-
 export default {
   name: 'anamnesis',
   components: {
-    SidebarNav,
-    InfoData
+    SidebarNav
   },
   data () {
     return {

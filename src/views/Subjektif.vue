@@ -13,13 +13,13 @@
 
       <form>
         <div class="form-inline mb-4">
-          <input type="text" class="form-control mr-3 w-75" id="cari_data_pasien" placeholder="Keluhan pasien">
+          <input type="text" class="form-control mr-2" style="width: 54rem;" id="cari_data_pasien" placeholder="Keluhan pasien">
           <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Tambah data <i
                 class="fa fa-plus-circle"></i></button></router-link>
         </div>
 
         <div class="card" id="subjektif-page">
-          <div class="card-header">
+          <div class="card-header bg-dark">
             <i style="float: left;" class="fa fa-id-card"></i>
           </div>
           <div class="card-body">

@@ -13,17 +13,17 @@
       <div class="row">
         <div class="col-md-6">
           <div class="card">
-            <div class="card-header font-weight-bold">
+            <div class="card-header font-weight-bold bg-dark text-white">
               Daftar Diagnosis
             </div>
             <div class="card-body">
               <div class="form-inline mb-4">
-                <input type="text" th scope="col" style="width: 18rem;" class="form-control mr-1" id="cari_data_pasien" placeholder="Cari / tambah diagnosis" v-model="keluhan_pasien">
+                <input type="text" th scope="col" style="width: 18rem;" class="form-control mr-2" id="cari_data_pasien" placeholder="Cari / tambah diagnosis" v-model="keluhan_pasien">
                 <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Tambah data <i
                       class="fa fa-plus-circle"></i></button></router-link>
               </div>
               <div class="assesment_terpilih kiri">
-              <table v-if="keluhan_pasien != ''" class="table table-hover table-bordered">
+              <table v-if="keluhan_pasien != ''" class="table table-hover table-borderless">
                 <thead>
                   <tr class="text-center bg-dark" style="color: white;">
                     <th scope="col">ID</th>
@@ -48,7 +48,7 @@
         </div>
         <div class="col-md-6">
           <div class="card">
-            <div class="card-header font-weight-bold">
+            <div class="card-header font-weight-bold bg-dark text-white">
               Assesment Terpilih
             </div>
             <div class="card-body assesment_terpilih kanan">

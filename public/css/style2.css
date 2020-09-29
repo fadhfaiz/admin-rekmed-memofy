@@ -66,6 +66,7 @@ a:focus {
     background-image: -webkit-linear-gradient(left,#1485db,#1283da);
     color: #fff;
     transition: all 0.36s;
+    overflow-y: scroll;
 }
 
 #sidebar.active {
@@ -80,7 +81,7 @@ a:focus {
 }
 
 #sidebar ul.components {
-    /* padding: 20px 0; */
+    padding: 0px;
     /* border-bottom: 1px solid#4e73df; */
 }
 
@@ -97,7 +98,7 @@ a:focus {
 
 #sidebar ul li a:hover {
     color: #FFC200 !important;
-    /* background: #f3f7f7 !important; */
+    background: #1485db !important;
     /* border-radius: .24rem !important; */
 }
 

@@ -13,16 +13,6 @@
       <form>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="inputEmail4">Keluhan</label>
-            <input type="text" class="form-control" v-model="anamnesis.keluhan">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputPassword4">Riwayat Penyakit</label>
-            <input type="text" class="form-control" v-model="anamnesis.riwayat_penyakit">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
             <label for="inputEmail4">Nadi</label>
             <input type="text" class="form-control" v-model="anamnesis.nadi">
           </div>

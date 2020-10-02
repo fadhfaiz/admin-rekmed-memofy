@@ -1,3 +1,4 @@
+<!-- eslint-disable -->
 <template>
   <div class="dashboard">
     <!-- Sidebar -->
@@ -37,10 +38,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(row, index) in pasien" :key="index">
+            <tr v-for="(row, index) in allPasien" :key="index">
               <th scope="row" class="text-center">{{ index+1 }}</th>
-              <td>{{ row.nama_pasien }}</td>
-              <td class="text-center">{{ row.Rekam_Medis }}</td>
+              <td>{{ row.nama }}</td>
+              <td class="text-center">1101</td>
               <td class="text-center">
                 <button class="btn btn-info btn-sm mr-2" type="button" data-toggle="modal" data-target="#proses_antrian">Proses</button>
                 <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
@@ -97,9 +98,11 @@
 </template>
 
 <script>
+/*eslint-disable*/
 // @ is an alias to /src
 import SidebarNav from '@/components/SidebarNav.vue'
 import InfoData from '@/components/InfoData.vue'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'dashboard',
@@ -107,15 +110,12 @@ export default {
     SidebarNav,
     InfoData
   },
-  data () {
-    return {
-      pasien: [
-        { nama_pasien: 'Insan Carono', Rekam_Medis: 201801 },
-        { nama_pasien: 'Insan Carono2', Rekam_Medis: 201802 },
-        { nama_pasien: 'Insan Carono3', Rekam_Medis: 201803 },
-        { nama_pasien: 'Insan Carono4', Rekam_Medis: 201804 }
-      ]
-    }
+  methods : {
+    ...mapActions(['tampilDataPasien'])
+  },
+  computed : mapGetters(['allPasien']),
+  created() {
+    this.tampilDataPasien()
   }
 }
 

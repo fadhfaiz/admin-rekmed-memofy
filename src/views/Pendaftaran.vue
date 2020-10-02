@@ -1,3 +1,4 @@
+<!-- eslint-disable -->
 <template>
   <div class="pendaftaran">
     <!-- Sidebar -->
@@ -19,41 +20,40 @@
       </nav> -->
 
       <h2 class="my-3 font-weight-bold">Pendaftaran Pasien Baru</h2>
-      <form>
+      <form @submit="onSubmit">
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="inputEmail4">Nama Pasien</label>
+            <label>Nama Pasien</label>
             <input type="text" class="form-control" v-model="pasien.nama" required>
           </div>
           <div class="form-group col-md-6">
-            <label for="inputPassword4">NIK</label>
-            <input type="text" class="form-control" v-model="pasien.nik" required>
+            <label>NIK</label>
+            <input type="text" class="form-control" v-model="pasien.NIK" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="inputCity">Nomor HP</label>
-            <input type="text" class="form-control" v-model="pasien.no_hp" required="">
+            <label>Nomor HP</label>
+            <input type="text" class="form-control" v-model="pasien.no_telp" required="">
           </div>
           <div class="form-group col-md-6">
-            <label for="inputState">Jenis Kelamin</label>
-            <select id="jk_pasien" class="form-control">
-              <option selected>Laki-Laki</option>
-              <option>Perempuan</option>
+            <label>Jenis Kelamin</label>
+            <select v-model="pasien.jenis_kelamin" class="form-control">
+              <option v-for="option in options">{{ option.text }}</option>
             </select>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="inputEmail4">Tanggal Lahir</label>
-            <input type="date" class="form-control" v-model="pasien.tgl_lahir" required>
+            <label>Tanggal Lahir</label>
+            <input type="date" class="form-control" v-model="pasien.tanggal_lahir" required>
           </div>
           <div class="form-group col-md-6">
-            <label for="inputPassword4">Alamat</label>
-            <input type="text" class="form-control" v-model="pasien.alamat_pasien" required>
+            <label>Alamat</label>
+            <input type="text" class="form-control" v-model="pasien.alamat" required>
           </div>
         </div>
-          <router-link to="/anamnesis"><button type="submit" class="btn btn-success mt-2" style="float: right; width: 20%;" @click.prevent="simpan">Daftar</button></router-link>
+          <button type="submit" class="btn btn-success mt-2" style="float: right; width: 20%;">Daftar</button>
           <button type="reset" class="btn btn-warning mr-3 mt-2" style="float: right;">Reset</button>
       </form>
     </div>
@@ -61,9 +61,11 @@
 </template>
 
 <script>
+/*eslint-disable*/
 // @ is an alias to /src
 import SidebarNav from '@/components/SidebarNav.vue'
 import InfoData from '@/components/InfoData.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'pendaftaran',
@@ -73,17 +75,35 @@ export default {
   },
   data () {
     return {
-      pasien: {
-        nama_pasien: '',
-        nik: '',
-        no_hp: '',
-        tgl_lahir: '',
-        alamat_pasien: ''
+      options : [
+        { text : 'Laki-Laki', value : 'Laki-Laki' },
+        { text : 'Perempuan', value : 'Perempuan' }
+      ],
+      pasien : {
+        NIK: '',
+        nama: '',
+        jenis_kelamin: '',
+        tanggal_lahir: '',
+        no_telp: '',
+        alamat: ''
       }
     }
   },
-  methods: {
-
+  methods : {
+    ...mapActions(['tambahDataPasien']),
+    onSubmit(e) {
+      e.preventDefault();
+      const pasiens = {
+        NIK: this.pasien.NIK,
+        nama: this.pasien.nama,
+        jenis_kelamin: this.pasien.jenis_kelamin,
+        tanggal_lahir: this.pasien.tanggal_lahir,
+        no_telp: this.pasien.no_telp,
+        alamat: this.alamat,
+      }
+      this.tambahDataPasien(pasiens);
+      this.$router.push('/');
+    }
   }
 }
 

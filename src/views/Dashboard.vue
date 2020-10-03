@@ -108,6 +108,8 @@ export default {
   },
   created() {
     this.tampilDataPasien()
+
+    console.log(this.$store.state.list_antrian)
   },
   computed : mapGetters(['allPasien']),
   methods : {

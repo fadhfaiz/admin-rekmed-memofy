@@ -20,7 +20,7 @@
       </nav> -->
 
       <h2 class="my-3 font-weight-bold">Pendaftaran Pasien Baru</h2>
-      <form @submit="onSubmit">
+      <form>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>Nama Pasien</label>
@@ -39,7 +39,7 @@
           <div class="form-group col-md-6">
             <label>Jenis Kelamin</label>
             <select v-model="pasien.jenis_kelamin" class="form-control">
-              <option v-for="option in options">{{ option.text }}</option>
+              <option v-for="option in options" :key="option.value" :value="option.value">{{ option.text }}</option>
             </select>
           </div>
         </div>
@@ -53,7 +53,7 @@
             <input type="text" class="form-control" v-model="pasien.alamat" required>
           </div>
         </div>
-          <button type="submit" class="btn btn-success mt-2" style="float: right; width: 20%;">Daftar</button>
+          <button type="button" class="btn btn-success mt-2" style="float: right; width: 20%;" @click="onSubmit()">Daftar</button>
           <button type="reset" class="btn btn-warning mr-3 mt-2" style="float: right;">Reset</button>
       </form>
     </div>
@@ -66,6 +66,7 @@
 import SidebarNav from '@/components/SidebarNav.vue'
 import InfoData from '@/components/InfoData.vue'
 import { mapActions } from 'vuex'
+import axios from "axios"
 
 export default {
   name: 'pendaftaran',
@@ -93,10 +94,9 @@ export default {
   methods : {
     ...mapActions(['tambahDataPasien']),
     async saveData() {
-      return await axios.post('http://localhost/rekmed-server/api/v1/Registrasi/post', this.pasien).then(res => res.data.pasien)
+      return await axios.post('http://localhost/rekmed-server/Api/v1/Registrasi/post', this.pasien).then(res => res.data)
     },
-    async onSubmit(e) {
-      e.preventDefault();
+    async onSubmit() {
       const pasiens = {
         NIK: this.pasien.NIK,
         nama: this.pasien.nama,
@@ -105,26 +105,41 @@ export default {
         no_telp: this.pasien.no_telp,
         alamat: this.pasien.alamat,
       }
+
       this.tambahDataPasien(pasiens);
 
-      let p = await this.saveData()
-      this.list_antrian.nama = p.nama
-      this.list_antrian.ID_pasien = p.ID_pasien
-      this.list_antrian.status = "Mengantri"
+      let p = await this.saveData().then(res => res.pasien);
+      // console.log('ini p',p)
+      if (p) {
+        this.list_antrian.nama = p.nama
+        this.list_antrian.ID_pasien = p.ID
+        this.list_antrian.status = "Mengantri"
+  
+        let antrian = [...this.$store.state.list_antrian]
+  
+        antrian.push(this.list_antrian)
+  
+        this.$store.dispatch('tambahListAntrian', antrian)
+        
+        this.$router.push('/');
+      }
 
-      let antrian = [...this.$store.state.list_antrian]
+      // console.log(antrian)
+      // e.preventDefault();
 
-      antrian.push(this.list_antrian)
-
-      this.$store.dispatch('tambahListAntrian', antrian)
-
-      this.$router.push('/');
     }
   }
+
+  // short hand
+  // @ = v-on
+  // : = v-bind
+
+  // @click or @submit = v-on:click or v-on:submit
+  // :key or :class = v-bind:key or v-bind:class
 }
 
 </script>
 
 <style>
-
+  
 </style>

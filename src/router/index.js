@@ -22,6 +22,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue')
   },
   {
+    path: '/riwayat_medis',
+    name: 'Riwayat_Medis',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "riawayat_medis" */ '../views/Riwayat_Medis.vue')
+  },
+  {
     path: '/pendaftaran',
     name: 'Pendaftaran',
     // route level code-splitting
@@ -38,12 +46,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "pendaftaran" */ '../views/Rekmed.vue')
   },
   {
-    path: '/anamnesis',
-    name: 'Anamnesis',
+    path: '/objective',
+    name: 'Objective',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "pendaftaran" */ '../views/Anamnesis.vue')
+    component: () => import(/* webpackChunkName: "pendaftaran" */ '../views/Objective.vue')
   },
   {
     path: '/resep-dokter',

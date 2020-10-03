@@ -86,12 +86,16 @@ export default {
         tanggal_lahir: '',
         no_telp: '',
         alamat: ''
-      }
+      },
+      list_antrian : { nama : '', ID_pasien : '', status : ''},
     }
   },
   methods : {
     ...mapActions(['tambahDataPasien']),
-    onSubmit(e) {
+    async saveData() {
+      return await axios.post('http://localhost/rekmed-server/api/v1/Registrasi/post', this.pasien).then(res => res.data.pasien)
+    },
+    async onSubmit(e) {
       e.preventDefault();
       const pasiens = {
         NIK: this.pasien.NIK,
@@ -99,9 +103,21 @@ export default {
         jenis_kelamin: this.pasien.jenis_kelamin,
         tanggal_lahir: this.pasien.tanggal_lahir,
         no_telp: this.pasien.no_telp,
-        alamat: this.alamat,
+        alamat: this.pasien.alamat,
       }
       this.tambahDataPasien(pasiens);
+
+      let p = await this.saveData()
+      this.list_antrian.nama = p.nama
+      this.list_antrian.ID_pasien = p.ID_pasien
+      this.list_antrian.status = "Mengantri"
+
+      let antrian = [...this.$store.state.list_antrian]
+
+      antrian.push(this.list_antrian)
+
+      this.$store.dispatch('tambahListAntrian', antrian)
+
       this.$router.push('/');
     }
   }

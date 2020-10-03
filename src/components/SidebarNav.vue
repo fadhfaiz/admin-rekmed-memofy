@@ -26,7 +26,7 @@
               <router-link to="/subjektif">Subjektif</router-link>
             </li>
             <li>
-              <router-link to="/anamnesis">Objektif</router-link>
+              <router-link to="/objective">Objektif</router-link>
             </li>
             <li>
               <router-link to="/assesment">Assesment</router-link>

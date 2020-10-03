@@ -8,9 +8,9 @@
     <div id="content">
 
       <!-- InfoData -->
-      <InfoData/>
+      <!-- <InfoData/> -->
 
-      <h2 class="my-3 font-weight-bold">Daftar Antrian</h2>
+      <h2 class="my-3 font-weight-bold">Riwayat Medis</h2>
       <form>
         <div class="form-inline mb-3">
           <input type="text" class="form-control mr-2" style="width: 54rem;" id="cari_data_pasien" placeholder="Cari data pasien">
@@ -20,15 +20,21 @@
         <table class="table table-hover table-bordered">
           <thead>
             <tr class="text-center bg-dark" style="color: white;">
-              <th scope="col">Nomor Antrian</th>
+              <th scope="col">NIK</th>
               <th scope="col">Nama Pasien</th>
+              <th scope="col">Alamat</th>
+              <th scope="col">Tanggal Lahir</th>
+              <th scope="col">Jenis Kelamin</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(row, index) in list_antrian" :key="index">
-              <th scope="row" class="text-center">{{ index+1 }}</th>
+              <th scope="row" class="text-center">{{ row.NIK }}</th>
               <td>{{ row.nama }}</td>
+              <td>{{ row.alamat }}</td>
+              <td>{{ row.tanggal_lahir }}</td>
+              <td>{{ row.jenis_kelamin }}</td>
               <td class="text-center">
                 <button class="btn btn-info btn-sm mr-2" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#proses_antrian">Proses</button>
                 <button class="btn btn-danger btn-sm" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
@@ -89,7 +95,6 @@
 // @ is an alias to /src
 import SidebarNav from '@/components/SidebarNav.vue'
 import InfoData from '@/components/InfoData.vue'
-import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 
 export default {
@@ -97,33 +102,6 @@ export default {
   components: {
     SidebarNav,
     InfoData
-  },
-  data () {
-    return {
-      list_antrian : [
-        { nama : '', ID_pasien : '', status : ''}
-      ],
-      ID_pasien : '',
-    }
-  },
-  created() {
-    this.tampilDataPasien()
-  },
-  computed : mapGetters(['allPasien']),
-  methods : {
-    ...mapActions(['tampilDataPasien']),
-    getPasienID(id) {
-      this.ID_pasien = id
-    },
-    async proses_pasien() {
-      let pasien = await this.loadPasien(this.ID_pasien)
-      this.$store.dispatch('simpanDataPasien', pasien)
-      this.$router.push({name : 'Rekam_Medis', params : {'ID' : pasien.ID_pasien}})
-
-    },
-    async loadPasien(id) {
-      return await axios.get('http://localhost/rekmed-server/api/v1/Registrast/get/' + id).then(res => res.data)
-    } 
   }
 }
 

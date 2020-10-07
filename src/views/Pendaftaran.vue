@@ -88,7 +88,7 @@ export default {
         no_telp: '',
         alamat: ''
       },
-      list_antrian : { nama : '', ID_pasien : '', status : ''},
+      list_antrian : {},
     }
   },
   methods : {
@@ -114,13 +114,22 @@ export default {
         this.list_antrian.nama = p.nama
         this.list_antrian.ID_pasien = p.ID
         this.list_antrian.status = "Mengantri"
-  
-        let antrian = [...this.$store.state.list_antrian]
+
+        let parseData = JSON.parse(localStorage.getItem('list_antrian')) || [];
+
+        let antrian = parseData;
+
+        console.log('parsedata',parseData)
+
+        if(antrian == []) {
+          antrian = [...this.$store.state.list_antrian];
+          console.log('antrian',antrian)
+        }
   
         antrian.push(this.list_antrian)
   
         this.$store.dispatch('tambahListAntrian', antrian)
-        
+        localStorage.setItem('list_antrian', JSON.stringify(antrian))
         this.$router.push('/');
       }
 

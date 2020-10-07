@@ -11,41 +11,38 @@
       <!-- <InfoData/> -->
 
       <h2 class="my-3 font-weight-bold">Riwayat Medis</h2>
-      <form>
-        <div class="form-inline mb-3">
+      <!-- <form> -->
+        <!-- <div class="form-inline mb-3">
           <input type="text" class="form-control mr-2" style="width: 54rem;" id="cari_data_pasien" placeholder="Cari data pasien">
           <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Tambah data <i class="fa fa-plus-circle"></i></button></router-link>
-        </div>
+        </div> -->
 
         <table class="table table-hover table-bordered">
           <thead>
             <tr class="text-center bg-dark" style="color: white;">
-              <th scope="col">NIK</th>
-              <th scope="col">Nama Pasien</th>
-              <th scope="col">Alamat</th>
-              <th scope="col">Tanggal Lahir</th>
-              <th scope="col">Jenis Kelamin</th>
-              <th scope="col">Aksi</th>
+              <th scope="col">Tanggal</th>
+              <th scope="col">Subjektif</th>
+              <th scope="col">Objektif</th>
+              <th scope="col">Asesmen</th>
+              <th scope="col">Rencana</th>
+              <th scope="col">Resep</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(row, index) in list_antrian" :key="index">
-              <th scope="row" class="text-center">{{ row.NIK }}</th>
-              <td>{{ row.nama }}</td>
-              <td>{{ row.alamat }}</td>
-              <td>{{ row.tanggal_lahir }}</td>
-              <td>{{ row.jenis_kelamin }}</td>
-              <td class="text-center">
-                <button class="btn btn-info btn-sm mr-2" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#proses_antrian">Proses</button>
-                <button class="btn btn-danger btn-sm" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
-              </td>
+            <tr v-for="(row, index) in list_riwayat" :key="index">
+              <th scope="row" class="text-center">{{ row.tanggal_periksa }}</th>
+              <td>{{ row.subjektif }}</td>
+              <td>{{ row.objektif }}</td>
+              <td>{{ row.asesmen }}</td>
+              <td>{{ row.rencana }}</td>
+              <td>{{ row.resep }}</td>
             </tr>
           </tbody>
         </table>
-      </form>
+      <!-- </form> -->
 
       <!-- Modal Proses -->
-      <div class="modal fade" id="proses_antrian" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal fade" id="proses_rekmed" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -98,10 +95,18 @@ import InfoData from '@/components/InfoData.vue'
 import axios from 'axios'
 
 export default {
-  name: 'dashboard',
+  name: 'Riwayat_Medis',
   components: {
     SidebarNav,
     InfoData
+  },
+  props: [
+    'ID'
+  ],
+  data() {
+    return {
+      list_riwayat: []
+    }
   }
 }
 

@@ -1,3 +1,4 @@
+<!-- eslint-disable -->
 <template>
   <div class="anamnesis">
     <!-- Sidebar -->
@@ -44,7 +45,7 @@
         <div class="form-row">
           <div class="form-group col-md-12">
             <label for="exampleFormControlTextarea1">Hasil Pemeriksaan</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="anamnesis.hasil_pemeriksaan"></textarea>
           </div>
         </div>
 
@@ -53,7 +54,7 @@
               <div class="card border-left-danger shadow-none">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
-                    <div class="text-md font-weight-bold text-danger text-uppercase">Insan Carono</div>
+                    <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.nama }}</div>
                   </div>
                 </div>
               </div>
@@ -63,7 +64,7 @@
               <div class="card border-left-danger shadow-none">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
-                    <div class="text-md font-weight-bold text-danger text-uppercase">201801</div>
+                    <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.ID }}</div>
                   </div>
                 </div>
               </div>
@@ -73,16 +74,17 @@
               <button type="reset" class="btn btn-warning float-right">Reset</button>
             </div>
             <div class="col col-lg-2">
-              <router-link to="/anamnesis"><button type="submit" class="btn btn-success btn-block float-right">Masuk Antrian</button></router-link>
+              <button type="button" @click="tambahObjektif()" class="btn btn-success btn-block float-right">simpan</button>
             </div>
           </div>
-
+          
       </form>
     </div>
   </div>
 </template>
 
 <script>
+/*eslint-disable*/
 // @ is an alias to /src
 import SidebarNav from '@/components/SidebarNav.vue'
 export default {
@@ -93,15 +95,48 @@ export default {
   data () {
     return {
       anamnesis: {
-        keluhan: '',
-        riwayat_penyakit: '',
-        nadi: '',
-        tekanan_darah: '',
-        suhu_tubuh: '',
-        respirator_rate: '',
-        berat_badan: '',
-        tinggi_badan: ''
-      }
+        nadi : '',
+        tekanan_darah : '',
+        suhu_tubuh : '',
+        respirator_rate : '',
+        berat_badan : '',
+        tinggi_badan : '',
+        hasil_pemeriksaan : ''
+      },
+      rekmed_objektif : [],
+      pasien_rekmed : []
+    }
+  },
+  async created() {
+    const pasienRekmed = (pasien) => {
+      let y = localStorage.getItem('pasien');
+      return JSON.parse(y) || [];
+    }
+    this.pasien_rekmed = pasienRekmed('pasien_rekmed');
+    console.log('pasienobje', this.pasien_rekmed)
+  },
+  methods: {
+    async tambahObjektif() {
+      let temp_rekmed_objektif = {
+        'nadi' : this.anamnesis.nadi,
+        'tekanan_darah' : this.anamnesis.tekanan_darah,
+        'suhu_tubuh' : this.anamnesis.suhu_tubuh,
+        'respirator_rate' : this.anamnesis.respirator_rate,
+        'berat_badan' : this.anamnesis.berat_badan,
+        'tinggi_badan' : this.anamnesis.tinggi_badan,
+        'hasil_pemeriksaan' : this.anamnesis.hasil_pemeriksaan
+      };
+      let objektif = [...this.rekmed_objektif];
+
+      objektif.push(temp_rekmed_objektif);
+
+      this.$router.push('/assesment')
+
+      this.$store.dispatch('tambahDataObjective', objektif);
+      localStorage.setItem('rekmed_objektif', JSON.stringify(objektif));
+
+      this.rekmed_objektif = [...objektif];
+      console.log('data rekmed objektif', this.rekmed_objektif)
     }
   }
 }

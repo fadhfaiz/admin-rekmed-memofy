@@ -9,7 +9,9 @@
 
       <!-- Infodata -->
       <!-- <InfoData /> -->
-
+      <h3>ID Pasien : {{ pasien_rekmed.ID }}  </h3>
+      <h3>Nama Pasien : {{ pasien_rekmed.nama}}</h3>
+      <br>
       <h2 class="my-3 font-weight-bold">Form Plan</h2>
 
       <small class="text-danger mb-3">* Klik panel lain untuk membuka form tersebut.</small>
@@ -345,7 +347,7 @@
 </template>
 
 <script>
-// eslint-disable
+/*eslint-disable*/
 // @ is an alias to /src
 import SidebarNav from '@/components/SidebarNav.vue'
 
@@ -356,7 +358,7 @@ export default {
   },
   data () {
     return {
-      pasien: [
+      pasien : [
         { Rekam_Medis: 201801, Harga_Rekmed: 12000 },
         { Rekam_Medis: 201802, Harga_Rekmed: 12000 },
         { Rekam_Medis: 201803, Harga_Rekmed: 12000 },
@@ -364,8 +366,17 @@ export default {
         { Rekam_Medis: 201805, Harga_Rekmed: 12000 },
         { Rekam_Medis: 201806, Harga_Rekmed: 12000 }
       ],
-      keluhan_pasien: ''
+      keluhan_pasien : '',
+      pasien_rekmed : []
     }
+  },
+  async created() {
+    const pasienRekmed = (pasien) => {
+      let y = localStorage.getItem('pasien');
+      return JSON.parse(y) || [];
+    }
+    this.pasien_rekmed = pasienRekmed('pasien_rekmed');
+    console.log('pasien_rekmed',this.pasien_rekmed)
   }
 }
 

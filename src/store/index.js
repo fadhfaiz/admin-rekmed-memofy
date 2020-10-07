@@ -77,8 +77,11 @@ export default new Vuex.Store({
     async tambahListAntrian({ commit }, antrian) {
       commit('setNewAntrian', antrian);
     },
+    async tambahListAssesment({ commit }, list_assesment) {
+      commit('setNewListAssesment', list_assesment);
+    },
    /* simpan data*/
-   async simpanDataPasien({ commit}, pasien) {
+   async simpanDataPasien({ commit }, pasien) {
     commit('setDataPasien'. pasien);
    }
   },
@@ -97,6 +100,7 @@ export default new Vuex.Store({
     setNewSubjective :(state, subjective) => state.rekam_medis.subjective = subjective,
     setNewObjective :(state, objective) => state.rekam_medis.objective = objective,
     setNewAssesment :(state, assesment) => state.rekam_medis.assesment = assesment,
+    setNewListAssesment : (state, list_assesment) => state.list_assesment = list_assesment,
     setNewPlan :(state, plan) => state.rekam_medis.plan = plan,
 
     /*simpan data*/

@@ -36,7 +36,7 @@
               <div class="col-6">
                 <div class="card">
                   <div class="card-body">
-                    <ul class="list-group list-group-flush" v-for="(row, index) in rekmed_subjektif" :key="row.id">
+                    <ul class="list-group list-group-flush" v-for="(row, index) in rekmed_subjektif" :key="index">
                       <li class="list-group-item">{{ row.subjective }}<span><button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_subjektif" @click="getIdSubjektif(row.id)"><i style="float: left;" class="fa fa-times"></i></button></span></li>
                     </ul>
                   </div>
@@ -140,7 +140,7 @@ export default {
   },
   data() {
     return {
-      id: Math.random(),
+      id: '',
       pasien_rekmed: [],
       subjektif: '',
       tambah_subjektif: '',
@@ -150,36 +150,46 @@ export default {
   },
   async created() {
     /*localStorage.clear();*/
-    const pasienRekmed = (pasien) => {
-      let y = localStorage.getItem('pasien');
+    const getData = (lokasi) => {
+      let y = localStorage.getItem(lokasi);
       return JSON.parse(y) || [];
     }
-    const subjektif = (subjektif) => {
-      let data = localStorage.getItem('rekmed_subjektif');
-      return JSON.parse(data) || [];
-    }
 
-    this.rekmed_subjektif = subjektif('rekmed_subjektif');
-    this.pasien_rekmed = pasienRekmed('pasien_rekmed');
+    this.rekmed_subjektif = getData('rekmed_subjektif');
+    this.pasien_rekmed = getData('pasien_rekmed');
 
     console.log('pasien_rekmed',this.pasien_rekmed)
-    console.log('rekmed_subjektif',this.rekmed_subjektif)
+    // console.log('rekmed_subjektif',this.rekmed_subjektif)
   },
   methods : {
    /* ...mapActions(['tambahDataSubjective']),*/
-    async tambahSubjektive() {
-      let temp_rekmed_subjektif = {
-        'subjective' : this.subjektif,
-        'id' : this.id
-      };
-      let subjektif = [...this.rekmed_subjektif];
+    tambahSubjektive() {
+      if(this.subjektif != '') {
+        let panjang = (this.rekmed_subjektif.length) ? this.rekmed_subjektif.length : 0
+        let temp = (panjang) ? this.rekmed_subjektif[panjang-1].id : 0;
 
-      subjektif.push(temp_rekmed_subjektif);
+        temp +=1
 
-      this.$store.dispatch('tambahDataSubjective', subjektif);
-      localStorage.setItem('rekmed_subjektif', JSON.stringify(subjektif));
+        let temp_rekmed_subjektif = {
+          'subjective' : this.subjektif,
+          'id' : temp
+        };
 
-      this.rekmed_subjektif = [...subjektif];
+        let subjektif = [...this.rekmed_subjektif];
+
+        // console.log(temp_rekmed_subjektif)
+
+        subjektif.push(temp_rekmed_subjektif);
+
+        this.$store.dispatch('tambahDataSubjective', subjektif);
+        localStorage.setItem('rekmed_subjektif', JSON.stringify(subjektif));
+
+        this.rekmed_subjektif = [...subjektif];
+
+        this.subjektif = ''
+      } else {
+        console.log('dicegah')
+      }
       /*this.subjektif = '';
       this.id = '';*/
     },

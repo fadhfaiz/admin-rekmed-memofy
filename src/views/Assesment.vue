@@ -23,7 +23,7 @@
               <div class="form-inline mb-4">
                 <div class="row">
                   <div class="col-7">
-                    <input type="text" th scope="col" style="width: 18rem;" class="form-control" id="cari_data_pasien" placeholder="Cari / tambah diagnosis" v-model="tambah_assesment.assesment">
+                    <input type="text" th scope="col" style="width: 18rem;" class="form-control" id="cari_data_pasien" placeholder="Cari / tambah diagnosis" v-model="tambah_assesment.nama_diagnosis">
                   </div>
                   <div class="col-5">
                     <button type="button" @click="tambahAssesment()" class="btn btn-block btn-success mx-2">Tambah data <i class="fa fa-plus-circle"></i></button>
@@ -61,10 +61,10 @@
                           <th scope="col">Proses</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody class="assesment_terpilih">
                         <tr v-for="(row, index) in tampil_assesment" :key="index">
-                          <th scope="row" class="text-center">P0{{ row.id }}</th>
-                          <td class="text-center">{{ row.assesment }}</td>
+                          <th scope="row" class="text-center">P0{{ row.ID }}</th>
+                          <td class="text-center">{{ row.nama_diagnosis }}</td>
                           <td class="text-center">
                             <button class="btn btn-info btn-sm mr-2" type="button" @click="assesmentTerpilih(row.id, row.assesment)"><i style="float: left;" class="fa fa-arrow-right"></i></button>
                           </td>
@@ -156,7 +156,7 @@ export default {
   data() {
     return {
       tambah_assesment : {
-        assesment : ''
+        nama_diagnosis : ''
       },
       tampil_assesment : [],
       //rekmed_assesment : {},
@@ -195,10 +195,10 @@ export default {
   methods : {
     ...mapActions(['tambahDataAssesment']),
     async tambahAssesment() {
-      return await axios.post('http://localhost/rekmed-server/api/v1/Assesment/post',this.tambah_assesment).then(res => this.tambah_assesment = res.data)
+      return await axios.post('http://localhost/rekmed-server/api/v1/Assesment/post',this.tambah_assesment).then(res => this.tambah_assesment = res.data.assesment)
       
-        this.tambah_assesment.assesment = ''
-        this.tampilAssesment() 
+        this.tambah_assesment.nama_diagnosis = ''
+        //this.tampilAssesment() 
     },
     async tampilAssesment(id = null) {
       if (id) {
@@ -206,6 +206,7 @@ export default {
 
       } else {
         return await axios.get('http://localhost/rekmed-server/api/v1/Assesment/get').then(res => this.tampil_assesment = res.data)
+        console.log('tampil_assesment', this.tampil_assesment)
       }
     },
     async loadPasien(id) {

@@ -151,7 +151,7 @@ export default {
     }
   },
   async created() {
-    /*localStorage.clear();*/
+    //localStorage.clear();
     this.tampilDataPasien()
     const parseData = (x) => {
       let y = localStorage.getItem(x);

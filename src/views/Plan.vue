@@ -35,12 +35,17 @@
                       </div>
                       <div class="card-body">
                         <div class="form-inline mb-4">
-                          <input type="text" th scope="col" style="width: 19rem;" class="form-control mr-3"
-                            id="cari_data_pasien" placeholder="Cari / tambah diagnosis" v-model="keluhan_pasien">
-                          <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Tambah <i class="fa fa-plus-circle"></i></button></router-link>
+                          <div class="row">
+                            <div class="col-8">
+                              <input type="text" th scope="col" style="width: 19rem;" class="form-control mx-6" id="cari_data_pasien" placeholder="Cari / tambah diagnosis" v-model="tambah_plan_diagnosis.nama_diagnosis">
+                            </div>
+                            <div class="col-4">
+                              <button type="button" @click="onSubmit()" class="btn btn-block btn-success">Tambah <i class="fa fa-plus-circle"></i></button>
+                            </div>
+                          </div>
                         </div>
                         <div class="plan_form kiri">
-                          <table v-if="keluhan_pasien != ''" class="table table-hover table-borderless table-sm">
+                          <table class="table table-hover table-borderless table-sm">
                             <thead>
                               <tr class="text-center bg-dark" style="color: white;">
                                 <th scope="col">ID</th>
@@ -49,13 +54,11 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr v-for="(row, index) in pasien" :key="index">
+                              <tr v-for="(row, index) in tampil_plan_diagnosis" :key="index">
                                 <th scope="row" class="text-center">P0{{ index+1 }}</th>
-                                <td class="text-center">{{ row.Rekam_Medis }}</td>
+                                <td class="text-center">{{ row.nama_diagnosis }}</td>
                                 <td class="text-center">
-                                  <button class="btn btn-info btn-sm mr-2" type="button" data-toggle="modal"
-                                    data-target="#proses_antrian"><i style="float: left;"
-                                      class="fa fa-arrow-right"></i></button>
+                                  <button class="btn btn-info btn-sm mr-2" type="button" @click="planDiagnosisTerpilih(row.ID, row.nama_diagnosis)" data-toggle="modal" data-target="#proses_antrian"><i style="float: left;" class="fa fa-arrow-right"></i></button>
                                 </td>
                               </tr>
                             </tbody>
@@ -71,22 +74,10 @@
                     </div>
                     <div class="card-body plan_form kanan">
                       <div class="card" style="width: 26rem;">
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item">Demam<span><button class="btn btn-danger btn-sm float-right"
-                                type="button" data-toggle="modal" data-target="#hapus_subjektif"><i style="float: left;"
+                        <ul v-for="(row, index) in plan_diagnosis_terpilih" :key="index" class="list-group list-group-flush">
+                          <li class="list-group-item">{{ row.nama_diagnosis }}<span><button class="btn btn-danger btn-sm float-right"
+                                type="button" data-toggle="modal" data-target="#hapus_plan_diagnosis" @click="getIdPlanDiagnosis(row.ID)"><i style="float: left;"
                                   class="fa fa-times"></i></button></span></li>
-                          <li class="list-group-item">Stress<span><button class="btn btn-danger btn-sm float-right"
-                                type="button" data-toggle="modal" data-target="#hapus_subjektif"><i style="float: left;"
-                                  class="fa fa-times"></i></button></span></li>
-                          <li class="list-group-item">Batuk tak berdahak<span><button
-                                class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal"
-                                data-target="#hapus_subjektif"><i style="float: left;"
-                                  class="fa fa-times"></i></button></span></li>
-                          <li class="list-group-item">Galau sepanjang hari<span><button
-                                class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal"
-                                data-target="#hapus_subjektif"><i style="float: left;"
-                                  class="fa fa-times"></i></button></span>
-                          </li>
                         </ul>
                       </div>
                     </div>
@@ -114,7 +105,7 @@
                       <div class="card-body">
                         <div class="form-inline mb-4">
                           <input type="text" th scope="col" style="width: 15rem;" class="form-control mr-1"
-                            id="cari_data_pasien" placeholder="Cari / tambah terapi" v-model="keluhan_pasien">
+                            id="cari_data_pasien" placeholder="Cari / tambah terapi">
                           <input type="text" th scope="col" style="width: 10rem;" class="form-control mr-1"
                             id="cari_data_pasien" placeholder="Biaya">
                           <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Tambah <i class="fa fa-plus-circle"></i></button></router-link>
@@ -183,7 +174,7 @@
               </div>
             </div>
           </div>
-          <div class="card plan-card-kotak">
+          <!-- <div class="card plan-card-kotak">
             <div class="card-header plan-card-kotak btn btn-link plan-hover-atas" id="headingTiga"
               data-toggle="collapse" data-target="#collapseTiga" aria-expanded="true" aria-controls="collapseTiga">
               <h5 class="mb-0 text-left">
@@ -260,8 +251,8 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="card plan-card-kotak">
+          </div> -->
+          <!-- <div class="card plan-card-kotak">
             <div class="card-header plan-card-kotak btn btn-link plan-hover-atas" id="headingEmpat"
               data-toggle="collapse" data-target="#collapseEmpat" aria-expanded="true" aria-controls="collapseEmpat">
               <h5 class="mb-0 text-left">
@@ -338,6 +329,26 @@
                 </div>
               </div>
             </div>
+          </div> -->
+        </div>
+      </div>
+      <!-- Modal Hapus -->
+      <div class="modal fade" id="hapus_plan_diagnosis" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Hapus Assesment</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-danger">
+              Yakin nih mau hapus aku?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-outline-dark" @click="hapusPlanDiagnosis()" data-dismiss="modal">Hapus</button>
+            </div>
           </div>
         </div>
       </div>
@@ -350,7 +361,7 @@
 /*eslint-disable*/
 // @ is an alias to /src
 import SidebarNav from '@/components/SidebarNav.vue'
-
+import axios from 'axios'
 export default {
   name: 'plan',
   components: {
@@ -358,16 +369,13 @@ export default {
   },
   data () {
     return {
-      pasien : [
-        { Rekam_Medis: 201801, Harga_Rekmed: 12000 },
-        { Rekam_Medis: 201802, Harga_Rekmed: 12000 },
-        { Rekam_Medis: 201803, Harga_Rekmed: 12000 },
-        { Rekam_Medis: 201804, Harga_Rekmed: 12000 },
-        { Rekam_Medis: 201805, Harga_Rekmed: 12000 },
-        { Rekam_Medis: 201806, Harga_Rekmed: 12000 }
-      ],
-      keluhan_pasien : '',
-      pasien_rekmed : []
+      tambah_plan_diagnosis : {
+        nama_diagnosis : ''
+      },
+      pasien_rekmed : [],
+      tampil_plan_diagnosis : [],
+      plan_diagnosis_terpilih : []
+
     }
   },
   async created() {
@@ -377,7 +385,69 @@ export default {
     }
     this.pasien_rekmed = pasienRekmed('pasien_rekmed');
     console.log('pasien_rekmed',this.pasien_rekmed)
+  },
+  mounted() {
+    this.tampilPlanDiagnosis()
+  },
+  methods : {
+    async tambahPlanDiagnosis() {
+      return await axios.post('http://localhost/rekmed-server/api/v1/Plan_diagnosis/post', this.tambah_plan_diagnosis).then(res => res.data.plan)     
+    },
+    async onSubmit() {
+      this.tampil_plan_diagnosis = await this.tambahPlanDiagnosis()
+      if(this.tampil_plan_diagnosis) {
+        this.tambah_plan_diagnosis.nama_diagnosis = ''
+      }
+    },
+    async tampilPlanDiagnosis(id = null) {
+      if (id) {
+        return await axios.get('http://localhost/rekmed-server/api/v1/Plan_diagnosis/get/' + id).then(res => this.tambah_plan_diagnosis = res.data)
+      } else {
+        return await axios.get('http://localhost/rekmed-server/api/v1/Plan_diagnosis/get').then(res => this.tampil_plan_diagnosis = res.data)
+        console.log('tampil_plan_diagnosis', this.tampil_plan_diagnosis)
+      }
+    },
+    async planDiagnosisTerpilih(id, namaDiagnosis) {
+      this.tampil_plan_diagnosis.ID = id
+      this.tampil_plan_diagnosis.nama_diagnosis = namaDiagnosis
+
+      let temp_diagnosis = {
+        'ID' : id,
+        'nama_diagnosis' : namaDiagnosis
+      }
+      console.log('temp_diagnosis', temp_diagnosis)
+
+      //let diagnosis = [...this.plan_diagnosis_terpilih]
+
+      this.plan_diagnosis_terpilih.push(temp_diagnosis);
+
+      this.$store.dispatch('tambahDataPlanDiagnosis', this.plan_diagnosis_terpilih);
+      localStorage.setItem('plan_diagnosis_terpilih', JSON.stringify(this.plan_diagnosis_terpilih));
+
+      //this.plan_diagnosis_terpilih = [...diagnosis]
+
+      //console.log('diagnosis', diagnosis)
+      console.log('id diagnosis', this.tampil_plan_diagnosis.ID)
+      console.log('nama diagnosis', this.tampil_plan_diagnosis.nama_diagnosis)
+      console.log('plan terpilih', this.plan_diagnosis_terpilih)
+
+    },
+    getIdPlanDiagnosis(id) {
+      this.plan_diagnosis_terpilih.ID = id
+      //console.log('id', id)
+    },
+    hapusPlanDiagnosis() {
+      let list_diagnosis = [...this.plan_diagnosis_terpilih];
+      this.plan_diagnosis_terpilih = list_diagnosis.filter(res => {
+        return res.ID != this.plan_diagnosis_terpilih.ID
+      });
+      console.log(list_diagnosis)
+      this.$store.dispatch('tambahDataPlanDiagnosis', this.plan_diagnosis_terpilih)
+      localStorage.setItem('plan_diagnosis_terpilih', JSON.stringify(this.plan_diagnosis_terpilih))
+    }
   }
+
+
 }
 
 </script>

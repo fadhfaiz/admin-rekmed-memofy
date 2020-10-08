@@ -71,8 +71,14 @@ export default new Vuex.Store({
     async tambahDataAssesment({ commit }, assesment) {
       commit('setNewAssesment', assesment);
     },
-    async tambahDataPlan({ commit }, plan) {
-      commit('setNewPlan', plan);
+    async tambahDataPlanDiagnosis({ commit }, planDiagnosis) {
+      commit('setNewPlanDiagnosis', planDiagnosis);
+    },
+    async tambahDataPlanTerapi({ commit }, planTerapi) {
+      commit('setNewPlanTerapi', planTerapi);
+    },
+    async tambahDataPlanEdukasi({ commit }, planEdukasi) {
+      commit('setNewPlanEdukasi', planEdukasi);
     },
     async tambahListAntrian({ commit }, antrian) {
       commit('setNewAntrian', antrian);
@@ -101,7 +107,9 @@ export default new Vuex.Store({
     setNewObjective :(state, objective) => state.rekam_medis.objective = objective,
     setNewAssesment :(state, assesment) => state.rekam_medis.assesment = assesment,
     setNewListAssesment : (state, list_assesment) => state.list_assesment = list_assesment,
-    setNewPlan :(state, plan) => state.rekam_medis.plan = plan,
+    setNewPlanDiagnosis : (state, plan_diagnosis) => state.rekam_medis.plan.diagnosis = plan_diagnosis,
+    setNewPlanTerapi : (state, plan_terapi) => state.rekam_medis.plan.terapi = plan_terapi,
+    setNewPlanEdukasi : (state, plan_edukasi) => state.rekam_medis.plan.edukasi = plan_edukasi,
 
     /*simpan data*/
     setDataPasien :(state, pasien) => state.pasien = pasien

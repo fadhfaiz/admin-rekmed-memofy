@@ -26,7 +26,7 @@
                     <input type="text" th scope="col" style="width: 18rem;" class="form-control" id="cari_data_pasien" placeholder="Cari / tambah diagnosis" v-model="tambah_assesment.nama_diagnosis">
                   </div>
                   <div class="col-5">
-                    <button type="button" @click="tambahAssesment()" class="btn btn-block btn-success mx-2">Tambah data <i class="fa fa-plus-circle"></i></button>
+                    <button type="button" @click="onSubmit()" class="btn btn-block btn-success mx-2">Tambah data <i class="fa fa-plus-circle"></i></button>
                   </div>
                 </div>
               </div>
@@ -53,6 +53,7 @@
               </div> -->
               <div class="row">
                   <div class="col-12 my-3">
+                  <div class="assesment_terpilih kiri">
                     <table class="table table-hover">
                       <thead>
                         <tr class="text-center bg-dark" style="color: white">
@@ -61,16 +62,17 @@
                           <th scope="col">Proses</th>
                         </tr>
                       </thead>
-                      <tbody class="assesment_terpilih">
+                      <tbody>
                         <tr v-for="(row, index) in tampil_assesment" :key="index">
                           <th scope="row" class="text-center">P0{{ row.ID }}</th>
                           <td class="text-center">{{ row.nama_diagnosis }}</td>
                           <td class="text-center">
-                            <button class="btn btn-info btn-sm mr-2" type="button" @click="assesmentTerpilih(row.id, row.assesment)"><i style="float: left;" class="fa fa-arrow-right"></i></button>
+                            <button class="btn btn-info btn-sm mr-2" type="button" @click="assesmentTerpilih(row.ID, row.nama_diagnosis)"><i style="float: left;" class="fa fa-arrow-right"></i></button>
                           </td>
                         </tr>
                       </tbody>
                     </table>
+                  </div>
                   </div>
               </div>
             </div>
@@ -195,10 +197,18 @@ export default {
   methods : {
     ...mapActions(['tambahDataAssesment']),
     async tambahAssesment() {
-      return await axios.post('http://localhost/rekmed-server/api/v1/Assesment/post',this.tambah_assesment).then(res => this.tambah_assesment = res.data.assesment)
+      return await axios.post('http://localhost/rekmed-server/api/v1/Assesment/post',this.tambah_assesment).then(res => res.data.assesment)
       
-        this.tambah_assesment.nama_diagnosis = ''
+        //this.tambah_assesment.nama_diagnosis = ''
+        //this.tambah.assesment = ''
         //this.tampilAssesment() 
+    },
+    async onSubmit() {
+      this.tampil_assesment = await this.tambahAssesment()
+      //this.tambah_assesment.nama_diagnosis = ''
+      if(this.tampil_assesment) {   
+        this.tambah_assesment.nama_diagnosis = ''
+      }
     },
     async tampilAssesment(id = null) {
       if (id) {
@@ -213,8 +223,8 @@ export default {
       return await axios.get('http://localhost/rekmed-server/api/v1/Registrasi/get/' + id).then(res => res.data)
     },
     async assesmentTerpilih(id, assesment) {
-      this.tampil_assesment.id = id
-      this.tampil_assesment.assesment = assesment
+      this.tampil_assesment.ID = id
+      this.tampil_assesment.nama_diagnosis = assesment
 
       let temp = {
         'id' : id,
@@ -222,14 +232,14 @@ export default {
       }
       console.log('temp',temp)
 
-      let asses = [...this.assesment_terpilih];
+      //let asses = [...this.assesment_terpilih];
 
-      asses.push(temp);
-      this.$store.dispatch('tambahDataAssesment',asses);
-      localStorage.setItem('assesment_terpilih', JSON.stringify(asses));
-      this.assesment_terpilih = [...asses];
+      this.assesment_terpilih.push(temp);
+      this.$store.dispatch('tambahDataAssesment',this.assesment_terpilih);
+      localStorage.setItem('assesment_terpilih', JSON.stringify(this.assesment_terpilih));
+      //this.assesment_terpilih = [...asses];
 
-      console.log('asess',asses)
+      //console.log('asess',asses)
 
 
       console.log('id assesment', this.tampil_assesment.id)

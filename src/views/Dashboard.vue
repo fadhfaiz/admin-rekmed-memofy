@@ -29,7 +29,11 @@
             <tr v-for="(row, index) in list_antrian" :key="index">
               <th scope="row" class="text-center">{{ index+1 }}</th>
               <td>{{ row.nama }}</td>
-              <td class="text-center">
+              <td v-if="row.status == 'Antrian di proses'" class="text-center">
+                <span>Sedang diproses </span>
+                <button class="btn btn-danger btn-sm" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
+              </td>
+              <td class="text-center" v-else>
                 <button class="btn btn-info btn-sm mr-2" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#proses_antrian">Proses</button>
                 <button class="btn btn-danger btn-sm" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
               </td>
@@ -185,9 +189,17 @@ export default {
     async proses_pasien() {
       let pasien = await this.loadPasien(this.ID_pasien)
       if(pasien) {
+          let proses_pasien = {
+            'ID_pasien' : this.ID_pasien,
+            'nama' : this.nama_pasien_antri,
+            'status' : 'Antrian di proses'
+          };
+
+          this.list_antrian.push(proses_pasien);
           this.$store.dispatch('simpanDataPasien', pasien)
           localStorage.setItem('pasien', JSON.stringify(pasien));
           this.$router.push('/subjektif')
+          console.log('proses pasien', this.list_antrian)
       }
 
     },

@@ -25,6 +25,7 @@ export default new Vuex.Store({
   	resep : {},
   	pasien : {},
     list_pasien : [],
+    list_assesment: [],
     list_antrian : [],
     rekam_medis_pasien : []
   },
@@ -71,14 +72,14 @@ export default new Vuex.Store({
     async tambahDataAssesment({ commit }, assesment) {
       commit('setNewAssesment', assesment);
     },
-    async tambahDataPlanDiagnosis({ commit }, planDiagnosis) {
-      commit('setNewPlanDiagnosis', planDiagnosis);
+    async tambahDataPlanDiagnosis({ commit }, plan_diagnosis) {
+      commit('setNewPlanDiagnosis', plan_diagnosis);
     },
-    async tambahDataPlanTerapi({ commit }, planTerapi) {
-      commit('setNewPlanTerapi', planTerapi);
+    async tambahDataPlanTerapi({ commit }, plan_terapi) {
+      commit('setNewPlanTerapi', plan_terapi);
     },
-    async tambahDataPlanEdukasi({ commit }, planEdukasi) {
-      commit('setNewPlanEdukasi', planEdukasi);
+    async tambahDataPlanEdukasi({ commit }, plan_edukasi) {
+      commit('setNewPlanEdukasi', plan_edukasi);
     },
     async tambahListAntrian({ commit }, antrian) {
       commit('setNewAntrian', antrian);

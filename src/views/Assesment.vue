@@ -23,57 +23,43 @@
               <div class="form-inline mb-4">
                 <div class="row">
                   <div class="col-7">
-                    <input type="text" th scope="col" style="width: 18rem;" class="form-control" id="cari_data_pasien" placeholder="Cari / tambah diagnosis" v-model="tambah_assesment.nama_diagnosis">
+                    <input type="text" th scope="col" style="width: 18rem;" class="form-control" id="cari_data_pasien" placeholder="Cari / tambah diagnosis" v-model="nama_diagnosis">
+                    <!-- <input type="hidden" v-model="tambah_assesment.ID" > -->
                   </div>
                   <div class="col-5">
                     <button type="button" @click="onSubmit()" class="btn btn-block btn-success mx-2">Tambah data <i class="fa fa-plus-circle"></i></button>
                   </div>
                 </div>
               </div>
-              <!-- <div class="assesment_terpilih kiri">
-                <table v-if="tambah_assesment.assesment != ''" class="table table-hover table-borderless">
-                  <thead>
-                    <tr class="text-center bg-light">
-                      <th scope="col">ID</th>
-                      <th scope="col" style="width: 20rem;">Diagnosis</th>
-                      <th scope="col">Proses</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(row, index) in tampil_assesment" :key="index">
-                      <th scope="row" class="text-center">P0{{ index+1 }}</th>
-                      <td class="text-center">{{ row.assesment }}</td>
-                      <td class="text-center">
-                        <button class="btn btn-info btn-sm mr-2" type="button" data-toggle="modal"
-                          data-target="#proses_antrian"><i style="float: left;" class="fa fa-arrow-right"></i></button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div> -->
-              <div class="row">
+              <div class="row" v-if="nama_diagnosis == ''">
                   <div class="col-12 my-3">
                   <div class="assesment_terpilih kiri">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr class="text-center bg-dark" style="color: white">
-                          <th scope="col">ID</th>
-                          <th scope="col" style="width: 20rem;">Diagnosis</th>
-                          <th scope="col">Proses</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(row, index) in tampil_assesment" :key="index">
-                          <th scope="row" class="text-center">P0{{ row.ID }}</th>
-                          <td class="text-center">{{ row.nama_diagnosis }}</td>
-                          <td class="text-center">
-                            <button class="btn btn-info btn-sm mr-2" type="button" @click="assesmentTerpilih(row.ID, row.nama_diagnosis)"><i style="float: left;" class="fa fa-arrow-right"></i></button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <div class="card my-3" style="width: 25rem;">
+                      <ul class="list-group list-group-flush" v-for="(row, index) in assesment_terpilih" :key="index">
+                        <li class="list-group-item"><span>{{ row.nama_diagnosis }}<button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_assesment" @click="getIdAssesment(row.ID)"><i style="float: left;" class="fa fa-times"></i></button></span></li>
+                      </ul>
+                    </div>
                   </div>
                   </div>
+              </div>
+              <!-- pencarian -->
+              <div class="assesment_terpilih cari" style="width: 20rem" v-else>
+              <table class="table table-hover table-bordered" style="width: 18rem;">
+                <thead class="text-center">
+                  <th>ID</th>
+                  <th>Nama Diagnosis</th>
+                  <th>Aksi</th>
+                </thead>
+                <tbody>
+                  <tr class="text-center" v-for="(row, index) in assesment_cocok" :key="index">
+                    <td>{{row.ID}}</td>
+                    <td>{{row.nama_diagnosis}}</td>
+                    <td>
+                      <button class="btn btn-success btn-sm float-right" type="button" @click="onSubmitCari(row.ID, row.nama_diagnosis)"><i style="float: left;" class="fa fa-plus-circle"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
               </div>
             </div>
           </div>
@@ -81,14 +67,14 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-header font-weight-bold bg-dark text-white">
-              Assesment Terpilih
+              Assesment Terpopuler
             </div>
             <div class="card-body assesment_terpilih kanan">
-              <div class="card" style="width: 29rem;">
-                <ul class="list-group list-group-flush" v-for="(row, index) in assesment_terpilih" :key="index">
-                  <li class="list-group-item"><span>{{ row.assesment }}<button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_assesment" @click="getIdAssesment(row.id)"><i style="float: left;" class="fa fa-times"></i></button></span></li>
-                </ul>
-              </div>
+            <!-- <div class="card my-3" style="width: 25rem;">
+                      <ul class="list-group list-group-flush" v-for="(row, index) in tampil_assesment" :key="index">
+                        <li class="list-group-item"><span>{{ row.nama_diagnosis }}<button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_assesment"><i style="float: left;" class="fa fa-times"></i></button></span></li>
+                      </ul>
+                    </div> -->
             </div>
           </div>
         </div>
@@ -111,7 +97,7 @@
               </button>
             </div>
             <div class="modal-body text-danger">
-              Yakin nih mau hapus aku?
+              Yakin ?
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -157,62 +143,82 @@ export default {
   },
   data() {
     return {
-      tambah_assesment : {
-        nama_diagnosis : ''
-      },
+      nama_diagnosis : '',
       tampil_assesment : [],
-      //rekmed_assesment : {},
       assesment_terpilih : [],
       pasien_rekmed : [],
       assesment_cocok : [],
       cari_assesment : ''
     }
   },
-  created() {
-    const pasienRekmed = (pasien) => {
-      let y = localStorage.getItem('pasien');
+  async created() {
+    const getData = (x) => {
+      let y = localStorage.getItem(x);
       return JSON.parse(y) || [];
     }
-    const assesTerpilih = (assesment) => {
-      let ass = localStorage.getItem('assesment_terpilih');
-      return JSON.parse(ass) || [];
-    }
-    this.assesment_terpilih = assesTerpilih('assesment_terpilih');
-    this.pasien_rekmed = pasienRekmed('pasien_rekmed');
+    this.assesment_terpilih = getData('list_assesment');
+    this.pasien_rekmed = getData('pasien');
+    this.tampil_assesment = await this.tampilAssesment();
     
     console.log('pasien', this.pasien_rekmed)
-    //console.log('assesment', this.rekmed_assesment)
-  },
-  mounted() {
-    this.tampilAssesment()
-    console.log('terpilih',this.assesment_terpilih)
+    console.log('assesment', this.assesment_terpilih)
+    console.log('tampil assesment', this.tampil_assesment)
   },
   watch : {
-    /*cariAssesment(val) {
-      this.assesment_cocok = this.rekmed_assesment.filter(res => {
-        return res.assesment.toLowerCase().search(val.toLowerCase()) != -1;
-      })
-    }*/
+    nama_diagnosis(val) {
+      this.assesment_cocok = this.tampil_assesment.filter(res => {
+        return res.nama_diagnosis.toLowerCase().search(val.toLowerCase()) != -1;
+      });
+
+      //console.log('ketemu', this.assesment_cocok)
+    }
   },
   methods : {
-    ...mapActions(['tambahDataAssesment']),
+    //...mapActions(['tambahDataAssesment']),
     async tambahAssesment() {
-      return await axios.post('http://localhost/rekmed-server/api/v1/Assesment/post',this.tambah_assesment).then(res => res.data.assesment)
-      
-        //this.tambah_assesment.nama_diagnosis = ''
-        //this.tambah.assesment = ''
-        //this.tampilAssesment() 
+      return await axios.post('http://localhost/rekmed-server/api/v1/Assesment/post',{
+        nama_diagnosis : this.nama_diagnosis
+      }).then(res => res.data.assesment)
     },
     async onSubmit() {
       this.tampil_assesment = await this.tambahAssesment()
-      //this.tambah_assesment.nama_diagnosis = ''
-      if(this.tampil_assesment) {   
-        this.tambah_assesment.nama_diagnosis = ''
-      }
+      
+        if(this.tampil_assesment) {   
+        
+          let temp_assesment = {
+             'ID' : Math.random(),
+             'ID_pasien' : this.pasien_rekmed.ID,
+             'nama_diagnosis' : this.nama_diagnosis
+          }
+      
+          this.assesment_terpilih.push(temp_assesment)
+          this.nama_diagnosis = ''
+        }
+
+        this.$store.dispatch('tambahListAssesment', this.assesment_terpilih)
+        localStorage.setItem('list_assesment', JSON.stringify(this.assesment_terpilih))
+        console.log('assesment_terpilih', this.assesment_terpilih)
+        console.log('assesment_nama', this.nama_diagnosis)
+    },
+    onSubmitCari(id, nama = null) {
+       this.assesment_terpilih.ID = id
+       if(nama) this.nama_diagnosis = nama ;
+       
+       let temp_assesment = {
+             'ID' : Math.random(),
+             'ID_pasien' : this.pasien_rekmed.ID,
+             'nama_diagnosis' : this.nama_diagnosis
+          }
+      
+          this.assesment_terpilih.push(temp_assesment)
+          this.nama_diagnosis = ''
+          this.$store.dispatch('tambahListAssesment', this.assesment_terpilih)
+          localStorage.setItem('list_assesment', JSON.stringify(this.assesment_terpilih))
+          console.log('assesment_terpilih cari', this.assesment_terpilih)
     },
     async tampilAssesment(id = null) {
       if (id) {
-        return await axios.get('http://localhost/rekmed-server/api/v1/Assesment/get/' + id).then(res => this.tampil_assesment = res.data)
+        return await axios.get('http://localhost/rekmed-server/api/v1/Assesment/get/' + id).then(res => res.data)
 
       } else {
         return await axios.get('http://localhost/rekmed-server/api/v1/Assesment/get').then(res => this.tampil_assesment = res.data)
@@ -222,34 +228,10 @@ export default {
     async loadPasien(id) {
       return await axios.get('http://localhost/rekmed-server/api/v1/Registrasi/get/' + id).then(res => res.data)
     },
-    async assesmentTerpilih(id, assesment) {
-      this.tampil_assesment.ID = id
-      this.tampil_assesment.nama_diagnosis = assesment
-
-      let temp = {
-        'id' : id,
-        'assesment' : assesment
-      }
-      console.log('temp',temp)
-
-      //let asses = [...this.assesment_terpilih];
-
-      this.assesment_terpilih.push(temp);
-      this.$store.dispatch('tambahDataAssesment',this.assesment_terpilih);
-      localStorage.setItem('assesment_terpilih', JSON.stringify(this.assesment_terpilih));
-      //this.assesment_terpilih = [...asses];
-
-      //console.log('asess',asses)
-
-
-      console.log('id assesment', this.tampil_assesment.id)
-      console.log('assesment terpilih', this.assesment_terpilih)
-      console.log('diagnosis assesment', this.tampil_assesment.assesment)
-      //console.log('parsedata assesment', parseData)
-      //console.log('assesment terpilih', this.assesment_terpilih)
-    },
     async getIdAssesment(id) {
-      this.assesment_terpilih.id = id
+    this.assesment_terpilih.ID = id
+    //console.log('id', id)
+    //console.log('nama', nama)
     },
     getIdPasien(id) {
       this.pasien_rekmed.ID = id
@@ -266,49 +248,11 @@ export default {
     async hapusAssesment() {
       let list_asses = [...this.assesment_terpilih];
       this.assesment_terpilih = list_asses.filter(res => {
-        return res.id != this.assesment_terpilih.id
+        return res.ID != this.assesment_terpilih.ID
       });
-      this.$store.dispatch('tambahDataAssesment', this.assesment_terpilih)
-      localStorage.setItem('assesment_terpilih', JSON.stringify(this.assesment_terpilih))
+      this.$store.dispatch('tambahListAssesment', this.assesment_terpilih)
+      localStorage.setItem('list_assesment', JSON.stringify(this.assesment_terpilih))
     }
-    /*async onSubmit() {
-      const asses = {
-        assesment : this.tambah_assesment.assesment
-      }
-
-      this.tambahDataAssesment(asses);
-      console.log('assesment',asses)
-      this.$router.push('/');*/
-
-      /*let p = await this.tambahAssesment().then(res => res.tambah_assesment);
-      
-      if(p) {
-        this.rekmed_assesment.assesment = p.assesment
-
-        let parseData = JSON.parse(localStorage.getItem('rekmed_assesment')) || [];
-
-        let assesments = parseData;
-
-        console.log('parsedata',parseData)
-
-        if (assesments == []) {
-          assesments = [...this.$store.state.rekam_medis.assesment];
-          console.log('assesment p ',assesment)
-        }
-
-        assesment.push(this.rekmed_assesment)
-
-        this.$store.dispatch('tambahListAssesment', assesment)
-        localStorage.setItem('rekmed_assesment', JSON.stringify(assesment))
-       }*/
-    //}
-   /* async hapusAssesment() {
-      let list_asses = [...this.rekmed_assesment];
-      this.rekmed_assesment = list_asses.filter(res => {
-        return res.id != this.id
-      });
-
-    }*/
   }
 }
 
@@ -319,16 +263,15 @@ export default {
   overflow-y: scroll;
 }
 
-/* .assesment_terpilih::-webkit-scrollbar {
-  display: none;
-} */
-
 .kanan {
 height: 400px;
 }
 
 .kiri {
 height: 299px;
+}
+.cari {
+height: 150px;
 }
 
 </style>

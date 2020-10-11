@@ -95,8 +95,8 @@
               Yakin nih mau hapus aku?
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-outline-dark" @click="hapusSubjective()" data-dismiss="modal">Hapus</button>
+              <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger" @click="hapusSubjective()" data-dismiss="modal">Hapus</button>
             </div>
           </div>
         </div>
@@ -149,14 +149,14 @@ export default {
     }
   },
   async created() {
-    /*localStorage.clear();*/
+    //localStorage.clear('subjective');
     const getData = (lokasi) => {
       let y = localStorage.getItem(lokasi);
       return JSON.parse(y) || [];
     }
 
-    this.rekmed_subjektif = getData('rekmed_subjektif');
-    this.pasien_rekmed = getData('pasien_rekmed');
+    this.rekmed_subjektif = getData('subjective');
+    this.pasien_rekmed = getData('pasien');
 
     console.log('pasien_rekmed',this.pasien_rekmed)
     // console.log('rekmed_subjektif',this.rekmed_subjektif)
@@ -165,14 +165,15 @@ export default {
    /* ...mapActions(['tambahDataSubjective']),*/
     tambahSubjektive() {
       if(this.subjektif != '') {
-        let panjang = (this.rekmed_subjektif.length) ? this.rekmed_subjektif.length : 0
+        let panjang = (this.rekmed_subjektif.length) ? this.rekmed_subjektif.length : 0;
         let temp = (panjang) ? this.rekmed_subjektif[panjang-1].id : 0;
 
         temp +=1
 
         let temp_rekmed_subjektif = {
+          'id_subjective' : temp,
+          'id_pasien' : this.pasien_rekmed.ID,
           'subjective' : this.subjektif,
-          'id' : temp
         };
 
         let subjektif = [...this.rekmed_subjektif];
@@ -180,13 +181,14 @@ export default {
         // console.log(temp_rekmed_subjektif)
 
         subjektif.push(temp_rekmed_subjektif);
+        this.subjektif = ''
 
         this.$store.dispatch('tambahDataSubjective', subjektif);
-        localStorage.setItem('rekmed_subjektif', JSON.stringify(subjektif));
+        localStorage.setItem('subjective', JSON.stringify(subjektif));
 
         this.rekmed_subjektif = [...subjektif];
 
-        this.subjektif = ''
+        console.log('subjektif', this.rekmed_subjektif)
       } else {
         console.log('dicegah')
       }
@@ -200,7 +202,7 @@ export default {
       });
       console.log('hapusSubjective', this.rekmed_subjektif)
       this.$store.dispatch('tambahDataSubjective', this.rekmed_subjektif)
-      localStorage.setItem('rekmed_subjektif', JSON.stringify(this.rekmed_subjektif))
+      localStorage.setItem('subjective', JSON.stringify(this.rekmed_subjektif))
     },
     getIdSubjektif(id) {
       this.id = id

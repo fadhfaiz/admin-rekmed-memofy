@@ -113,7 +113,7 @@ export default {
       if (p) {
         this.list_antrian.nama = p.nama
         this.list_antrian.ID_pasien = p.ID
-        this.list_antrian.status = "Mengantri"
+        this.list_antrian.status = "Menunggu"
 
         let parseData = JSON.parse(localStorage.getItem('list_antrian')) || [];
 

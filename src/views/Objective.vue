@@ -108,16 +108,17 @@ export default {
     }
   },
   async created() {
-    const pasienRekmed = (pasien) => {
-      let y = localStorage.getItem('pasien');
+    const pasienRekmed = (x) => {
+      let y = localStorage.getItem(x);
       return JSON.parse(y) || [];
     }
-    this.pasien_rekmed = pasienRekmed('pasien_rekmed');
-    console.log('pasienobje', this.pasien_rekmed)
+    this.pasien_rekmed = pasienRekmed('pasien');
+    //console.log('pasienobje', this.pasien_rekmed)
   },
   methods: {
     async tambahObjektif() {
       let temp_rekmed_objektif = {
+        'id_pasien' : this.pasien_rekmed.ID,
         'nadi' : this.anamnesis.nadi,
         'tekanan_darah' : this.anamnesis.tekanan_darah,
         'suhu_tubuh' : this.anamnesis.suhu_tubuh,

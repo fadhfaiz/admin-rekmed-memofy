@@ -9,9 +9,8 @@
 
       <!-- Infodata -->
       <!-- <InfoData /> -->
-      <h3>ID Pasien : {{ pasien_rekmed.ID }}  </h3>
-      <h3>Nama Pasien : {{ pasien_rekmed.nama}}</h3>
-      <br>
+      <!-- <h3>ID Pasien : {{ pasien_rekmed.ID }}  </h3>
+      <h3>Nama Pasien : {{ pasien_rekmed.nama}}</h3> -->
       <h2 class="my-3 font-weight-bold">Form Assesment</h2>
       <div class="row">
         <div class="col-md-6">

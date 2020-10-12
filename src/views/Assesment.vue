@@ -13,6 +13,26 @@
       <h3>Nama Pasien : {{ pasien_rekmed.nama}}</h3> -->
       <h2 class="my-3 font-weight-bold">Form Assesment</h2>
       <div class="row">
+        <div class="col-4">
+          <div class="card border-left-danger shadow-none">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.nama }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="card border-left-danger shadow-none">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.ID }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-6">
           <div class="card">
             <div class="card-header font-weight-bold bg-dark text-white">
@@ -34,7 +54,7 @@
                   <div class="col-12 my-3">
                   <div class="assesment_terpilih kiri">
                     <div class="card my-3" style="width: 25rem;">
-                      <ul class="list-group list-group-flush" v-for="(row, index) in assesment_terpilih" :key="index">
+                      <ul class="list-group list-group-flush" v-for="(row, index) in assesment_terpilih" v-bind:key="index">
                         <li class="list-group-item"><span>{{ row.nama_diagnosis }}<button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_assesment" @click="getIdAssesment(row.ID)"><i style="float: left;" class="fa fa-times"></i></button></span></li>
                       </ul>
                     </div>
@@ -50,7 +70,7 @@
                   <th>Aksi</th>
                 </thead>
                 <tbody>
-                  <tr class="text-center" v-for="(row, index) in assesment_cocok" :key="index">
+                  <tr class="text-center" v-for="(row, index) in assesment_cocok" v-bind:key="index">
                     <td>{{row.ID}}</td>
                     <td>{{row.nama_diagnosis}}</td>
                     <td>
@@ -80,7 +100,7 @@
       </div>
       <div class="row">
           <div class="col">
-            <button type="button" data-toggle="modal" data-target="#proses_assesment" @click="getIdPasien(pasien_rekmed.ID)" class="btn btn-block btn-success mr-2" >Simpan dan lanjutkan <i
+            <button type="button" data-toggle="modal" data-target="#proses_assesment" @click="getIdPasien(pasien_rekmed.ID)" class="btn btn-warning mr-2" >Simpan dan lanjutkan <i
                 class="fa fa-arrow-right"></i></button>
           </div>
       </div>
@@ -251,6 +271,7 @@ export default {
       });
       this.$store.dispatch('tambahListAssesment', this.assesment_terpilih)
       localStorage.setItem('list_assesment', JSON.stringify(this.assesment_terpilih))
+      console.log('assesment_terpilih hapus', this.assesment_terpilih)
     }
   }
 }

@@ -28,7 +28,7 @@
               <div class="card border-left-danger shadow-none">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
-                    <div class="text-md font-weight-bold text-danger text-uppercase">Intan Carono</div>
+                    <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.nama}}</div>
                   </div>
                 </div>
               </div>
@@ -40,7 +40,7 @@
               <div class="card border-left-danger shadow-none">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
-                    <div class="text-md font-weight-bold text-danger text-uppercase">FR0004</div>
+                    <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.ID }}</div>
                   </div>
                 </div>
               </div>
@@ -48,12 +48,12 @@
             </div>
 
             <div class="col col-md-3">
-              <input type="text" v-model="subjektif" class="form-control mr-2" style="width: 33rem;"
+              <input type="text" v-model="subjektif" class="form-control mr-2" style="width: 23rem;"
                 id="cari_data_pasien" placeholder="Keluhan pasien">
             </div>
 
             <div class="col col-md-3">
-              <button type="button" class="btn btn-success mr-2" @click="tambahSubjektive()">Tambah <i
+              <button type="button" class="btn btn-success mr-2" style="margin-left: 10rem;width:10rem" @click="tambahSubjektive()">Tambah <i
                   class="fa fa-plus-circle"></i></button>
             </div>
 
@@ -66,13 +66,13 @@
           </div>
           <div class="card-body">
             <div class="row">
-              <div class="col-6">
+              <div class="col-6 my-2">
                 <div class="card">
                   <div class="card-body">
-                    <ul class="list-group list-group-flush" v-for="(row, index) in rekmed_subjektif" :key="index">
+                    <ul class="list-group list-group-flush" v-for="(row, index) in rekmed_subjektif" v-bind:key="index">
                       <li class="list-group-item">{{ row.subjective }}<span><button
                             class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal"
-                            data-target="#hapus_subjektif" @click="getIdSubjektif(row.id)"><i style="float: left;"
+                            data-target="#hapus_subjektif" @click="getIdSubjektif(row.id_subjective)"><i style="float: left;"
                               class="fa fa-times"></i></button></span></li>
                     </ul>
                   </div>
@@ -80,32 +80,32 @@
               </div>
               <div class="col-6">
                 <div class="row text-right">
-                  <div class="col-2 my-1">
+                  <div class="col-2 my-2">
                     <span class="badge badge-pill badge-primary py-1"><span class="pr-1">+</span> Demam</span>
                   </div>
-                  <div class="col-2 my-1">
+                  <div class="col-2 my-2">
                     <span class="badge badge-pill badge-primary py-1"><span class="pr-1">+</span> Pusing</span>
                   </div>
-                  <div class="col-2 my-1">
+                  <div class="col-2 my-2">
                     <span class="badge badge-pill badge-primary py-1"><span class="pr-1">+</span> Mual</span>
                   </div>
-                  <div class="col-4 my-1">
+                  <div class="col-4 my-2">
                     <span class="badge badge-pill badge-primary py-1"><span class="pr-1">+</span> Batuk tak
                       berdahak</span>
                   </div>
-                  <div class="col-4 my-1">
+                  <div class="col-4 my-2">
                     <span class="badge badge-pill badge-primary py-1"><span class="pr-1">+</span> Galau sepanjang
                       hari</span>
                   </div>
-                  <div class="col-5 my-1">
+                  <div class="col-5 my-2">
                     <span class="badge badge-pill badge-primary py-1"><span class="pr-1">+</span> Meringis menatap
                       nasib</span>
                   </div>
-                  <div class="col-4 my-1">
+                  <div class="col-4 my-2">
                     <span class="badge badge-pill badge-primary py-1"><span class="pr-1">+</span> Pasrah atas
                       takdir</span>
                   </div>
-                  <div class="col-2 my-1">
+                  <div class="col-2 my-2">
                     <span class="badge badge-pill badge-primary"><span class="pr-1">+</span> Jalani aja</span>
                   </div>
                 </div>
@@ -213,13 +213,13 @@
       /* ...mapActions(['tambahDataSubjective']),*/
       tambahSubjektive() {
         if (this.subjektif != '') {
-          let panjang = (this.rekmed_subjektif.length) ? this.rekmed_subjektif.length : 0;
+          /*let panjang = (this.rekmed_subjektif.length) ? this.rekmed_subjektif.length : 0;
           let temp = (panjang) ? this.rekmed_subjektif[panjang - 1].id : 0;
 
-          temp += 1
+          temp += 1*/
 
           let temp_rekmed_subjektif = {
-            'id_subjective': temp,
+            'id_subjective': Math.random(),
             'id_pasien': this.pasien_rekmed.ID,
             'subjective': this.subjektif,
           };
@@ -246,14 +246,15 @@
       async hapusSubjective() {
         let list_subjek = [...this.rekmed_subjektif];
         this.rekmed_subjektif = list_subjek.filter(res => {
-          return res.id != this.id
+          return res.id_subjective != this.rekmed_subjektif.id_subjective
         });
         console.log('hapusSubjective', this.rekmed_subjektif)
         this.$store.dispatch('tambahDataSubjective', this.rekmed_subjektif)
         localStorage.setItem('subjective', JSON.stringify(this.rekmed_subjektif))
       },
       getIdSubjektif(id) {
-        this.id = id
+        this.rekmed_subjektif.id_subjective = id
+        console.log(id)
       },
       getIdPasien(id) {
         this.pasien_rekmed.ID = id

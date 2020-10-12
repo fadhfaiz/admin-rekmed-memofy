@@ -50,7 +50,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(row, index) in pasien" :key="index">
+            <tr v-for="(row, index) in pasien" v-bind:key="index">
               <th scope="row" class="text-center">{{ row.id }}</th>
               <td>{{ row.nama_pasien }}</td>
               <td>{{ row.alamat_pasien }}</td>

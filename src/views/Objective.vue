@@ -54,7 +54,7 @@
               <div class="card border-left-danger shadow-none">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
-                    <div class="text-md font-weight-bold text-danger text-uppercase">Intan Carono</div>
+                    <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.nama }}</div>
                   </div>
                 </div>
               </div>
@@ -64,7 +64,7 @@
               <div class="card border-left-danger shadow-none">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
-                    <div class="text-md font-weight-bold text-danger text-uppercase">FR0004</div>
+                    <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.ID }}</div>
                   </div>
                 </div>
               </div>
@@ -134,7 +134,7 @@ export default {
       this.$router.push('/assesment')
 
       this.$store.dispatch('tambahDataObjective', objektif);
-      localStorage.setItem('rekmed_objektif', JSON.stringify(objektif));
+      localStorage.setItem('objektive', JSON.stringify(objektif));
 
       this.rekmed_objektif = [...objektif];
       console.log('data rekmed objektif', this.rekmed_objektif)

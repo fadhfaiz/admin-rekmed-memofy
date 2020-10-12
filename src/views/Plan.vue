@@ -13,34 +13,32 @@
       <h3>Nama Pasien : {{ pasien_rekmed.nama}}</h3> -->
       <h2 class="my-3 font-weight-bold">Form Plan</h2>
 
-      <div class="form-inline mb-4">
         <div class="row">
 
-          <div class="col col-md-6">
+          <div class="col-4">
             <router-link to="/riwayat_medis">
               <div class="card border-left-danger shadow-none">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
-                    <div class="text-md font-weight-bold text-danger text-uppercase">Intan Carono</div>
+                    <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.nama }}</div>
                   </div>
                 </div>
               </div>
             </router-link>
           </div>
 
-          <div class="col col-md-6">
+          <div class="col-2">
             <router-link to="/riwayat_medis">
               <div class="card border-left-danger shadow-none">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
-                    <div class="text-md font-weight-bold text-danger text-uppercase">FR0004</div>
+                    <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.ID }}</div>
                   </div>
                 </div>
               </div>
             </router-link>
           </div>
         </div>
-      </div>
 
       <small class="text-danger mb-3">* Klik panel lain untuk membuka form tersebut.</small>
 
@@ -79,7 +77,7 @@
                             <div class="col-12 my-3">
                               <div class="card my-3" style="width: 25rem;">
                                 <ul class="list-group list-group-flush" v-for="(row, index) in diagnosis_terpilih"
-                                  :key="index">
+                                  v-bind:key="index">
                                   <li class="list-group-item"><span>{{ row.nama_diagnosis }}<button
                                         class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal"
                                         data-target="#hapus_plan_diagnosis" @click="getIdPlanDiagnosis(row.ID)"><i
@@ -98,7 +96,7 @@
                               <th>Aksi</th>
                             </thead>
                             <tbody>
-                              <tr class="text-center" v-for="(row, index) in diagnosis_cocok" :key="index">
+                              <tr class="text-center" v-for="(row, index) in diagnosis_cocok" v-bind:key="index">
                                 <td>{{row.ID}}</td>
                                 <td>{{row.nama_diagnosis}}</td>
                                 <td>
@@ -176,7 +174,7 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr v-for="(row, index) in terapi_terpilih" :key="index">
+                              <tr v-for="(row, index) in terapi_terpilih" v-bind:key="index">
                                 <th scope="row" class="text-center">TR0{{ index+1 }}</th>
                                 <td class="text-center">{{ row.nama_terapi }}</td>
                                 <td class="text-center">{{ row.biaya_terapi }}</td>
@@ -199,7 +197,7 @@
                               <th>Aksi</th>
                             </thead>
                             <tbody>
-                              <tr class="text-center" v-for="(row, index) in terapi_cocok" :key="index">
+                              <tr class="text-center" v-for="(row, index) in terapi_cocok" v-bind:key="index">
                                 <td>{{row.ID}}</td>
                                 <td>{{row.nama_terapi}}</td>
                                 <td>{{row.biaya_terapi}}</td>
@@ -285,7 +283,7 @@
                             <div class="col-12 my-3">
                               <div class="card my-3" style="width: 25rem;">
                                 <ul class="list-group list-group-flush" v-for="(row, index) in edukasi_terpilih"
-                                  :key="index">
+                                  v-bind:key="index">
                                   <li class="list-group-item"><span>{{ row.nama_edukasi }}<button
                                         class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal"
                                         data-target="#hapus_plan_edukasi" @click="getIdPlanEdukasi(row.ID)"><i
@@ -304,7 +302,7 @@
                               <th>Aksi</th>
                             </thead>
                             <tbody>
-                              <tr class="text-center" v-for="(row, index) in edukasi_cocok" :key="index">
+                              <tr class="text-center" v-for="(row, index) in edukasi_cocok" v-bind:key="index">
                                 <td>{{row.ID}}</td>
                                 <td>{{row.nama_edukasi}}</td>
                                 <td>
@@ -727,7 +725,7 @@
         if (pasien) {
           this.$store.dispatch('simpanDataPasien', pasien)
           localStorage.setItem('pasien', JSON.stringify(pasien));
-          this.$router.push('/resep_dokter')
+          this.$router.push('/obat')
         }
       }
     }

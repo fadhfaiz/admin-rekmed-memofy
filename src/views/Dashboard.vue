@@ -26,14 +26,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(row, index) in list_antrian" :key="index">
+            <tr v-for="(row, index) in list_antrian" v-bind:key="index">
               <th scope="row" class="text-center">{{ index+1 }}</th>
               <td>{{ row.nama }}</td>
-              <td v-if="row.status == 'Antrian di proses'" class="text-center">
-                <span>Sedang diproses </span>
-                <button class="btn btn-danger btn-sm" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
-              </td>
-              <td class="text-center" v-else>
+              <td class="text-center">
                 <button class="btn btn-info btn-sm mr-2" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#proses_antrian">Proses</button>
                 <button class="btn btn-danger btn-sm" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
               </td>
@@ -50,7 +46,7 @@
             <th>Aksi</th>
           </thead>
           <tbody>
-            <tr data-toggle="modal" data-target="#tambah_antrian" @click="getPasienID(pasien.ID, pasien.nama)" class="text-center" v-for="(pasien, index) in pasien_cocok" :key="index">
+            <tr data-toggle="modal" data-target="#tambah_antrian" @click="getPasienID(pasien.ID, pasien.nama)" class="text-center" v-for="(pasien, index) in pasien_cocok" v-bind:key="index">
               <td>{{pasien.NIK}}</td>
               <td>{{pasien.nama}}</td>
               <td>{{pasien.no_telp}}</td>

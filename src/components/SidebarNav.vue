@@ -41,7 +41,11 @@
           </router-link>
         </li>
         <li class="container">
-          <router-link to="/resep-dokter">Resep Dokter <i style="float: right;" class="fas fa-angle-right mt-1"></i>
+          <router-link to="/obat">Obat <i style="float: right;" class="fas fa-angle-right mt-1"></i>
+          </router-link>
+        </li>
+        <li class="container">
+          <router-link to="/racikan">Racikan <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
         </li>
         <hr width="82%" style="background: #D7E0E0;">

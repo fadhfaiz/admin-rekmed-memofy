@@ -55,12 +55,20 @@ const routes = [
     component: () => import(/* webpackChunkName: "objektif" */ '../views/Objective.vue')
   },
   {
-    path: '/resep_dokter',
-    name: 'Resep_dokter',
+    path: '/obat',
+    name: 'Obat',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "resep-dokter" */ '../views/Resep_Dokter.vue')
+    component: () => import(/* webpackChunkName: "obat" */ '../views/Obat.vue')
+  },
+  {
+    path: '/racikan',
+    name: 'Racikan',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "racikan" */ '../views/Racikan.vue')
   },
   {
     path: '/laporan',

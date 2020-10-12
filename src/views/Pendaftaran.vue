@@ -39,7 +39,7 @@
           <div class="form-group col-md-6">
             <label>Jenis Kelamin</label>
             <select v-model="pasien.jenis_kelamin" class="form-control">
-              <option v-for="option in options" :key="option.value" :value="option.value">{{ option.text }}</option>
+              <option v-for="option in options" v-bind:key="option.value" :value="option.value">{{ option.text }}</option>
             </select>
           </div>
         </div>

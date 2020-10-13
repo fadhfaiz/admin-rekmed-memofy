@@ -48,6 +48,10 @@
           <router-link to="/racikan">Racikan <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
         </li>
+        <li class="container">
+          <router-link to="/invoice">Invoice <i style="float: right;" class="fas fa-angle-right mt-1"></i>
+          </router-link>
+        </li>
         <hr width="82%" style="background: #D7E0E0;">
         <li class="container">
           <router-link to="/laporan">Laporan <i style="float: right;" class="fas fa-angle-right mt-1"></i></router-link>

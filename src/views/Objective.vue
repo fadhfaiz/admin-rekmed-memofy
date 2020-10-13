@@ -71,7 +71,7 @@
             </div>
 
             <div class="col col-lg-1">
-              <button type="reset" class="btn btn-warning float-right">Reset</button>
+              <button type="reset" class="btn btn-secondary float-right">Reset</button>
             </div>
             <div class="col col-lg-2">
               <button type="button" @click="tambahObjektif()" class="btn btn-success btn-block float-right">simpan</button>

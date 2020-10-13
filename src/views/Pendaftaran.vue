@@ -54,7 +54,7 @@
           </div>
         </div>
           <button type="button" class="btn btn-success mt-2" style="float: right; width: 20%;" @click="onSubmit()">Daftar</button>
-          <button type="reset" class="btn btn-warning mr-3 mt-2" style="float: right;">Reset</button>
+          <button type="reset" class="btn btn-secondary mr-3 mt-2" style="float: right;">Reset</button>
       </form>
     </div>
   </div>

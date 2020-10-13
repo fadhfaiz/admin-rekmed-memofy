@@ -12,7 +12,7 @@
       <!-- <h3>ID Pasien : {{ pasien_rekmed.ID }}  </h3>
       <h3>Nama Pasien : {{ pasien_rekmed.nama}}</h3> -->
       <h2 class="my-3 font-weight-bold">Form Assesment</h2>
-      <div class="row">
+      <div class="row mb-2">
         <div class="col-4">
           <div class="card border-left-danger shadow-none">
             <div class="card-body">

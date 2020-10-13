@@ -45,33 +45,41 @@
                 </div>
               </div>
               <div class="obat_scroll">
-                <div class="row my-3 mx-2" v-for="(obat, indexObat) in racikan_obat" v-bind:key="indexObat">
+                <div class="row my-3 mx-2" v-for="(obat, indexObat) in racikan" v-bind:key="indexObat">
                   <div class="col-6">
-                    <input type="text" class="form-control" v-model="obat.nama_obat" placeholder="Nama Obat">
+                    <input type="text" class="form-control" v-model="obat.racikan_obat[indexObat].nama_obat" placeholder="Nama Obat">
                   </div>
                   <div class="col-5">
-                    <input type="text" class="form-control" v-model="obat.jumlah" placeholder="Jumlah">
+                    <input type="text" class="form-control" v-model="obat.racikan_obat[indexObat].jumlah" placeholder="Jumlah">
                   </div>
                   <div class="col-1">
                     <button type="button" @click="hapusObat(indexObat)" class="btn btn-danger"><i style="float: left;"
                         class="fa fa-times"></i></button>
                   </div>
                 </div>
+                <div class="row mx-2 my-3">
+                  <div class="col-6">
+                    <input type="text" class="form-control" @click="tambahObat()" placeholder="Nama Obat" readonly>
+                  </div>
+                  <div class="col-5">
+                    <input type="text" class="form-control" placeholder="Jumlah" readonly>
+                  </div>
+                </div>
               </div>
-              <div class="row my-3">
+              <!-- <div class="row my-3">
                 <div class="mx-auto">
                   <button type="button" @click="tambahObat()" class="btn btn-success">Obat <i
                       class="fa fa-plus-circle"></i></button>
                 </div>
-              </div>
-              <div class="row my-3 mx-2">
+              </div> -->
+              <!-- <div class="row my-3 mx-2">
                 <div class="col-6">
                   <input type="text" class="form-control" v-model="racikan.pulv" placeholder="M. F. Pulv">
                 </div>
                 <div class="col-5">
                   <input type="text" class="form-control" v-model="racikan.signa" placeholder="Signa">
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -97,11 +105,11 @@
     data() {
       return {
         pasien_rekmed: [],
-        racikan_obat: [{
+        racikan: [{
+          racikan_obat: [{
           nama_obat: '',
           jumlah: ''
-        }],
-        racikan: [{
+          }],
           pulv: '',
           signa: ''
         }]
@@ -116,7 +124,7 @@
     },
     methods: {
       tambahObat() {
-        this.racikan_obat.push({
+        this.racikan.racikan_obat.push({
           nama_obat: '',
           jumlah: ''
         })
@@ -128,7 +136,7 @@
         })
       },
       hapusObat(indexObat) {
-        this.racikan_obat.splice(indexObat, 1);
+        this.racikan.racikan_obat.splice(indexObat, 1);
       },
       hapusRacikan(indexRacikan) {
         this.racikan.splice(indexRacikan, 1);

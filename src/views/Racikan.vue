@@ -31,29 +31,26 @@
           </router-link>
         </div>
       </div>
-      <div class="card mb-2 mt-2" v-for="(racikan, indexRacikan) in racikan" v-bind:key="indexRacikan">
+      <form>
+      <div class="card mb-2 mt-2">
         <div class="card-body plan-card-kotak" id="card-racikan">
           <div class="row">
             <div class="col-md-12 mb-3">
               <div class="card-header font-weight-bold bg-dark text-white">
                 <div class="row">
-                  <div class="col-11">Racikan ({{ indexRacikan+1 }})</div>
-                  <div class="col-1">
-                    <button type="button" @click="hapusRacikan(indexRacikan)" class="btn btn-danger"><i
-                        style="float: left;" class="fa fa-times"></i></button>
-                  </div>
+                  <div class="col-11">Racikan</div>
                 </div>
               </div>
               <div class="obat_scroll">
-                <div class="row my-3 mx-2" v-for="(obat, indexObat) in racikan" v-bind:key="indexObat">
+                <div class="row my-3 mx-2" v-for="(racikan_obat, indexObat) in obat" v-bind:key="indexObat">
                   <div class="col-6">
-                    <input type="text" class="form-control" v-model="obat.racikan_obat[indexObat].nama_obat" placeholder="Nama Obat">
+                    <input type="text" class="form-control" v-model="racikan_obat.nama_obat" placeholder="Nama Obat">
                   </div>
                   <div class="col-5">
-                    <input type="text" class="form-control" v-model="obat.racikan_obat[indexObat].jumlah" placeholder="Jumlah">
+                    <input type="text" class="form-control" v-model="racikan_obat.jumlah" placeholder="Jumlah">
                   </div>
                   <div class="col-1">
-                    <button type="button" @click="hapusObat(indexObat)" class="btn btn-danger"><i style="float: left;"
+                    <button type="button" @click="hapusObat(racikan_obat.id_obat, indexObat)" class="btn btn-danger"><i style="float: left;"
                         class="fa fa-times"></i></button>
                   </div>
                 </div>
@@ -72,14 +69,15 @@
                       class="fa fa-plus-circle"></i></button>
                 </div>
               </div> -->
-              <!-- <div class="row my-3 mx-2">
+              <br>
+              <div class="row my-3 mx-2">
                 <div class="col-6">
                   <input type="text" class="form-control" v-model="racikan.pulv" placeholder="M. F. Pulv">
                 </div>
                 <div class="col-5">
                   <input type="text" class="form-control" v-model="racikan.signa" placeholder="Signa">
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
@@ -90,6 +88,7 @@
               class="fa fa-plus-circle"></i></button>
         </div>
       </div>
+  </form>
     </div>
   </div>
 </template>
@@ -104,15 +103,21 @@
     },
     data() {
       return {
-        pasien_rekmed: [],
-        racikan: [{
-          racikan_obat: [{
-          nama_obat: '',
-          jumlah: ''
-          }],
-          pulv: '',
-          signa: ''
-        }]
+        pasien_rekmed : [],
+        obat : [{
+          id_obat : Math.random(),
+          nama_obat : '',
+          jumlah : '',
+        }],
+        racikan : {
+          id_racikan : '',
+          pulv : '',
+          signa : '',
+          obat : []
+        },
+        kosong : [],
+        tampil_racikan : [],
+        tampil_obat : []
       }
     },
     async created() {
@@ -121,25 +126,56 @@
         return JSON.parse(y) || [];
       }
       this.pasien_rekmed = getData('pasien');
+      //this.tampil_racikan = getData('racikan');
+
+      //console.log('racikan', this.tampil_racikan)
     },
     methods: {
       tambahObat() {
-        this.racikan.racikan_obat.push({
+        this.obat.push ({
+          id_obat : Math.random(),
           nama_obat: '',
-          jumlah: ''
+          jumlah: ''      
         })
+
+        this.tampil_obat = [...this.obat];
+
+        this.$store.dispatch('tambahDataRacikanObat', this.tampil_obat);
+        localStorage.setItem('racikan_obat', JSON.stringify(this.tampil_obat));
+        console.log('tampil_obat',this.tampil_obat)
+        //this.obat.push(racikan_obat)
       },
       tambahRacikan() {
-        this.racikan.push({
-          pulv: '',
-          signa: ''
-        })
+        let racikan = {
+          'id_racikan' : Math.random(),
+          'pulv' : this.racikan.pulv,
+          'signa' : this.racikan.signa,
+          'obat' : [...this.tampil_obat]
+        }
+
+        //console.log(this.racikan.pulv)
+
+        this.tampil_racikan.push(racikan)
+
+        //this.tampil_racikan = [...this.racikan];
+        //this.obat.nama_obat = '';
+        this.racikan.pulv = ''
+        this.racikan.signa = ''
+        
+        this.$store.dispatch('tambahDataRacikan', this.tampil_racikan);
+        localStorage.setItem('racikan', JSON.stringify(this.tampil_racikan));
+        
+        console.log('tampil_racikan',this.tampil_racikan)
+
       },
-      hapusObat(indexObat) {
-        this.racikan.racikan_obat.splice(indexObat, 1);
-      },
-      hapusRacikan(indexRacikan) {
-        this.racikan.splice(indexRacikan, 1);
+      hapusObat(id, indexObat) {
+        this.tampil_obat.id_obat = id
+        this.obat.splice(indexObat, 1);
+
+        this.tampil_obat = [...this.obat]
+        this.$store.dispatch('tambahDataRacikanObat', this.tampil_obat);
+        localStorage.setItem('racikan_obat', JSON.stringify(this.tampil_obat));
+        console.log('tampil_obat hapus',this.tampil_obat)
       }
     }
   }

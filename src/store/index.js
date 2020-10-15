@@ -22,6 +22,9 @@ export default new Vuex.Store({
         edukasi : [],
       },
     },
+    obat : [],
+    racikan_obat : [],
+    racikan : [],
   	resep : {},
   	pasien : {},
     list_pasien : [],
@@ -87,6 +90,15 @@ export default new Vuex.Store({
     async tambahListAssesment({ commit }, list_assesment) {
       commit('setNewListAssesment', list_assesment);
     },
+    async tambahDataObat({ commit }, obat) {
+      commit('setNewObat', obat);
+    },
+    async tambahDataRacikanObat({ commit }, racikan_obat) {
+      commit('setNewRacikanObat', racikan_obat);
+    },
+    async tambahDataRacikan({ commit }, racikan) {
+      commit('setNewRacikan', racikan);
+    },
    /* simpan data*/
    async simpanDataPasien({ commit }, pasien) {
     commit('setDataPasien'. pasien);
@@ -111,6 +123,9 @@ export default new Vuex.Store({
     setNewPlanDiagnosis : (state, plan_diagnosis) => state.rekam_medis.plan.diagnosis = plan_diagnosis,
     setNewPlanTerapi : (state, plan_terapi) => state.rekam_medis.plan.terapi = plan_terapi,
     setNewPlanEdukasi : (state, plan_edukasi) => state.rekam_medis.plan.edukasi = plan_edukasi,
+    setNewObat : (state, obat) => state.obat = obat,
+    setNewRacikanObat : (state, racikan_obat) => state.racikan_obat = racikan_obat,
+    setNewRacikan : (state, racikan) => state.racikan = racikan,
 
     /*simpan data*/
     setDataPasien :(state, pasien) => state.pasien = pasien

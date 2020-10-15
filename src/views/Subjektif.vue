@@ -18,120 +18,96 @@
         <!-- <div class="col-md-4"><p class="h2 text-right my-3">Form Subjektif</p></div>
         <div class="col-md-4"><p class="h2 text-right my-3">Form Subjektif</p></div> -->
       </div>
-
-      <form>
-        <div class="form-inline mb-4">
-          <div class="row">
-
-            <div class="col col-md-6">
-              <router-link to="/riwayat_medis">
-                <div class="card border-left-danger shadow-none">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.nama}}</div>
-                    </div>
-                  </div>
-                </div>
-              </router-link>
-            </div>
-
+          <div class="row mb-4">
             <div class="col col-md-4">
               <router-link to="/riwayat_medis">
-                <div class="card border-left-danger shadow-none">
+                <div class="card border-left-primary shadow-none">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                      <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.ID }}</div>
+                      <div class="text-md font-weight-bold text-primary text-uppercase"> NAMA : {{ pasien_rekmed.nama}}</div>
                     </div>
                   </div>
                 </div>
               </router-link>
             </div>
-
-            <!-- <div class="col col-md-3">
-              <input type="text" v-model="subjektif" class="form-control mr-2" style="width: 23rem;"
-                id="cari_data_pasien" placeholder="Keluhan pasien">
-            </div>
-
             <div class="col col-md-3">
-              <button type="button" class="btn btn-success mr-2" style="margin-left: 10rem;width:10rem"
-                @click="tambahSubjektive()">Tambah <i class="fa fa-plus-circle"></i></button>
-            </div> -->
-
+              <router-link to="/riwayat_medis">
+                <div class="card border-left-primary shadow-none">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="text-md font-weight-bold text-primary text-uppercase">ID PASIEN : {{ pasien_rekmed.ID }}</div>
+                    </div>
+                  </div>
+                </div>
+              </router-link>
+            </div>
           </div>
-        </div>
 
         <div class="card" id="subjektif-page">
           <div class="card-header bg-dark">
             <i style="float: left;" class="fa fa-id-card"></i>
           </div>
-          <div class="row my-2 mx--2">
+          <div class="row my-4 mx-2">
             <div class="col col-md-6">
-              <input type="text" v-model="subjektif" class="form-control mr-2" style="width: 23rem;"
-                id="cari_data_pasien" placeholder="Keluhan pasien">
-            </div>
-
-            <div class="col col-md-6">
-              <button type="button" class="btn btn-success mr-2" style="margin-left: 10rem;width:10rem"
-                @click="tambahSubjektive()">Tambah <i class="fa fa-plus-circle"></i></button>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-6 my-2">
-                <div class="card">
-                  <div class="card-body">
-                    <ul class="list-group list-group-flush" v-for="(row, index) in rekmed_subjektif" v-bind:key="index">
-                      <li class="list-group-item">{{ row.subjective }}<span><button
-                            class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal"
-                            data-target="#hapus_subjektif" @click="getIdSubjektif(row.id_subjective)"><i
-                              style="float: left;" class="fa fa-times"></i></button></span></li>
-                    </ul>
-                  </div>
+              <div class="row my-2">
+                <div class="col col-md-10">
+                  <input type="text" v-model="subjektif" class="form-control" style="width: 25rem;" id="cari_data_pasien" placeholder="Keluhan pasien">
+                </div>
+                <div class="col col-md-2">
+                  <button type="button" class="btn btn-success" @click="tambahSubjektive()"><i class="fa fa-plus-circle"></i></button>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="row my-3">
+                <div class="col col-md-12">
+                  <div class="card" style="width: 97%">
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush" v-for="(row, index) in rekmed_subjektif" v-bind:key="index">
+                        <li class="list-group-item">{{ row.subjective }}<span><button class="btn btn-danger btn-sm float-right" type="button" data-toggle="modal" data-target="#hapus_subjektif" @click="getIdSubjektif(row.id_subjective)"><i style="float: left;" class="fa fa-times"></i></button></span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>              
+                </div>
+              </div>
+            </div>
+            <div class="col col-md-6">
                 <div class="row text-right">
                   <div class="col-2 my-2">
-                    <span class="badge badge-pill badge-success py-1"><span class="pr-1">+</span> Demam</span>
+                    <span class="badge badge-pill badge-success py-1">Demam <span class="pr-1">+</span> </span>
                   </div>
                   <div class="col-2 my-2">
-                    <span class="badge badge-pill badge-success py-1"><span class="pr-1">+</span> Pusing</span>
+                    <span class="badge badge-pill badge-success py-1">Pusing <span class="pr-1">+</span> </span>
                   </div>
                   <div class="col-2 my-2">
-                    <span class="badge badge-pill badge-success py-1"><span class="pr-1">+</span> Mual</span>
+                    <span class="badge badge-pill badge-success py-1">Mual <span class="pr-1">+</span></span>
                   </div>
                   <div class="col-4 my-2">
-                    <span class="badge badge-pill badge-success py-1"><span class="pr-1">+</span> Batuk tak
-                      berdahak</span>
+                    <span class="badge badge-pill badge-success py-1">Batuk tak berdahak <span class="pr-1">+</span></span>
                   </div>
                   <div class="col-4 my-2">
-                    <span class="badge badge-pill badge-success py-1"><span class="pr-1">+</span> Galau sepanjang
-                      hari</span>
+                    <span class="badge badge-pill badge-success py-1">Galau sepanjang hari <span class="pr-1">+</span></span>
                   </div>
                   <div class="col-5 my-2">
-                    <span class="badge badge-pill badge-success py-1"><span class="pr-1">+</span> Meringis menatap
-                      nasib</span>
+                    <span class="badge badge-pill badge-success py-1">Meringis menatap nasib <span class="pr-1">+</span></span>
                   </div>
                   <div class="col-4 my-2">
-                    <span class="badge badge-pill badge-success py-1"><span class="pr-1">+</span> Pasrah atas
-                      takdir</span>
+                    <span class="badge badge-pill badge-success py-1">Pasrah atas takdir <span class="pr-1">+</span></span>
                   </div>
                   <div class="col-2 my-2">
-                    <span class="badge badge-pill badge-success"><span class="pr-1">+</span> Jalani aja</span>
+                    <span class="badge badge-pill badge-success">Jalani aja <span class="pr-1">+</span></span>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col">
+          <div class="col-9"></div>
+          <div class="col-3">
             <button type="button" data-toggle="modal" data-target="#proses_subjektif"
               @click="getIdPasien(pasien_rekmed.ID)" class="btn btn-info my-3">Simpan dan lanjutkan <i
                 class="fa fa-arrow-right"></i></button>
           </div>
         </div>
-      </form>
 
       <!-- Modal Hapus -->
       <div class="modal fade" id="hapus_subjektif" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -144,12 +120,12 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body text-danger">
+            <div class="modal-body text-dark">
               Yakin nih mau hapus aku?
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger" @click="hapusSubjective()"
+              <button type="button" class="btn btn-outline-danger" @click="hapusSubjective()"
                 data-dismiss="modal">Hapus</button>
             </div>
           </div>
@@ -171,7 +147,7 @@
               Yakin nih mau proses selanjutnya ke objective ?
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-info" @click="prosesObjektif()"
                 data-dismiss="modal">Oke</button>
             </div>

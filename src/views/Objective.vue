@@ -9,76 +9,117 @@
 
       <!-- Infodata -->
       <!-- <InfoData /> -->
-
-      <h2 class="my-3 font-weight-bold">Form Anamnesis Pasien</h2>
-      <form>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputEmail4">Nadi</label>
-            <input type="text" class="form-control" v-model="anamnesis.nadi">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputPassword4">Tekanan Darah</label>
-            <input type="text" class="form-control" v-model="anamnesis.tekanan_darah">
-          </div>
+      <div class="row">
+        <div class="col col-md-12">
+          <h2 class="my-3 font-weight-bold">Form Objektif Pasien</h2>
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputEmail4">Suhu Tubuh</label>
-            <input type="text" class="form-control" v-model="anamnesis.suhu_tubuh">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputPassword4">Respirator Rate</label>
-            <input type="text" class="form-control" v-model="anamnesis.respirator_rate">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputEmail4">Berat Badan</label>
-            <input type="text" class="form-control" v-model="anamnesis.berat_badan">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputPassword4">Tinggi Badan</label>
-            <input type="text" class="form-control" v-model="anamnesis.tinggi_badan">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label for="exampleFormControlTextarea1">Hasil Pemeriksaan</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="anamnesis.hasil_pemeriksaan"></textarea>
-          </div>
-        </div>
-
-          <div class="row">
-            <div class="col">
-              <div class="card border-left-danger shadow-none">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.nama }}</div>
+      </div>
+      <div class="row mb-4">
+            <div class="col col-md-4">
+              <router-link to="/riwayat_medis">
+                <div class="card border-left-primary shadow-none">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="text-md font-weight-bold text-primary text-uppercase"> NAMA : {{ pasien_rekmed.nama}}</div>
+                    </div>
                   </div>
+                </div>
+              </router-link>
+            </div>
+            <div class="col col-md-3">
+              <router-link to="/riwayat_medis">
+                <div class="card border-left-primary shadow-none">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="text-md font-weight-bold text-primary text-uppercase">ID PASIEN : {{ pasien_rekmed.ID }}</div>
+                    </div>
+                  </div>
+                </div>
+              </router-link>
+            </div>
+          </div>
+      <div class="card my-3">
+        <div class="card-header bg-dark">
+          <i style="float: left;" class="fa fa-id-card"></i>
+        </div>
+          <div class="form-row my-3 p-4">
+            <div class="col-md-4">
+              <label for="inputEmail4">Nadi</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" v-model="anamnesis.nadi">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2">x/min</span>
+                </div>  
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="inputPassword4">Tekanan Darah</label>
+              <div class="input-group">
+                <input type="text" class="form-control" v-model="anamnesis.tekanan_darah">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2">mmHg</span>
+                </div> 
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="inputEmail4">Suhu Tubuh</label>
+              <div class="input-group">
+                <input type="text" class="form-control" v-model="anamnesis.suhu_tubuh">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2">°C</span>
+                </div> 
+              </div>
+            </div>
+          </div>
+          <div class="form-row p-4">
+            <div class="col-md-4">
+              <label for="inputPassword4">Respirator Rate</label>
+              <div class="input-group">
+                <input type="text" class="form-control" v-model="anamnesis.respirator_rate">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2">x/min</span>
                 </div>
               </div>
             </div>
-
-            <div class="col col-lg-3">
-              <div class="card border-left-danger shadow-none">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.ID }}</div>
-                  </div>
+            <div class="col-md-4">
+              <label for="inputEmail4">Berat Badan</label>
+              <div class="input-group">
+                <input type="text" class="form-control" v-model="anamnesis.berat_badan">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2">kg</span>
                 </div>
               </div>
             </div>
-
-            <div class="col col-lg-1">
-              <button type="reset" class="btn btn-secondary float-right">Reset</button>
-            </div>
-            <div class="col col-lg-2">
-              <button type="button" @click="tambahObjektif()" class="btn btn-success btn-block float-right">simpan</button>
+            <div class="col-md-4">
+              <label for="inputPassword4">Tinggi Badan</label>
+              <div class="input-group">
+                <input type="text" class="form-control" v-model="anamnesis.tinggi_badan">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2">cm</span>
+                </div>
+              </div>
             </div>
           </div>
-          
-      </form>
+          <div class="form-row p-4">
+            <div class="form-group col-md-12">
+              <label for="exampleFormControlTextarea1">Hasil Pemeriksaan</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="anamnesis.hasil_pemeriksaan"></textarea>
+            </div>
+          </div>
+
+            <div class="row">
+              <div class="col">
+              </div>
+              <div class="col col-lg-3">
+              </div>
+              <div class="col col-lg-1">
+                <button type="reset" class="btn btn-secondary float-right">Reset</button>
+              </div>
+              <div class="col col-lg-2">
+                <button type="button" @click="tambahObjektif()" class="btn btn-success btn-block float-right">simpan</button>
+              </div>
+            </div>
+      </div>
     </div>
   </div>
 </template>
@@ -145,10 +186,16 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  border: 1px solid #eeeeee;
-}
-.card-body {
-  padding: 8px 12px;
-}
+#subjektif-page {
+    overflow-y: scroll;
+    height: 400px;
+  }
+
+  .card {
+    border: 1px solid #eeeeee;
+  }
+
+  .card-body {
+    padding: 6px 12px;
+  }
 </style>

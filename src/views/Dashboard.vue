@@ -46,13 +46,13 @@
             <th>Aksi</th>
           </thead>
           <tbody>
-            <tr data-toggle="modal" data-target="#tambah_antrian" @click="getPasienID(pasien.ID, pasien.nama)" class="text-center" v-for="(pasien, index) in pasien_cocok" v-bind:key="index">
+            <tr @click="tambahAntrianPasien(pasien.ID, pasien.nama)" class="text-center" v-for="(pasien, index) in pasien_cocok" v-bind:key="index">
               <td>{{pasien.NIK}}</td>
               <td>{{pasien.nama}}</td>
               <td>{{pasien.no_telp}}</td>
               <td>{{pasien.alamat}}</td>
               <td>
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah_antrian" @click="getPasienID(pasien.ID, pasien.nama)">Tambah</button>
+                  <button type="button" class="btn btn-primary" @click="tambahAntrianPasien(pasien.ID, pasien.nama)">Tambah</button>
               </td>
             </tr>
           </tbody>
@@ -69,12 +69,12 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body text-success">
+            <div class="modal-body text-dark">
               Pastikan pak dokter udah siap ya!
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" @click="proses_pasien()" data-dismiss="modal" class="btn btn-success">Proses</button>
+              <button type="button" @click="proses_pasien()" data-dismiss="modal" class="btn btn-info">OK</button>
             </div>
           </div>
         </div>
@@ -90,19 +90,19 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body text-danger">
+            <div class="modal-body text-dark">
               Yakin nih mau hapus aku?
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal" @click="hapusAntrianPasien()">Hapus</button>
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal" @click="hapusAntrianPasien()">Hapus</button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Modal tambah antrian -->
-      <div class="modal fade" id="tambah_antrian" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <!-- <div class="modal fade" id="tambah_antrian" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -120,7 +120,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
     </div>
   </div>
@@ -215,10 +215,12 @@ export default {
       this.$store.dispatch('tambahListAntrian', this.list_antrian)
       localStorage.setItem('list_antrian', JSON.stringify(this.list_antrian));
     },
-    tambahAntrianPasien() {
+    tambahAntrianPasien(id, nama = null) {
+      this.ID_pasien = id
+      if(nama) this.nama_pasien_antri = nama;
       let temp_list_antrian = {
-          'ID_pasien': this.ID_pasien,
-          'nama': this.nama_pasien_antri,
+          'ID_pasien': id,
+          'nama': nama,
           'status': 'Menunggu'
       };
 

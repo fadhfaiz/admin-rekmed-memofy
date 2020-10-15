@@ -50,29 +50,35 @@
                     <input type="text" class="form-control" v-model="resep.nama_obat" placeholder="Nama Obat">
                   </div>
                   <div class="col-4">
-                    <input type="text" class="form-control" v-model="resep.sinma" placeholder="Signa">
+                    <input type="text" class="form-control" v-model="resep.signa" placeholder="Signa">
                   </div>
                   <div class="col-3">
                     <input type="text" class="form-control" v-model="resep.jumlah" placeholder="Jumlah">
                   </div>
                   <div class="col-1">
-                    <button type="button" @click="hapusResep(index)" class="btn btn-danger"><i style="float: left;"
+                    <button type="button" @click="hapusResep(resep.id_obat, index)" class="btn btn-danger"><i style="float: left;"
                         class="fa fa-times"></i></button>
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="mx-auto">
-                  <button type="button" @click="tambahResep()" class="btn btn-success">Resep <i
-                      class="fa fa-plus-circle"></i></button>
-                </div>
+              <div class="row my-3 mx-2">
+                <div class="col-4">
+                    <input type="text" class="form-control" @click="tambahResep()" placeholder="Nama Obat" readonly>
+                  </div>
+                  <div class="col-4">
+                    <input type="text" class="form-control" placeholder="Signa" readonly>
+                  </div>
+                  <div class="col-3">
+                    <input type="text" class="form-control" placeholder="Jumlah" readonly>
+                  </div>
+                  
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="row my-3 mx-2">
-        <router-link to="/racikan"><button type="button" class="btn btn-success">Simpan dan tambah racikan</button>
+        <router-link to="/racikan"><button type="button" @click="simpanObat()" class="btn btn-success">Simpan dan tambah racikan</button>
         </router-link>
       </div>
     </div>
@@ -92,12 +98,14 @@
     },
     data() {
       return {
-        pasien_rekmed: [],
-        obat: [{
-          nama_obat: '',
-          jumlah: '',
-          signa: ''
-        }]
+        pasien_rekmed : [],
+        obat : [{
+          id_obat : Math.random(),
+          nama_obat : '',
+          jumlah : '',
+          signa : ''
+        }],
+        tampil_obat : [] 
       }
     },
     async created() {
@@ -110,14 +118,31 @@
     methods: {
       tambahResep() {
         this.obat.push({
-          nama_obat: '',
-          jumlah: '',
-          signa: ''
+          id_pasien : this.pasien_rekmed.ID,
+          id_obat : Math.random(),
+          nama_obat : '',
+          jumlah : '',
+          signa : ''
         })
+        this.tampil_obat = [...this.obat];
+
+        this.$store.dispatch('tambahDataObat', this.tampil_obat);
+        localStorage.setItem('obat', JSON.stringify(this.tampil_obat));
+        console.log(this.tampil_obat)
       },
-      hapusResep(index) {
-        this.obat.splice(index, 1);
+      hapusResep(id_obat,index) {
+        this.obat.id_obat = id_obat
+        this.obat.splice(index,1)
+
+        this.tampil_obat = [...this.obat]
+        this.$store.dispatch('tambahDataObat', this.tampil_obat);
+        localStorage.setItem('obat', JSON.stringify(this.tampil_obat));
+        console.log(this.tampil_obat)
+
       },
+      simpanObat() {
+        console.log(this.tampil_obat)
+      }
     }
   }
 

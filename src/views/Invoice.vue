@@ -10,11 +10,11 @@
               <tbody>
                 <tr>
                   <th>Nama</th>
-                  <td>: Insan Carono</td>
+                  <td>: {{ pasien_rekmed.nama }}</td>
                 </tr>
                 <tr>
                   <th>Nomor Rekam Medis</th>
-                  <td>: RM001</td>
+                  <td>: {{ pasien_rekmed.ID }}</td>
                 </tr>
                 <tr>
                   <th>Status BPJS</th>
@@ -22,7 +22,7 @@
                 </tr>
                 <tr>
                   <th>Tanggal</th>
-                  <td>: 24 Oktober 2020</td>
+                  <td>: {{ pasien_rekmed.created_at }}</td>
                 </tr>
               </tbody>
             </table>
@@ -31,11 +31,23 @@
             <div class="card">
               <ul class="list-group">
               <li class="list-group-item font-weight-bold text-center">Subjektif</li>
-              <li class="list-group-item">ALorem Ipsum</li>
+                <div class="px-5" v-for="(sub, index) in subjektif" v-bind:key="index">
+                  <span>{{ index+1 }}. {{ sub.subjective }}</span><br>
+                </div>
               <li class="list-group-item font-weight-bold text-center">Objektif</li>
-              <li class="list-group-item">ALorem Ipsum</li>
+                <div class="px-5 my-2" v-for="(obj, index) in objektif" v-bind:key="index">
+                  <span> Nadi : {{ obj.nadi }}</span><br>
+                  <span> Tekanan Darah : {{ obj.tekanan_darah }}</span><br>
+                  <span> Suhu Tubuh : {{ obj.suhu_tubuh }}</span><br>
+                  <span> Respirator Rate : {{ obj.respirator_rate }}</span><br>
+                  <span> Berat Badan : {{ obj.berat_badan }}</span><br>
+                  <span> Tinggi Badan : {{ obj.tinggi_badan }}</span><br>
+                  <span> Hasil Pemeriksaan : {{ obj.hasil_pemeriksaan }}</span>
+                </div>
               <li class="list-group-item font-weight-bold text-center">Assesment</li>
-              <li class="list-group-item">ALorem Ipsum</li>
+                <div class="px-5" v-for="(ass, index) in assesment" v-bind:key="index">
+                  <span>{{ index+1 }}. {{ ass.nama_diagnosis }}</span><br>
+                </div>
               <li class="list-group-item font-weight-bold text-center">Planning</li>
               <li class="list-group-item">ALorem Ipsum</li>
               <li class="list-group-item font-weight-bold text-center">Resep</li>
@@ -55,11 +67,11 @@
               <tbody>
                 <tr>
                   <th>Nama</th>
-                  <td>: Insan Carono</td>
+                  <td>: {{ pasien_rekmed.nama }}</td>
                 </tr>
                 <tr>
                   <th>Nomor Rekam Medis</th>
-                  <td>: RM001</td>
+                  <td>: {{ pasien_rekmed.ID }}</td>
                 </tr>
               </tbody>
             </table>
@@ -79,6 +91,30 @@
     name: 'invoice',
     components: {
       SidebarNav
+    },
+    data() {
+      return {
+        pasien_rekmed : [],
+        subjektif : [],
+        objektif : [],
+        assesment : []
+      }
+    },
+    async created() {
+      const getData = (x) => {
+        let y = localStorage.getItem(x);
+        return JSON.parse(y) || [];
+      }
+      this.pasien_rekmed = getData('pasien');
+      this.subjektif = getData('subjective');
+      this.objektif = getData('objektive');
+      this.assesment = getData('list_assesment');
+      //this.tampil_racikan = getData('racikan');
+
+      console.log('pasien', this.pasien_rekmed)
+      console.log('subjektif', this.subjektif)
+      console.log('objektif', this.objektif)
+      console.log('assesment', this.assesment)
     }
   }
 </script>

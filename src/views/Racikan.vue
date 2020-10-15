@@ -127,13 +127,42 @@
               class="fa fa-plus-circle"></i></button>
         </div>
       </div>
-  </form>
+      </form>
+      <div class="row my-3">
+        <div class="col-9"></div>
+        <div class="col-3">
+          <button type="button" data-toggle="modal" data-target="#proses_invoice" class="btn btn-info">Simpan dan lanjutkan <i class="fa fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <!-- Modal proses selanjutnya -->
+      <div class="modal fade" id="proses_invoice" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">lanjut ke proses invoice</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-dark">
+              Yakin nih mau proses selanjutnya ke invoice ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-info" @click="prosesTransaksi()"
+                data-dismiss="modal">Oke</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 /*eslint-disable*/
   import SidebarNav from '@/components/SidebarNav.vue'
+  import axios from 'axios'
 
   export default {
     name: 'racikan',
@@ -197,7 +226,7 @@
         this.tampil_racikan.push(racikan)
 
         //this.tampil_racikan = [...racikan];
-        //this.obat.nama_obat = '';
+        //this.racikan.obat.nama_obat = ''
         this.racikan.pulv = ''
         this.racikan.signa = ''
         
@@ -233,6 +262,21 @@
         //let obattt = [...this.tampil_racikan.obat]
         
         console.log('tampil_racikan hapus',this.tampil_racikan)
+      },
+      async loadPasien(id = null) {
+        if (id) {
+          return await axios.get('http://localhost/rekmed-server/api/v1/Registrasi/get/' + id).then(res => res.data)
+        } else {
+          return await axios.get('http://localhost/rekmed-server/api/v1/Registrasi/get').then(res => res.data)
+        }
+      },
+      async prosesTransaksi() {
+        let pasien = await this.loadPasien(this.pasien_rekmed.ID)
+        if (pasien) {
+          this.$store.dispatch('simpanDataPasien', pasien)
+          localStorage.setItem('pasien', JSON.stringify(pasien));
+          this.$router.push('/invoice')
+        }
       }
     }
   }

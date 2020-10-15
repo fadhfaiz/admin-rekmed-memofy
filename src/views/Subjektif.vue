@@ -190,7 +190,7 @@
         return JSON.parse(y) || [];
       }
 
-      this.rekmed_subjektif = getData('subjective');
+      //this.rekmed_subjektif = getData('subjective');
       this.pasien_rekmed = getData('pasien');
 
       console.log('pasien_rekmed', this.pasien_rekmed)

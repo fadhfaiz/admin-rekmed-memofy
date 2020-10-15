@@ -12,25 +12,29 @@
       <!-- <h3>ID Pasien : {{ pasien_rekmed.ID }}  </h3>
       <h3>Nama Pasien : {{ pasien_rekmed.nama}}</h3> -->
       <h2 class="my-3 font-weight-bold">Form Assesment</h2>
-      <div class="row mb-2">
-        <div class="col-4">
-          <div class="card border-left-danger shadow-none">
-            <div class="card-body">
-              <div class="row no-gutters align-items-center">
-                <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.nama }}</div>
-              </div>
+      <div class="row mb-4">
+            <div class="col col-md-4">
+              <router-link to="/riwayat_medis">
+                <div class="card border-left-primary shadow-none">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="text-md font-weight-bold text-primary text-uppercase"> NAMA : {{ pasien_rekmed.nama}}</div>
+                    </div>
+                  </div>
+                </div>
+              </router-link>
             </div>
-          </div>
-        </div>
-        <div class="col-2">
-          <div class="card border-left-danger shadow-none">
-            <div class="card-body">
-              <div class="row no-gutters align-items-center">
-                <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.ID }}</div>
-              </div>
+            <div class="col col-md-3">
+              <router-link to="/riwayat_medis">
+                <div class="card border-left-primary shadow-none">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="text-md font-weight-bold text-primary text-uppercase">ID PASIEN : {{ pasien_rekmed.ID }}</div>
+                    </div>
+                  </div>
+                </div>
+              </router-link>
             </div>
-          </div>
-        </div>
       </div>
       <div class="row">
         <div class="col-md-6">
@@ -99,8 +103,9 @@
         </div>
       </div>
       <div class="row">
-          <div class="col">
-            <button type="button" data-toggle="modal" data-target="#proses_assesment" @click="getIdPasien(pasien_rekmed.ID)" class="btn btn-warning mr-2" >Simpan dan lanjutkan <i
+          <div class="col-9"></div>
+          <div class="col-3 my-3">
+            <button type="button" data-toggle="modal" data-target="#proses_assesment" @click="getIdPasien(pasien_rekmed.ID)" class="btn btn-info mr-2" >Simpan dan lanjutkan <i
                 class="fa fa-arrow-right"></i></button>
           </div>
       </div>
@@ -135,12 +140,12 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body text-success">
+            <div class="modal-body">
               Yakin nih mau proses selanjutnya ke plan ?
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-outline-success" @click="prosesAssesment()" data-dismiss="modal">Oke</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-info" @click="prosesAssesment()" data-dismiss="modal">Oke</button>
             </div>
           </div>
         </div>
@@ -175,7 +180,7 @@ export default {
       let y = localStorage.getItem(x);
       return JSON.parse(y) || [];
     }
-    this.assesment_terpilih = getData('list_assesment');
+    //this.assesment_terpilih = getData('list_assesment');
     this.pasien_rekmed = getData('pasien');
     this.tampil_assesment = await this.tampilAssesment();
     

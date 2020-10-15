@@ -6,32 +6,71 @@
     <!-- Page Content -->
     <div id="content" class="mb-3">
       <h2 class="my-3 font-weight-bold">Form Racikan Resep Dokter</h2>
-      <div class="row">
-        <div class="col-4">
+      <div class="row mb-4">
+        <div class="col col-md-4">
           <router-link to="/riwayat_medis">
-            <div class="card border-left-danger shadow-none">
+            <div class="card border-left-primary shadow-none">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
-                  <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.nama }}</div>
-                </div>
-              </div>
+                  <div class="text-md font-weight-bold text-primary text-uppercase"> NAMA : {{ pasien_rekmed.nama}}</div>
+               </div>
+             </div>
             </div>
           </router-link>
-        </div>
-
-        <div class="col-2">
+         </div>
+         <div class="col col-md-3">
           <router-link to="/riwayat_medis">
-            <div class="card border-left-danger shadow-none">
+            <div class="card border-left-primary shadow-none">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
-                  <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.ID }}</div>
+                 <div class="text-md font-weight-bold text-primary text-uppercase">ID PASIEN : {{ pasien_rekmed.ID }}</div>
                 </div>
               </div>
-            </div>
+             </div>
           </router-link>
         </div>
       </div>
       <form>
+      <div class="card mb-2 mt-2">
+        <div class="card-body plan-card-kotak" id="card-racikan">
+          <div class="card-header font-weight-bold bg-dark text-white">
+            <div class="row">
+              <div class="col-11">Racikan Tersimpan</div>
+            </div>
+          </div>
+          <div class="card my-3">
+            <ul v-for="(list_racikan, indexRacikan) in tampil_racikan" v-bind:key="indexRacikan" class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="row my-3">
+                  <div class="col-2">
+                    <span>M. F. Pulv : {{ list_racikan.pulv }}</span>
+                  </div>
+                  <div class="col-9">
+                    <span>Signa : {{ list_racikan.signa }}</span>
+                  </div>
+                  <div class="col-1">
+                    <button type="button" @click="hapusRacikan(list_racikan.id_racikan, indexRacikan)" class="btn btn-danger"><i style="float: left;"
+                        class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <!-- <span>Signa : {{ list_racikan.obat }}</span> -->
+                <ul class="list-group" v-for="(list_obat, index) in list_racikan.obat" v-bind:key="index">
+                  <li class="list-group-item">
+                    <div class="row my-3">
+                      <div class="col-4">
+                        <span>Nama Obat : {{ list_obat.nama_obat }}</span>
+                      </div>
+                      <div class="col-4">
+                        <span>Jumlah : {{ list_obat.jumlah }}</span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+           </ul>
+          </div>
+        </div>
+      </div>
       <div class="card mb-2 mt-2">
         <div class="card-body plan-card-kotak" id="card-racikan">
           <div class="row">
@@ -142,7 +181,7 @@
 
         this.$store.dispatch('tambahDataRacikanObat', this.tampil_obat);
         localStorage.setItem('racikan_obat', JSON.stringify(this.tampil_obat));
-        console.log('tampil_obat',this.tampil_obat)
+        //console.log('tampil_obat',this.tampil_obat)
         //this.obat.push(racikan_obat)
       },
       tambahRacikan() {
@@ -157,15 +196,18 @@
 
         this.tampil_racikan.push(racikan)
 
-        //this.tampil_racikan = [...this.racikan];
+        //this.tampil_racikan = [...racikan];
         //this.obat.nama_obat = '';
         this.racikan.pulv = ''
         this.racikan.signa = ''
         
         this.$store.dispatch('tambahDataRacikan', this.tampil_racikan);
         localStorage.setItem('racikan', JSON.stringify(this.tampil_racikan));
+
+        //let obattt = [...this.tampil_racikan.obat]
         
         console.log('tampil_racikan',this.tampil_racikan)
+        //console.log('obatt', obattt)
 
       },
       hapusObat(id, indexObat) {
@@ -176,6 +218,21 @@
         this.$store.dispatch('tambahDataRacikanObat', this.tampil_obat);
         localStorage.setItem('racikan_obat', JSON.stringify(this.tampil_obat));
         console.log('tampil_obat hapus',this.tampil_obat)
+      },
+      hapusRacikan(id_racikan, indexRacikan) {
+        this.tampil_racikan.id_racikan = id_racikan
+
+        let list_racikan = [...this.tampil_racikan];
+        this.tampil_racikan = list_racikan.filter(res => {
+          return res.id_racikan != this.tampil_racikan.id_racikan
+        });
+
+        this.$store.dispatch('tambahDataRacikan', this.tampil_racikan);
+        localStorage.setItem('racikan', JSON.stringify(this.tampil_racikan));
+
+        //let obattt = [...this.tampil_racikan.obat]
+        
+        console.log('tampil_racikan hapus',this.tampil_racikan)
       }
     }
   }

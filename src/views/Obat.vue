@@ -12,28 +12,27 @@
       <h3>Nama Pasien : {{ pasien_rekmed.nama}}</h3>
       <br> -->
       <h2 class="my-3 font-weight-bold">Form Resep Dokter</h2>
-      <div class="row">
-        <div class="col-4 mb-3">
+      <div class="row mb-4">
+        <div class="col col-md-4">
           <router-link to="/riwayat_medis">
-            <div class="card border-left-danger shadow-none">
+            <div class="card border-left-primary shadow-none">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
-                  <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.nama }}</div>
-                </div>
-              </div>
+                  <div class="text-md font-weight-bold text-primary text-uppercase"> NAMA : {{ pasien_rekmed.nama}}</div>
+               </div>
+             </div>
             </div>
           </router-link>
-        </div>
-
-        <div class="col-2 mb-3">
+         </div>
+         <div class="col col-md-3">
           <router-link to="/riwayat_medis">
-            <div class="card border-left-danger shadow-none">
+            <div class="card border-left-primary shadow-none">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
-                  <div class="text-md font-weight-bold text-danger text-uppercase">{{ pasien_rekmed.ID }}</div>
+                 <div class="text-md font-weight-bold text-primary text-uppercase">ID PASIEN : {{ pasien_rekmed.ID }}</div>
                 </div>
               </div>
-            </div>
+             </div>
           </router-link>
         </div>
       </div>
@@ -77,9 +76,12 @@
           </div>
         </div>
       </div>
-      <div class="row my-3 mx-2">
-        <router-link to="/racikan"><button type="button" @click="simpanObat()" class="btn btn-success">Simpan dan tambah racikan</button>
-        </router-link>
+      <div class="row my-3">
+        <div class="col-8"></div>
+        <div class="col-4" style="margin-left: 48rem">
+          <router-link to="/racikan"><button type="button" @click="simpanObat()" class="btn btn-info">Simpan dan tambah racikan</button>
+          </router-link>
+        </div>
       </div>
     </div>
 

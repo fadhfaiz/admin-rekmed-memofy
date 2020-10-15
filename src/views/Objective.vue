@@ -37,11 +37,12 @@
                 </div>
               </router-link>
             </div>
-          </div>
+      </div>
       <div class="card my-3">
         <div class="card-header bg-dark">
           <i style="float: left;" class="fa fa-id-card"></i>
         </div>
+        <form>
           <div class="form-row my-3 p-4">
             <div class="col-md-4">
               <label for="inputEmail4">Nadi</label>
@@ -116,9 +117,32 @@
                 <button type="reset" class="btn btn-secondary float-right">Reset</button>
               </div>
               <div class="col col-lg-2">
-                <button type="button" @click="tambahObjektif()" class="btn btn-success btn-block float-right">simpan</button>
+                <button type="button" data-toggle="modal" data-target="#proses_assesment" @click="tambahObjektif()" class="btn btn-success btn-block float-right">simpan</button>
               </div>
             </div>
+          </form>
+      </div>
+      <!-- Modal proses selanjutnya -->
+      <div class="modal fade" id="proses_assesment" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Simpan dan lanjut ke proses assesment</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-dark">
+              Yakin nih mau proses selanjutnya ke assesment ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-info" @click="prosesAssesment()"
+                data-dismiss="modal">Oke</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -128,6 +152,8 @@
 /*eslint-disable*/
 // @ is an alias to /src
 import SidebarNav from '@/components/SidebarNav.vue'
+import axios from 'axios'
+
 export default {
   name: 'anamnesis',
   components: {
@@ -172,14 +198,29 @@ export default {
 
       objektif.push(temp_rekmed_objektif);
 
-      this.$router.push('/assesment')
+      //this.$router.push('/assesment')
 
       this.$store.dispatch('tambahDataObjective', objektif);
       localStorage.setItem('objektive', JSON.stringify(objektif));
 
       this.rekmed_objektif = [...objektif];
       console.log('data rekmed objektif', this.rekmed_objektif)
-    }
+    },
+    async loadPasien(id = null) {
+        if (id) {
+          return await axios.get('http://localhost/rekmed-server/api/v1/Registrasi/get/' + id).then(res => res.data)
+        } else {
+          return await axios.get('http://localhost/rekmed-server/api/v1/Registrasi/get').then(res => res.data)
+        }
+    },
+    async prosesAssesment() {
+        let pasien = await this.loadPasien(this.pasien_rekmed.ID)
+        if (pasien) {
+          this.$store.dispatch('simpanDataPasien', pasien)
+          localStorage.setItem('pasien', JSON.stringify(pasien));
+          this.$router.push('/assesment')
+        }
+      }
   }
 }
 

@@ -41,6 +41,10 @@
           </router-link>
         </li>
         <li class="container">
+          <router-link to="/SOAP">SOAP <i style="float: right;" class="fas fa-angle-right mt-1"></i>
+          </router-link>
+        </li>
+        <li class="container">
           <router-link to="/obat">Obat <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
         </li>

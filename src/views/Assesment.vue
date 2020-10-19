@@ -211,7 +211,7 @@ export default {
         
           let temp_assesment = {
              'ID' : Math.random(),
-             'ID_pasien' : this.pasien_rekmed.ID,
+             //'ID_pasien' : this.pasien_rekmed.ID,
              'nama_diagnosis' : this.nama_diagnosis
           }
       
@@ -230,7 +230,7 @@ export default {
        
        let temp_assesment = {
              'ID' : Math.random(),
-             'ID_pasien' : this.pasien_rekmed.ID,
+             //'ID_pasien' : this.pasien_rekmed.ID,
              'nama_diagnosis' : this.nama_diagnosis
           }
       

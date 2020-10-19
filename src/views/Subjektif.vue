@@ -207,7 +207,7 @@
 
           let temp_rekmed_subjektif = {
             'id_subjective': Math.random(),
-            'id_pasien': this.pasien_rekmed.ID,
+            //'id_pasien': this.pasien_rekmed.ID,
             'subjective': this.subjektif,
           };
 

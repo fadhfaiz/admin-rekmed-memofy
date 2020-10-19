@@ -49,7 +49,12 @@
                   <span>{{ index+1 }}. {{ ass.nama_diagnosis }}</span><br>
                 </div>
               <li class="list-group-item font-weight-bold text-center">Planning</li>
-              <li class="list-group-item">ALorem Ipsum</li>
+              <li class="list-group-item">Rencana Diagnostik</li>
+                <div class="px-5" v-for="(diag, index) in plan_diagnosis" v-bind:key="index">
+                  <span>{{ index+1 }}. {{ diag.nama_diagnosis }}</span><br>
+                </div>
+              <li class="list-group-item">Rencana Terapi</li>
+              <li class="list-group-item">Rencana Edukasi</li>
               <li class="list-group-item font-weight-bold text-center">Resep</li>
               <li class="list-group-item">ALorem Ipsum</li>
               <li class="list-group-item font-weight-bold text-center">Total Pembayaran</li>
@@ -97,7 +102,10 @@
         pasien_rekmed : [],
         subjektif : [],
         objektif : [],
-        assesment : []
+        assesment : [],
+        plan_diagnosis : [],
+        plan_terapi : [],
+        plan_edukasi : []
       }
     },
     async created() {
@@ -109,12 +117,18 @@
       this.subjektif = getData('subjective');
       this.objektif = getData('objektive');
       this.assesment = getData('list_assesment');
+      //this.plan_diagnosis = getData('plan_diagnosis');
+      //this.plan_terapi = getData('plan_terapi');
+      //this.plan_edukasi = getData('plan_edukasi');
       //this.tampil_racikan = getData('racikan');
 
       console.log('pasien', this.pasien_rekmed)
       console.log('subjektif', this.subjektif)
       console.log('objektif', this.objektif)
       console.log('assesment', this.assesment)
+      //console.log('plan_diagnosis', this.plan_diagnosis)
+      //console.log('plan_terapi', this.plan_terapi)
+      //console.log('plan_edukasi', this.plan_edukasi)
     }
   }
 </script>

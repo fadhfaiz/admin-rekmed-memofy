@@ -30,7 +30,6 @@
           </router-link>
         </div>
       </div>
-      <form>
       <div class="card mb-2 mt-2">
         <div class="card-body plan-card-kotak" id="card-racikan">
           <div class="card-header font-weight-bold bg-dark text-white">
@@ -71,6 +70,7 @@
           </div>
         </div>
       </div>
+      <form>
       <div class="card mb-2 mt-2">
         <div class="card-body plan-card-kotak" id="card-racikan">
           <div class="row">
@@ -229,7 +229,8 @@
         //this.racikan.obat.nama_obat = ''
         this.racikan.pulv = ''
         this.racikan.signa = ''
-        
+        this.racikan.obat = this.kosong
+      
         this.$store.dispatch('tambahDataRacikan', this.tampil_racikan);
         localStorage.setItem('racikan', JSON.stringify(this.tampil_racikan));
 

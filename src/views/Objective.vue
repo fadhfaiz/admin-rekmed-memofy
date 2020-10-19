@@ -185,7 +185,7 @@ export default {
   methods: {
     async tambahObjektif() {
       let temp_rekmed_objektif = {
-        'id_pasien' : this.pasien_rekmed.ID,
+        //'id_pasien' : this.pasien_rekmed.ID,
         'nadi' : this.anamnesis.nadi,
         'tekanan_darah' : this.anamnesis.tekanan_darah,
         'suhu_tubuh' : this.anamnesis.suhu_tubuh,

@@ -542,7 +542,7 @@
 
           let temp_diagnosis = {
             'ID': Math.random(),
-            'ID_pasien': this.pasien_rekmed.ID,
+            //'ID_pasien': this.pasien_rekmed.ID,
             'nama_diagnosis': this.nama_diagnosis
           }
           this.diagnosis_terpilih.push(temp_diagnosis);
@@ -561,7 +561,7 @@
 
           let temp_terapi = {
             'ID': Math.random(),
-            'ID_pasien': this.pasien_rekmed.ID,
+            //'ID_pasien': this.pasien_rekmed.ID,
             'nama_terapi': this.nama_terapi,
             'biaya_terapi': this.biaya_terapi
           }
@@ -582,7 +582,7 @@
 
           let temp_edukasi = {
             'ID': Math.random(),
-            'ID_pasien': this.pasien_rekmed.ID,
+            //'ID_pasien': this.pasien_rekmed.ID,
             'nama_edukasi': this.nama_edukasi,
           }
           this.edukasi_terpilih.push(temp_edukasi);
@@ -601,7 +601,7 @@
         if (nama) this.nama_diagnosis = nama;
         let temp_diagnosis = {
           'ID': Math.random(),
-          'ID_pasien': this.pasien_rekmed.ID,
+          //'ID_pasien': this.pasien_rekmed.ID,
           'nama_diagnosis': this.nama_diagnosis
         }
         this.diagnosis_terpilih.push(temp_diagnosis);
@@ -619,7 +619,7 @@
 
         let temp_terapi = {
           'ID': Math.random(),
-          'ID_pasien': this.pasien_rekmed.ID,
+          //'ID_pasien': this.pasien_rekmed.ID,
           'nama_terapi': this.nama_terapi,
           'biaya_terapi': this.biaya_terapi
         }
@@ -639,7 +639,7 @@
 
         let temp_edukasi = {
           'ID': Math.random(),
-          'ID_pasien': this.pasien_rekmed.ID,
+          //'ID_pasien': this.pasien_rekmed.ID,
           'nama_edukasi': this.nama_edukasi,
         }
         this.edukasi_terpilih.push(temp_edukasi);

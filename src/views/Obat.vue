@@ -120,7 +120,7 @@
     methods: {
       tambahResep() {
         this.obat.push({
-          id_pasien : this.pasien_rekmed.ID,
+          //id_pasien : this.pasien_rekmed.ID,
           id_obat : Math.random(),
           nama_obat : '',
           jumlah : '',

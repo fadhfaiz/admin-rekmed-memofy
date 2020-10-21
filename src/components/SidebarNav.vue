@@ -19,7 +19,7 @@
           <router-link to="/pendaftaran">Pendaftaran <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
         </li>
-        <li class="container">
+        <!-- <li class="container">
           <a href="#soapSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Form SOAP</a>
           <ul class="collapse list-unstyled" id="soapSubmenu">
             <li>
@@ -35,7 +35,7 @@
               <router-link to="/plan">Plan</router-link>
             </li>
           </ul>
-        </li>
+        </li> -->
         <li class="container">
           <router-link to="/rekmed">Rekam Medis <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>

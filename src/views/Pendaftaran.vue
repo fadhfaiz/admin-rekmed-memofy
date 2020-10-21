@@ -23,12 +23,12 @@
       <form>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label>Nama Pasien</label>
-            <input type="text" class="form-control" v-model="pasien.nama" required>
-          </div>
-          <div class="form-group col-md-6">
             <label>NIK</label>
             <input type="text" class="form-control" v-model="pasien.NIK" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Nama Pasien</label>
+            <input type="text" class="form-control" v-model="pasien.nama" required>
           </div>
         </div>
         <div class="form-row">

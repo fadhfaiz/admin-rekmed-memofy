@@ -169,7 +169,7 @@ export default {
     cariPasien(val) {
       this.pasien_cocok = this.list_pasien.filter(res => {
         //console.log(res.nama == val)
-        return res.nama.toLowerCase().search(val.toLowerCase()) != -1;
+        return res.nama.toLowerCase().search(val.toLowerCase()) != -1 || res.NIK.search(val) != -1;
       });
 
       //console.log('ketemu', this.pasien_cocok)
@@ -194,7 +194,7 @@ export default {
           this.list_antrian.push(proses_pasien);
           this.$store.dispatch('simpanDataPasien', pasien)
           localStorage.setItem('pasien', JSON.stringify(pasien));
-          this.$router.push('/subjektif')
+          this.$router.push('/SOAP')
           console.log('proses pasien', this.list_antrian)
       }
 

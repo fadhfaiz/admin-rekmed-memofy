@@ -62,10 +62,12 @@
               </button>
             </td>
           </tr>
+
           <!-- Modal Riwayat Medis -->
           <div class="modal fade" id="riwayatModal" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+              style="max-width: 100% !important; width: 90% !important;">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -75,74 +77,110 @@
                 </div>
                 <div class="modal-body">
 
-                  <div class="card mb-2">
-                    <div class="card-body">
-                      <p>Racikan</p>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div>
+                        <table class="table table-sm table-borderless">
+                          <tbody>
+                            <tr>
+                              <th>Nama</th>
+                              <td>: Shofian Listya</td>
+                            </tr>
+                            <tr>
+                              <th>Nomor Rekam Medis</th>
+                              <td>: RM0004</td>
+                            </tr>
+                            <tr>
+                              <th>Status BPJS</th>
+                              <td>: Tidak</td>
+                            </tr>
+                            <tr>
+                              <th>Tanggal</th>
+                              <td>: 24 Oktober 2020</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <div class="card">
+                          <ul class="list-group">
+                            <li class="list-group-item font-weight-bold text-center">Subjektif</li>
+                            <div class="px-5" v-for="(sub, index) in subjektif" v-bind:key="index">
+                              <span>{{ index+1 }}. {{ sub.subjective }}</span><br>
+                            </div>
+                            <li class="list-group-item font-weight-bold text-center">Objektif</li>
+                            <div class="px-5 my-2" v-for="(obj, index) in objektif" v-bind:key="index">
+                              <span> Nadi : {{ obj.nadi }}</span><br>
+                              <span> Tekanan Darah : {{ obj.tekanan_darah }}</span><br>
+                              <span> Suhu Tubuh : {{ obj.suhu_tubuh }}</span><br>
+                              <span> Respirator Rate : {{ obj.respirator_rate }}</span><br>
+                              <span> Berat Badan : {{ obj.berat_badan }}</span><br>
+                              <span> Tinggi Badan : {{ obj.tinggi_badan }}</span><br>
+                              <span> Hasil Pemeriksaan : {{ obj.hasil_pemeriksaan }}</span>
+                            </div>
+                            <li class="list-group-item font-weight-bold text-center">Assesment</li>
+                            <div class="px-5" v-for="(ass, index) in assesment" v-bind:key="index">
+                              <span>{{ index+1 }}. {{ ass.nama_diagnosis }}</span><br>
+                            </div>
+                            <li class="list-group-item font-weight-bold text-center">Planning</li>
+                            <li class="list-group-item">Rencana Diagnostik</li>
+                            <div class="px-5" v-for="(diag, index) in plan_diagnosis" v-bind:key="index">
+                              <span>{{ index+1 }}. {{ diag.nama_diagnosis }}</span><br>
+                            </div>
+                            <li class="list-group-item">Rencana Terapi</li>
+                            <li class="list-group-item">Rencana Edukasi</li>
+                            <!-- <li class="list-group-item font-weight-bold text-center">Resep</li>
+                            <li class="list-group-item">ALorem Ipsum</li>
+                            <li class="list-group-item font-weight-bold text-center">Total Pembayaran</li>
+                            <li class="list-group-item">ALorem Ipsum</li> -->
+                          </ul>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                    <div class="col-md-6" id="invoice-payment">
+                      <div>
+                        <p class="h4 font-weight-bold text-center">Klink Citra Medika</p>
+                        <hr>
+                      </div>
+                      <div>
+                        <table class="table table-sm table-borderless">
+                          <tbody>
+                            <tr>
+                              <th>Nama</th>
+                              <td>: Shofian Carono</td>
+                            </tr>
+                            <tr>
+                              <th>Nomor Rekam Medis</th>
+                              <td>: RM0004</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <hr>
+                      </div>
 
-                  <div class="card">
-                    <div class="card-body">
-                      <p>Obat</p>
+                      <div>
+                        <div class="h6 font-weight-bold text-center">Resep</div>
+                        <hr>
+                      </div>
+
+                      <div>
+                        <div class="h6 font-weight-bold text-center">Pembayaran</div>
+                        <hr>
+                      </div>
+
                     </div>
                   </div>
 
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <button type="button" class="btn btn-primary" onclick="window.print();">Cetak invoice</button>
                 </div>
               </div>
             </div>
           </div>
         </tbody>
       </table>
-      <!-- </form> -->
-
-      <!-- Modal Proses -->
-      <div class="modal fade" id="proses_rekmed" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Proses Pasien</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body text-success">
-              Pastikan pak dokter udah siap ya!
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" @click="proses_pasien()" class="btn btn-success">Proses</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal Hapus -->
-      <div class="modal fade" id="hapus_antrian" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Hapus Antrian Pasien</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body text-danger">
-              Yakin nih mau hapus aku?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger">Hapus</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </template>
@@ -173,5 +211,17 @@
 </script>
 
 <style>
-
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    #invoice-payment, #invoice-payment * {
+      visibility: visible;
+    }
+    #invoice-payment {
+      position: absolute;
+      left: 230px;
+      top: 0px;
+    }
+  }
 </style>

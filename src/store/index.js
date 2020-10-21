@@ -23,6 +23,8 @@ export default new Vuex.Store({
       },
     },
     obat : [],
+    diagnosis : [],
+    tindakan : [],
     racikan_obat : [],
     racikan : [],
   	resep : {},
@@ -99,6 +101,12 @@ export default new Vuex.Store({
     async tambahDataRacikan({ commit }, racikan) {
       commit('setNewRacikan', racikan);
     },
+    async tambahDataDiagnosis({ commit }, diagnosis) {
+      commit('setNewDiagnosis', diagnosis);
+    },
+    async tambahDataTindakan({ commit }, tindakan) {
+      commit('setNewTindakan', tindakan);
+    },
    /* simpan data*/
    async simpanDataPasien({ commit }, pasien) {
     commit('setDataPasien'. pasien);
@@ -126,6 +134,8 @@ export default new Vuex.Store({
     setNewObat : (state, obat) => state.obat = obat,
     setNewRacikanObat : (state, racikan_obat) => state.racikan_obat = racikan_obat,
     setNewRacikan : (state, racikan) => state.racikan = racikan,
+    setNewDiagnosis : (state, diagnosis) => state.diagnosis = diagnosis,
+    setNewTindakan : (state, tindakan) => state.tindakan = tindakan,
 
     /*simpan data*/
     setDataPasien :(state, pasien) => state.pasien = pasien

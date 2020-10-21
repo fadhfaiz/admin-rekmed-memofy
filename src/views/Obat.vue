@@ -107,7 +107,8 @@
           jumlah : '',
           signa : ''
         }],
-        tampil_obat : [] 
+        tampil_obat : [],
+        subjektif : [] 
       }
     },
     async created() {
@@ -116,6 +117,9 @@
         return JSON.parse(y) || [];
       }
       this.pasien_rekmed = getData('pasien');
+      this.subjektif = getData('subjective');
+
+      console.log(this.subjektif)
     },
     methods: {
       tambahResep() {

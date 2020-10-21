@@ -37,110 +37,128 @@
 		            </div>
 		          </div>
 		           <div class="card my-3">
-			           <div class="row p-4">
-				           <div class="col-2">Subjektif</div>
-					       <div class="col-7">
-					   		    <tags-input element-id="tags" v-model="subjektif"></tags-input>
+		           	<div class="row">
+		           		<div class="col-6">
+			           	   <div class="row p-4">
+					           <div class="col-3">Subjektif</div>
+						       <div class="col-9">
+						   		    <tags-input element-id="tags" v-model="subjektif" v-bind:key="index"></tags-input>
+						       </div>
 					       </div>
-				       </div>
-				       <hr>
-			           <div class="row p-4">
-			           		<div class="col-2">Objektif</div>
-			           		<div class="col-7">
-			           		  <div class="form-row">
-					            <div class="col-md-4">
-					              <label for="inputEmail4">Nadi</label>
-					              <div class="input-group mb-3">
-					                <input type="text" class="form-control">
-					                <div class="input-group-append">
-					                  <span class="input-group-text" id="basic-addon2">x/min</span>
-					                </div>  
-					              </div>
-					            </div>
-					            <div class="col-md-4">
-					              <label for="inputPassword4">Tekanan Darah</label>
-					              <div class="input-group">
-					                <input type="text" class="form-control">
-					                <div class="input-group-append">
-					                  <span class="input-group-text" id="basic-addon2">mmHg</span>
-					                </div> 
-					              </div>
-					            </div>
-					            <div class="col-md-4">
-					              <label for="inputEmail4">Suhu Tubuh</label>
-					              <div class="input-group">
-					                <input type="text" class="form-control">
-					                <div class="input-group-append">
-					                  <span class="input-group-text" id="basic-addon2">°C</span>
-					                </div> 
-					              </div>
-					            </div>
-					          </div>
-					          <div class="form-row">
-					            <div class="col-md-4">
-					              <label for="inputPassword4">Respirator Rate</label>
-					              <div class="input-group">
-					                <input type="text" class="form-control">
-					                <div class="input-group-append">
-					                  <span class="input-group-text" id="basic-addon2">x/min</span>
-					                </div>
-					              </div>
-					            </div>
-					            <div class="col-md-4">
-					              <label for="inputEmail4">Berat Badan</label>
-					              <div class="input-group">
-					                <input type="text" class="form-control">
-					                <div class="input-group-append">
-					                  <span class="input-group-text" id="basic-addon2">kg</span>
-					                </div>
-					              </div>
-					            </div>
-					            <div class="col-md-4">
-					              <label for="inputPassword4">Tinggi Badan</label>
-					              <div class="input-group">
-					                <input type="text" class="form-control">
-					                <div class="input-group-append">
-					                  <span class="input-group-text" id="basic-addon2">cm</span>
-					                </div>
-					              </div>
-					            </div>
-					          </div>
-					          <div class="form-row my-2">
-					            <div class="form-group col-md-12">
-					              <label for="exampleFormControlTextarea1">Hasil Pemeriksaan</label>
-					              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-					            </div>
-					          </div>
-			           		</div>
-			           </div>
-			           <hr>
-			           <div class="row p-4">
-			           		<div class="col-2">Assesment</div>
-			           		<div class="col-7">
-					   		    <tags-input element-id="tags" v-model="assesment"></tags-input>
-			           		</div>
-			           </div>
-			           <hr>
-			           <div class="row p-4">
-			           	   <div class="col-2">Plan</div>
-					       <div class="col-7">
-					       		<div class="row">
-					       			<div class="col">
-							   	    	<tags-input element-id="tags" v-model="plan_diagnosis"></tags-input>
-					       			</div>
-					       		</div>
-					       		<div class="row my-3">
-					       			<div class="col">
-							   	    	<tags-input element-id="tags" v-model="plan_terapi"></tags-input>
-					       			</div>
-					       		</div>
-					       		<div class="row">
-					       			<div class="col">
-							   	    	<tags-input element-id="tags" v-model="plan_edukasi"></tags-input>
-					       			</div>
-					       		</div>
+				           <div class="row p-4">
+				           		<div class="col-3">Objektif</div>
+				           		<div class="col-9">
+				           		  <div class="form-row">
+						            <div class="col-md-6">
+						              <label for="inputEmail4">N</label>
+						              <div class="input-group mb-3">
+						                <input type="text" class="form-control">
+						                <div class="input-group-append">
+						                  <span class="input-group-text" id="basic-addon2">x/min</span>
+						                </div>  
+						              </div>
+						            </div>
+						            <div class="col-md-6">
+						              <label for="inputPassword4">TD</label>
+						              <div class="input-group mb-3">
+						                <input type="text" class="form-control">
+						                <div class="input-group-append">
+						                  <span class="input-group-text" id="basic-addon2">mmHg</span>
+						                </div> 
+						              </div>
+						            </div>
+						          </div>
+						          <div class="form-row">
+						          	<div class="col-md-6">
+						              <label for="inputEmail4">ST</label>
+						              <div class="input-group mb-3">
+						                <input type="text" class="form-control">
+						                <div class="input-group-append">
+						                  <span class="input-group-text" id="basic-addon2">°C</span>
+						                </div> 
+						              </div>
+						            </div>
+						            <div class="col-md-6">
+						              <label for="inputPassword4">RR</label>
+						              <div class="input-group mb-3">
+						                <input type="text" class="form-control">
+						                <div class="input-group-append">
+						                  <span class="input-group-text" id="basic-addon2">x/min</span>
+						                </div>
+						              </div>
+						            </div>
+						          </div>
+						          <div class="form-row">
+						          	<div class="col-md-6">
+						              <label for="inputEmail4">BB</label>
+						              <div class="input-group mb-3">
+						                <input type="text" class="form-control">
+						                <div class="input-group-append">
+						                  <span class="input-group-text" id="basic-addon2">kg</span>
+						                </div>
+						              </div>
+						            </div>
+						            <div class="col-md-6">
+						              <label for="inputPassword4">TB</label>
+						              <div class="input-group mb-3">
+						                <input type="text" class="form-control">
+						                <div class="input-group-append">
+						                  <span class="input-group-text" id="basic-addon2">cm</span>
+						                </div>
+						              </div>
+						            </div>
+						          </div>
+						          <div class="form-row">
+						            <div class="form-group col-md-12">
+						              <label for="exampleFormControlTextarea1">Hasil Pemeriksaan</label>
+						              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+						            </div>
+						          </div>
+				           		</div>
+				           </div>
+				           <div class="row p-4">
+				           		<div class="col-3">Assesment</div>
+				           		<div class="col-9">
+						   		    <tags-input element-id="tags" v-model="assesment"></tags-input>
+				           		</div>
+				           </div>
+				           <div class="row p-4">
+				           	   <div class="col-3">Plan</div>
+						       <div class="col-9">
+						       		<div class="row">
+						       			<div class="col">
+								   	    	<tags-input element-id="tags" v-model="plan_diagnosis"></tags-input>
+						       			</div>
+						       		</div>
+						       		<div class="row my-3">
+						       			<div class="col">
+								   	    	<tags-input element-id="tags" v-model="plan_terapi"></tags-input>
+						       			</div>
+						       		</div>
+						       		<div class="row">
+						       			<div class="col">
+								   	    	<tags-input element-id="tags" v-model="plan_edukasi"></tags-input>
+						       			</div>
+						       		</div>
+						       </div>
+				           </div>
+		           		</div>
+		           		<div class="col-6">
+		           			<div class="row p-4">
+					           <div class="col-3">Diagnosis</div>
+						       <div class="col-9">
+						   		    <tags-input element-id="tags" v-model="diagnosis" v-bind:key="index"></tags-input>
+						       </div>
 					       </div>
-			           </div>
+					       <div class="row p-4">
+					           <div class="col-3">Tindakan</div>
+						       <div class="col-9">
+						   		    <tags-input element-id="tags" v-model="tindakan" v-bind:key="index"></tags-input>
+						       </div>
+					       </div>
+		           		</div>
+		           	</div>
+			           
 		           </div>
 		           <div class="row">
 		              <div class="col">
@@ -177,6 +195,8 @@ export default {
 			plan_diagnosis : [],
 			plan_edukasi : [],
 			plan_terapi : [],
+			diagnosis : [],
+			tindakan : [],
 			tampil_subjektif : []
 		}
 	},

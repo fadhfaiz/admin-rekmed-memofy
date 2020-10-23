@@ -26,14 +26,27 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(row, index) in list_antrian" v-bind:key="index">
-              <th scope="row" class="text-center">{{ index+1 }}</th>
-              <td>{{ row.nama }}</td>
-              <td class="text-center">
-                <button class="btn btn-info btn-sm mr-2" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#proses_antrian">Proses</button>
-                <button class="btn btn-danger btn-sm" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
-              </td>
-            </tr>
+              <tr v-for="(row, index) in list_antrian" v-bind:key="index">
+                <th scope="row" class="text-center">{{ index+1 }}</th>
+                <td>{{ row.nama }}</td>
+                <td class="text-center" v-if="row.status=='Menunggu'">
+                  <button class="btn btn-info btn-sm mr-2" type="button" @click="getPasienID(row.ID_pasien, row.nama, row.status)" data-toggle="modal" data-target="#proses_antrian">Proses</button>
+                  <button class="btn btn-danger btn-sm" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
+                </td>
+                <td class="text-center" v-if="row.status=='proses'">
+                  <span>sedang proses </span>
+                  <button class="btn btn-danger btn-sm" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#hapus_antrian">X</button>
+
+                </td>
+              </tr>
+              <!-- <tr v-for="(row, index) in list_antrian" v-bind:key="index" v-else>
+                <th scope="row" class="text-center">{{ index+1 }}</th>
+                <td>{{ row.nama }}</td>
+                <td class="text-center">
+                  <button class="btn btn-info btn-sm mr-2" type="button" @click="getPasienID(row.ID_pasien, row.nama, row.status)" data-toggle="modal" data-target="#proses_antrian">Proses</button>
+                  <button class="btn btn-danger btn-sm" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
+                </td>
+              </tr> -->
           </tbody>
         </table>
 
@@ -100,28 +113,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Modal tambah antrian -->
-      <!-- <div class="modal fade" id="tambah_antrian" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Tambah Antrian Pasien</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body text-success">
-              Masukan data pasien ke antrian jir ?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success" data-dismiss="modal" @click="tambahAntrianPasien()">Uye</button>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
     </div>
   </div>
 </template>
@@ -145,9 +136,11 @@ export default {
       list_antrian : [],
       ID_pasien : '',
       nama_pasien_antri: '',
+      status : '',
       list_pasien: [],
       pasien_cocok: [],
-      cariPasien: ''
+      cariPasien: '',
+      pasien_proses : []
     }
   },
   async created() {
@@ -157,7 +150,7 @@ export default {
       let y = localStorage.getItem(x);
       return JSON.parse(y) || [];
     } 
-    this.list_antrian = this.$store.state.list_antrian
+    //this.list_antrian = this.$store.state.list_antrian
     this.list_antrian = parseData('list_antrian');
     this.list_pasien = await this.loadPasien();
 
@@ -178,24 +171,37 @@ export default {
   computed : mapGetters(['allPasien']),
   methods : {
     ...mapActions(['tampilDataPasien']),
-    getPasienID(id, nama=null) {
+    getPasienID(id, nama=null, status=null) {
       this.ID_pasien = id
       if(nama) this.nama_pasien_antri = nama;
+      if (status) this.status = status;
+
+      //console.log(status)
     },
     async proses_pasien() {
       let pasien = await this.loadPasien(this.ID_pasien)
+      //console.log('proses',pasien)
+      let list_proses = [...this.list_antrian];
+        this.list_antrian = list_proses.filter(res => {
+             return res.ID_pasien != this.ID_pasien
+        });
       if(pasien) {
           let proses_pasien = {
             'ID_pasien' : this.ID_pasien,
             'nama' : this.nama_pasien_antri,
-            'status' : 'Antrian di proses'
+            'status' : 'proses'
           };
 
-          this.list_antrian.push(proses_pasien);
+          this.list_antrian.unshift(proses_pasien);
+          this.$store.dispatch('tambahListAntrian', this.list_antrian)
+          localStorage.setItem('list_antrian', JSON.stringify(this.list_antrian));
+
           this.$store.dispatch('simpanDataPasien', pasien)
           localStorage.setItem('pasien', JSON.stringify(pasien));
-          this.$router.push('/SOAP')
-          console.log('proses pasien', this.list_antrian)
+
+          console.log('proses', list_proses)
+          console.log('proses hasil', this.list_antrian)
+          //this.$router.push('/SOAP')
       }
 
     },

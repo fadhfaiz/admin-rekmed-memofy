@@ -119,7 +119,13 @@
 				           <div class="row p-4">
 				           		<div class="col-3">Assesment</div>
 				           		<div class="col-9">
-						   		    <tags-input v-model="input_assesmen"></tags-input>
+						   		    <tags-input
+				                        v-model="input_assesmen"
+				                        element-id="tags"
+				                        :typeahead="true"
+				                        :typeahead-style="dropdown"
+				                        :typeahead-show-on-focus="true"
+				                    ></tags-input>
 				           		</div>
 				           </div>
 				           <div class="row p-4">
@@ -187,11 +193,15 @@ export default {
 	name : 'SOAP',
 	components : {
 		SidebarNav,
-		"tags-input": VoerroTagsInput
+		VoerroTagsInput,
 	},
 	data() {
 		return {
+			typeahead: true,
+            typeaheadStyle: 'dropdown',
+            typeaheadShowOnFocus: true,
 			pasien_rekmed : [],
+			query : '',
 		    subjektif : [],
 			objektif : [],
 			assesmen : [],
@@ -215,8 +225,8 @@ export default {
 			input_plan_edukasi : [],
 			input_plan_terapi : [],
 			input_diagnosis : [],
-			input_tindakan : [],
-			assesment_terpilih : []
+			input_tindakan : []
+			
 
 		}
 	},
@@ -227,7 +237,9 @@ export default {
       }
       //console.log('subjektif', this.subjektif)
       this.pasien_rekmed = getData('pasien');
+      //this.sub = getData('subjective');
       console.log('pasien', this.pasien_rekmed)
+      //console.log('sub', this.sub)
 
 	},
 	methods : {
@@ -242,9 +254,9 @@ export default {
 				}
 				
 				this.subjektif.push(temp_subjektif)
-				this.$store.dispatch('tambahDataSubjective', this.subjektif);
-	          	localStorage.setItem('subjective', JSON.stringify(this.subjektif));
 			}
+			this.$store.dispatch('tambahDataSubjective', this.subjektif);
+	        localStorage.setItem('subjective', JSON.stringify(this.subjektif));
 			console.log('subjektif',this.subjektif)
 
 			//objektif
@@ -257,7 +269,7 @@ export default {
 	        'berat_badan' : this.input_objektif.berat_badan,
 	        'tinggi_badan' : this.input_objektif.tinggi_badan,
 	        'hasil_pemeriksaan' : this.input_objektif.hasil_pemeriksaan
-	      };
+	      	};
 
 	      	this.objektif.push(temp_objektif)
 	      	this.$store.dispatch('tambahDataObjective', this.objektif);
@@ -268,17 +280,19 @@ export default {
       		for (var i = this.input_assesmen.length - 1; i >= 0; i--) {
       			let temp_assesmen = {
       				'ID' : this.input_assesmen[i].id,
+      				'ID_pasien' : this.pasien_rekmed.ID,
       				'nama_diagnosis' : this.input_assesmen[i].value
       			}
       			this.assesmen.push(temp_assesmen)
-      			this.$store.dispatch('tambahDataAssesment', this.assesmen);
-          		localStorage.setItem('assesment', JSON.stringify(this.assesmen));
 
           		
       		}
+      		this.$store.dispatch('tambahDataAssesment', this.assesmen);
+        	localStorage.setItem('assesment', JSON.stringify(this.assesmen));
+      		console.log('assesment',this.assesmen)
           		//post api
-          		//return await axios.post('http://localhost/rekmed-server/api/v1/Assesment/post',this.).then(res => res.data.assesment)
-				console.log('assesment',this.assesmen)
+          		//const res = await axios.post('http://localhost/rekmed-server/api/v1/Assesment/post',t).then(res => res.data.assesment)
+				//console.log('assesment',[this.a])
 
 			//plan diagnosis
 			for (var i = this.input_plan_diagnostik.length - 1; i >= 0; i--) {
@@ -288,9 +302,9 @@ export default {
 					'nama_diagnosis' : this.input_plan_diagnostik[i].value
 				}
 				this.plan_diagnostik.push(temp_plan_diag)
-				this.$store.dispatch('tambahDataPlanDiagnosis', this.plan_diagnostik);
-          		localStorage.setItem('plan_diagnosis', JSON.stringify(this.plan_diagnostik));
 			}
+			this.$store.dispatch('tambahDataPlanDiagnosis', this.plan_diagnostik);
+          	localStorage.setItem('plan_diagnosis', JSON.stringify(this.plan_diagnostik));
 			console.log('plan_diagnostik',this.plan_diagnostik)
 
 			//plan terapi
@@ -301,9 +315,9 @@ export default {
 					'nama_terapi' : this.input_plan_terapi[i].value
 				}
 				this.plan_terapi.push(temp_plan_te)
-				this.$store.dispatch('tambahDataPlanTerapi', this.plan_terapi);
-          		localStorage.setItem('plan_terapi', JSON.stringify(this.plan_terapi));
 			}
+			this.$store.dispatch('tambahDataPlanTerapi', this.plan_terapi);
+          	localStorage.setItem('plan_terapi', JSON.stringify(this.plan_terapi));
 			console.log('plan_terapi',this.plan_terapi)
 
 			//plan edukasi
@@ -314,9 +328,9 @@ export default {
 					'nama_edukasi' : this.input_plan_edukasi[i].value
 				}
 				this.plan_edukasi.push(temp_plan_edu)
-				this.$store.dispatch('tambahDataPlanEdukasi', this.plan_edukasi);
-          		localStorage.setItem('plan_edukasi', JSON.stringify(this.plan_edukasi));
 			}
+			this.$store.dispatch('tambahDataPlanEdukasi', this.plan_edukasi);
+          	localStorage.setItem('plan_edukasi', JSON.stringify(this.plan_edukasi));
 			console.log('plan_edukasi',this.plan_edukasi)
 
 			//diagnosis
@@ -327,9 +341,9 @@ export default {
 					'nama' : this.input_diagnosis[i].value
 				}
 				this.diagnosis.push(temp_diagnosis)
-				this.$store.dispatch('tambahDataDiagnosis', this.diagnosis);
-          		localStorage.setItem('diagnosis', JSON.stringify(this.diagnosis));
 			}
+			this.$store.dispatch('tambahDataDiagnosis', this.diagnosis);
+          	localStorage.setItem('diagnosis', JSON.stringify(this.diagnosis));
 			console.log('diagnosis',this.diagnosis)
 
 			//tindakan
@@ -340,9 +354,9 @@ export default {
 					'nama_tindakan' : this.input_tindakan[i].value
 				}
 				this.tindakan.push(temp_tindakan)
-				this.$store.dispatch('tambahDataTindakan', this.tindakan);
-          		localStorage.setItem('tindakan', JSON.stringify(this.tindakan));
 			}
+			this.$store.dispatch('tambahDataTindakan', this.tindakan);
+          	localStorage.setItem('tindakan', JSON.stringify(this.tindakan));
 			console.log('tindakan',this.tindakan)
 		}
 	}

@@ -37,14 +37,17 @@
               <div class="col-11">Racikan Tersimpan</div>
             </div>
           </div>
-          <div class="card my-3">
+            <div class="my-3 text-center" v-if="tampil_racikan==''">
+              <span>Data Kosong</span>
+            </div>
+          <div class="card my-3" v-else>
             <ul v-for="(list_racikan, indexRacikan) in tampil_racikan" v-bind:key="indexRacikan" class="list-group list-group-flush">
               <li class="list-group-item">
                 <div class="row my-3">
-                  <div class="col-2">
+                  <div class="col-3">
                     <span>M. F. Pulv : {{ list_racikan.pulv }}</span>
                   </div>
-                  <div class="col-9">
+                  <div class="col-3">
                     <span>Signa : {{ list_racikan.signa }}</span>
                   </div>
                   <div class="col-1">
@@ -67,6 +70,9 @@
                 </ul>
               </li>
            </ul>
+           <!-- <div v-else>
+             <span>Data Kosong</span>
+           </div> -->
           </div>
         </div>
       </div>
@@ -200,6 +206,7 @@
     },
     methods: {
       tambahObat() {
+
         this.obat.push ({
           id_obat : Math.random(),
           nama_obat: '',
@@ -207,13 +214,17 @@
         })
 
         this.tampil_obat = [...this.obat];
-
+        
         this.$store.dispatch('tambahDataRacikanObat', this.tampil_obat);
         localStorage.setItem('racikan_obat', JSON.stringify(this.tampil_obat));
         //console.log('tampil_obat',this.tampil_obat)
         //this.obat.push(racikan_obat)
       },
       tambahRacikan() {
+        this.obat.push()
+
+        this.tampil_obat = [...this.obat];
+
         let racikan = {
           'id_racikan' : Math.random(),
           'pulv' : this.racikan.pulv,
@@ -223,13 +234,15 @@
 
         //console.log(this.racikan.pulv)
 
+        //this.tambahObat()
         this.tampil_racikan.push(racikan)
 
         //this.tampil_racikan = [...racikan];
         //this.racikan.obat.nama_obat = ''
         this.racikan.pulv = ''
         this.racikan.signa = ''
-        this.racikan.obat = this.kosong
+        this.obat = [...this.kosong]
+        console.log('obat',this.tampil_obat)
       
         this.$store.dispatch('tambahDataRacikan', this.tampil_racikan);
         localStorage.setItem('racikan', JSON.stringify(this.tampil_racikan));

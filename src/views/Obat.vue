@@ -117,9 +117,9 @@
         return JSON.parse(y) || [];
       }
       this.pasien_rekmed = getData('pasien');
-      this.subjektif = getData('subjective');
+      //this.subjektif = getData('subjective');
 
-      console.log(this.subjektif)
+      //console.log(this.subjektif)
     },
     methods: {
       tambahResep() {
@@ -134,7 +134,7 @@
 
         this.$store.dispatch('tambahDataObat', this.tampil_obat);
         localStorage.setItem('obat', JSON.stringify(this.tampil_obat));
-        console.log(this.tampil_obat)
+        console.log('obat',this.tampil_obat)
       },
       hapusResep(id_obat,index) {
         this.obat.id_obat = id_obat
@@ -143,11 +143,11 @@
         this.tampil_obat = [...this.obat]
         this.$store.dispatch('tambahDataObat', this.tampil_obat);
         localStorage.setItem('obat', JSON.stringify(this.tampil_obat));
-        console.log(this.tampil_obat)
+        console.log('obat hapus',this.tampil_obat)
 
       },
       simpanObat() {
-        console.log(this.tampil_obat)
+        //console.log(this.tampil_obat)
       }
     }
   }

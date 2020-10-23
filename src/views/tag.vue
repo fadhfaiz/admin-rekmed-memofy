@@ -75,21 +75,7 @@
             <voerro-tags-input
                         v-model="selectedTags"
                         element-id="tags"
-                        :existing-tags="[
-                            { key: 'children-of-bodom', value: 'Children of Bodom' },
-                            { key: 'epica', value: 'Epica' },
-                            { key: 'emperor', value: 'Emperor' },
-                            { key: 'shape-of-despair', value: 'Shape of Despair' },
-                            { key: 'protest-the-hero', value: 'Protest the Hero' },
-                            { key: 'my-dying-bride', value: 'My Dying Bride' },
-                            { key: 'ne-obliviscaris', value: 'Ne Obliviscaris' },
-                            { key: 'belakor', value: 'Be\'lakor' },
-                            { key: 'dark-lunacy', value: 'Dark Lunacy' },
-                            { key: 'dominia', value: 'Dominia' },
-                            { key: 'jason-becker', value: 'Jason Becker' },
-                            { key: 'jeff-loomis', value: 'Jeff Loomis' },
-                            { key: 'persefone', value: 'Persefone' },
-                        ]"
+                        :existing-tags="gg"
                         :typeahead="true"
                         :typeahead-style="dropdown"
                         :typeahead-show-on-focus="true"
@@ -116,10 +102,14 @@
     },
     data() {
       return {
-      selectedTags: [],
-                typeahead: true,
-                typeaheadStyle: 'dropdown',
-                typeaheadShowOnFocus: true,
+        selectedTags: [],
+        typeahead: true,
+        typeaheadStyle: 'dropdown',
+        typeaheadShowOnFocus: true,
+        gg : [
+              { id: 111, value: 'Children of Bodom' },
+             ]
+
       }
     },
 

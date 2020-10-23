@@ -32,6 +32,8 @@ export default new Vuex.Store({
     list_pasien : [],
     list_assesment: [],
     list_antrian : [],
+    list_plan_diagnosis : [],
+    list_plan_edukasi : [],
     rekam_medis_pasien : []
   },
   getters : {
@@ -92,6 +94,12 @@ export default new Vuex.Store({
     async tambahListAssesment({ commit }, list_assesment) {
       commit('setNewListAssesment', list_assesment);
     },
+    async tambahListPlanDiagnosis({ commit }, list_plan_diagnosis) {
+      commit('setNewListPlanDiagnosis', list_plan_diagnosis);
+    },
+    async tambahListPlanEdukasi({ commit }, list_plan_edukasi) {
+      commit('setNewListPlanEdukasi', list_plan_edukasi);
+    },
     async tambahDataObat({ commit }, obat) {
       commit('setNewObat', obat);
     },
@@ -128,6 +136,8 @@ export default new Vuex.Store({
     setNewObjective :(state, objective) => state.rekam_medis.objective = objective,
     setNewAssesment :(state, assesment) => state.rekam_medis.assesment = assesment,
     setNewListAssesment : (state, list_assesment) => state.list_assesment = list_assesment,
+    setNewListPlanDiagnosist : (state, list_plan_diagnosis) => state.list_plan_diagnosis = list_plan_diagnosis,
+    setNewListPlanEdukasi : (state, list_plan_edukasi) => state.list_plan_edukasi = list_plan_edukasi,
     setNewPlanDiagnosis : (state, plan_diagnosis) => state.rekam_medis.plan.diagnosis = plan_diagnosis,
     setNewPlanTerapi : (state, plan_terapi) => state.rekam_medis.plan.terapi = plan_terapi,
     setNewPlanEdukasi : (state, plan_edukasi) => state.rekam_medis.plan.edukasi = plan_edukasi,

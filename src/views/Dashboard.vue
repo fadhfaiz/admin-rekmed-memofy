@@ -201,7 +201,7 @@ export default {
 
           console.log('proses', list_proses)
           console.log('proses hasil', this.list_antrian)
-          //this.$router.push('/SOAP')
+          this.$router.push('/SOAP')
       }
 
     },

@@ -66,7 +66,7 @@
 						              </div>
 						            </div>
 						          </div>
-						          <div class="form-row">
+						          <div class="form-row my-3">
 						          	<div class="col-md-6">
 						              <div class="input-group mb-3">
 						                <input type="text" class="form-control" v-model="input_objektif.suhu_tubuh" placeholder="ST">
@@ -109,7 +109,7 @@
 						          </div>
 				           		</div>
 				           </div>
-				           <div class="row p-4">
+				           <div class="row px-4 mb-4">
 				           		<div class="col-1">A</div>
 				           		<div class="col-11">
 						   		    <tags-input v-model="input_assesmen" :existing-tags="cari_asessment" :typeahead="true" :typeahead-style="typeaheadStyle" :typeahead-show-on-focus="true"></tags-input>
@@ -125,7 +125,7 @@
 								   	    	<tags-input v-model="input_plan_diagnostik" placeholder="plan diagnostik" :existing-tags=" cari_plan_diagnostik" :typeahead="true" :typeahead-style="typeaheadStyle" :typeahead-show-on-focus="true"></tags-input>
 						       			</div>
 						       		</div>
-						       		<div class="row my-3">
+						       		<div class="row my-4">
 						       			<div class="col">
 								   	    	<tags-input v-model="input_plan_terapi" placeholder="plan terapi"></tags-input>
 						       			</div>
@@ -137,7 +137,7 @@
 						       		</div>
 						       </div>
 				           </div>
-		           			<div class="row p-4">
+		           			<div class="row px-4">
 					           <div class="col-1">D</div>
 						       <div class="col-11">
 						   		    <tags-input v-model="input_diagnosis"></tags-input>
@@ -159,7 +159,7 @@
 		              <div class="col col-lg-3">
 		              </div>
 		              <div class="col col-lg-3">
-		                <button type="button" @click="tambahDataSemua()" class="btn btn-success btn-block float-right">Tambah Resep</button>
+		                <button type="button" @click="SimpanDenganResep()" class="btn btn-success btn-block float-right">Tambah Resep</button>
 		              </div>
 		              <div class="col col-lg-1">
 		              <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#selesai">Selesai</button>
@@ -181,8 +181,8 @@
 		              Lanjutkan tanpa resep ?
 		            </div>
 		            <div class="modal-footer">
-		              <button type="button" data-dismiss="modal" @click="SimpantanpaResep()" class="btn btn-info">Ya</button>
-		              <button type="button" class="btn btn-secondary" @click="tambahDataSemua()" data-dismiss="modal">Tidak</button>
+		              <button type="button" data-dismiss="modal" @click="SimpanTanpaResep()" class="btn btn-info">Ya</button>
+		              <button type="button" class="btn btn-secondary" @click="SimpanDenganResep()" data-dismiss="modal">Tidak</button>
 		            </div>
 		          </div>
 		        </div>
@@ -382,125 +382,14 @@ export default {
 			this.$store.dispatch('tambahDataTindakan', this.tindakan);
           	localStorage.setItem('tindakan', JSON.stringify(this.tindakan));
 			console.log('tindakan',this.tindakan)
-
-			this.$router.push('/obat')
 		},
-		SimpantanpaResep() {
-			//subjektif
-			for (var i = this.input_subjektif.length - 1; i >= 0; i--) {
-				//let a = this.subjektif[i].value
-				let temp_subjektif = {
-					'ID' : this.input_subjektif[i].ID,
-					'ID_pasien' : this.pasien_rekmed.ID,
-					'nama' : this.input_subjektif[i].value
-				}
-				
-				this.subjektif.push(temp_subjektif)
-			}
-			this.$store.dispatch('tambahDataSubjective', this.subjektif);
-	        localStorage.setItem('subjective', JSON.stringify(this.subjektif));
-			//console.log('subjektif',this.subjektif)
-
-			//objektif
-			let temp_objektif = {
-	        //'id_pasien' : this.pasien_rekmed.ID,
-	        'nadi' : this.input_objektif.nadi,
-	        'tekanan_darah' : this.input_objektif.tekanan_darah,
-	        'suhu_tubuh' : this.input_objektif.suhu_tubuh,
-	        'respirator_rate' : this.input_objektif.respirator_rate,
-	        'berat_badan' : this.input_objektif.berat_badan,
-	        'tinggi_badan' : this.input_objektif.tinggi_badan,
-	        'hasil_pemeriksaan' : this.input_objektif.hasil_pemeriksaan
-	      	};
-
-	      	this.objektif.push(temp_objektif)
-	      	this.$store.dispatch('tambahDataObjective', this.objektif);
-      		localStorage.setItem('objektive', JSON.stringify(this.objektif));
-      		//console.log('objektif', this.objektif)
-
-      		//assesmen
-      		for (var i = this.input_assesmen.length - 1; i >= 0; i--) {
-      			let temp_assesmen = {
-      				'ID' : this.input_assesmen[i].ID,
-      				'ID_pasien' : this.pasien_rekmed.ID,
-      				'nama_diagnosis' : this.input_assesmen[i].value
-      			}
-      			this.assesmen.push(temp_assesmen)
-
-          		
-      		}
-      		this.$store.dispatch('tambahDataAssesment', this.assesmen);
-        	localStorage.setItem('assesment', JSON.stringify(this.assesmen));
-      		//console.log('assesment',this.assesmen)
-          		//post api
-          		//const res = await axios.post('http://localhost/rekmed-server/api/v1/Assesment/post',t).then(res => res.data.assesment)
-				//console.log('assesment',[this.a])
-
-			//plan diagnosis
-			for (var i = this.input_plan_diagnostik.length - 1; i >= 0; i--) {
-				let temp_plan_diag = {
-					'ID' : this.input_plan_diagnostik[i].ID,
-					'ID_pasien' : this.pasien_rekmed.ID,
-					'nama_diagnosis' : this.input_plan_diagnostik[i].value
-				}
-				this.plan_diagnostik.push(temp_plan_diag)
-			}
-			this.$store.dispatch('tambahDataPlanDiagnosis', this.plan_diagnostik);
-          	localStorage.setItem('plan_diagnosis', JSON.stringify(this.plan_diagnostik));
-			//console.log('plan_diagnostik',this.plan_diagnostik)
-
-			//plan terapi
-			for (var i = this.input_plan_terapi.length - 1; i >= 0; i--) {
-				let temp_plan_te = {
-					'ID' : this.input_plan_terapi[i].ID,
-					'ID_pasien' : this.pasien_rekmed.ID,
-					'nama_terapi' : this.input_plan_terapi[i].value
-				}
-				this.plan_terapi.push(temp_plan_te)
-			}
-			this.$store.dispatch('tambahDataPlanTerapi', this.plan_terapi);
-          	localStorage.setItem('plan_terapi', JSON.stringify(this.plan_terapi));
-			//console.log('plan_terapi',this.plan_terapi)
-
-			//plan edukasi
-			for (var i = this.input_plan_edukasi.length - 1; i >= 0; i--) {
-				let temp_plan_edu = {
-					'ID' : this.input_plan_edukasi[i].ID,
-					'ID_pasien' : this.pasien_rekmed.ID,
-					'nama_edukasi' : this.input_plan_edukasi[i].value
-				}
-				this.plan_edukasi.push(temp_plan_edu)
-			}
-			this.$store.dispatch('tambahDataPlanEdukasi', this.plan_edukasi);
-          	localStorage.setItem('plan_edukasi', JSON.stringify(this.plan_edukasi));
-			//console.log('plan_edukasi',this.plan_edukasi)
-
-			//diagnosis
-			for (var i = this.input_diagnosis.length - 1; i >= 0; i--) {
-				let temp_diagnosis = {
-					'ID' : this.input_diagnosis[i].ID,
-					'ID_pasien' : this.pasien_rekmed.ID,
-					'nama' : this.input_diagnosis[i].value
-				}
-				this.diagnosis.push(temp_diagnosis)
-			}
-			this.$store.dispatch('tambahDataDiagnosis', this.diagnosis);
-          	localStorage.setItem('diagnosis', JSON.stringify(this.diagnosis));
-			//console.log('diagnosis',this.diagnosis)
-
-			//tindakan
-			for (var i = this.input_tindakan.length - 1; i >= 0; i--) {
-				let temp_tindakan = {
-					'ID' : this.input_tindakan[i].ID,
-					'ID_pasien' : this.pasien_rekmed.ID,
-					'nama_tindakan' : this.input_tindakan[i].value
-				}
-				this.tindakan.push(temp_tindakan)
-			}
-			this.$store.dispatch('tambahDataTindakan', this.tindakan);
-          	localStorage.setItem('tindakan', JSON.stringify(this.tindakan));
-			//console.log('tindakan',this.tindakan)
+		SimpanTanpaResep() {
+			this.tambahDataSemua()
 			this.$router.push('/invoice')
+		},
+		SimpanDenganResep() {
+			this.tambahDataSemua()
+			this.$router.push('/obat')
 		},
 	}
 }

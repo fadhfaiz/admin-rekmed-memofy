@@ -79,8 +79,7 @@
       <div class="row my-3">
         <div class="col-8"></div>
         <div class="col-4" style="margin-left: 48rem">
-          <router-link to="/racikan"><button type="button" @click="simpanObat()" class="btn btn-info">Simpan dan tambah racikan</button>
-          </router-link>
+          <button type="button" @click="simpanObat()" class="btn btn-info">Simpan dan tambah racikan</button>
         </div>
       </div>
     </div>
@@ -147,7 +146,7 @@
 
       },
       simpanObat() {
-        //console.log(this.tampil_obat)
+        this.$router.push('/racikan')
       }
     }
   }

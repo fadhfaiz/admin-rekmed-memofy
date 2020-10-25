@@ -77,8 +77,8 @@
         </div>
       </div>
       <div class="row my-3">
-        <div class="col-8"></div>
-        <div class="col-4" style="margin-left: 48rem">
+        <div class="col-9"></div>
+        <div class="col-3">
           <button type="button" @click="simpanObat()" class="btn btn-info">Simpan dan tambah racikan</button>
         </div>
       </div>
@@ -122,6 +122,7 @@
     },
     methods: {
       tambahResep() {
+        this.tampil_obat = [...this.obat];
         this.obat.push({
           //id_pasien : this.pasien_rekmed.ID,
           id_obat : Math.random(),
@@ -129,7 +130,6 @@
           jumlah : '',
           signa : ''
         })
-        this.tampil_obat = [...this.obat];
 
         this.$store.dispatch('tambahDataObat', this.tampil_obat);
         localStorage.setItem('obat', JSON.stringify(this.tampil_obat));
@@ -146,6 +146,11 @@
 
       },
       simpanObat() {
+        this.tampil_obat = [...this.obat]
+        this.$store.dispatch('tambahDataObat', this.tampil_obat);
+        localStorage.setItem('obat', JSON.stringify(this.tampil_obat));
+        console.log('obat',this.tampil_obat)
+
         this.$router.push('/racikan')
       }
     }

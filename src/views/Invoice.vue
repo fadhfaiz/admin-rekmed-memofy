@@ -158,9 +158,10 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6" id="invoice-payment">
             <div>
-              <p class="h4 font-weight-bold text-center">Klink Citra Medika</p><hr>
+              <p class="h4 font-weight-bold text-center">Klink Citra Medika</p>
+              <hr>
             </div>
             <div>
               <table class="table table-sm table-borderless">
@@ -174,19 +175,59 @@
                     <td>: {{ pasien_rekmed.ID }}</td>
                   </tr>
                 </tbody>
+                <tbody>
+                  <tr>
+                    <th>Nama</th>
+                    <td>: {{ pasien_rekmed.nama }}</td>
+                  </tr>
+                  <tr>
+                    <th>Nomor Rekam Medis</th>
+                    <td>: {{ pasien_rekmed.ID }}</td>
+                  </tr>
+                </tbody>
+                <tbody>
+                  <tr>
+                    <th>Nama</th>
+                    <td>: {{ pasien_rekmed.nama }}</td>
+                  </tr>
+                  <tr>
+                    <th>Nomor Rekam Medis</th>
+                    <td>: {{ pasien_rekmed.ID }}</td>
+                  </tr>
+                </tbody>
+                <tbody>
+                  <tr>
+                    <th>Nama</th>
+                    <td>: {{ pasien_rekmed.nama }}</td>
+                  </tr>
+                  <tr>
+                    <th>Nomor Rekam Medis</th>
+                    <td>: {{ pasien_rekmed.ID }}</td>
+                  </tr>
+                </tbody>
+                <tbody>
+                  <tr>
+                    <th>Nama</th>
+                    <td>: {{ pasien_rekmed.nama }}</td>
+                  </tr>
+                  <tr>
+                    <th>Nomor Rekam Medis</th>
+                    <td>: {{ pasien_rekmed.ID }}</td>
+                  </tr>
+                </tbody>
               </table>
               <hr>
               <div v-for="obat in obat" v-bind:key="obat.id">
-               <div class="row my-3">
+                <div class="row my-3">
                   <div class="col-1">
                     <span>R /</span>
                   </div>
                   <div class="col-1">:</div>
                   <div class="col-10">
-                      <span class="my-3">{{ obat.nama_obat }}, {{ obat.jumlah }}</span><br>
-                      <span> {{ obat.signa }} </span>
-                    </div>
+                    <span class="my-3">{{ obat.nama_obat }}, {{ obat.jumlah }}</span><br>
+                    <span> {{ obat.signa }} </span>
                   </div>
+                </div>
               </div>
               <div v-for="racikan in tampil_racikan" v-bind:key="racikan.id">
                 <div class="row my-3">
@@ -195,11 +236,11 @@
                   </div>
                   <div class="col-1">:</div>
                   <div class="col-10">
-                      <div v-for="rac_obat in racikan.obat">
-                        <span class="my-3">{{ rac_obat.nama_obat }}, {{ rac_obat.jumlah }}</span><br>
-                      </div>
-                      <span>{{ racikan.pulv }}, {{ racikan.signa }}</span>
+                    <div v-for="rac_obat in racikan.obat" v-bind:key="rac_obat.id">
+                      <span class="my-3">{{ rac_obat.nama_obat }}, {{ rac_obat.jumlah }}</span><br>
                     </div>
+                    <span>{{ racikan.pulv }}, {{ racikan.signa }}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -210,12 +251,14 @@
         <div class="col col-lg-5">
         </div>
         <div class="col col-lg-3">
-        </div>
-        <div class="col col-lg-3">
           <!-- <button type="button" @click="SimpanDenganResep()" class="btn btn-success btn-block float-right">Tambah Resep</button> -->
         </div>
+        <div class="col col-lg-3">
+          <button type="button" class="btn btn-primary" onclick="window.print();">Cetak invoice</button>
+        </div>
         <div class="col col-lg-1">
-          <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#selesai">Selesai</button>
+          <button type="button" class="btn btn-info float-right" data-toggle="modal"
+            data-target="#selesai">Selesai</button>
         </div>
       </div>
     </div>
@@ -233,18 +276,18 @@
     },
     data() {
       return {
-        pasien_rekmed : [],
-        subjektif : [],
-        objektif : [],
-        assesment : [],
-        plan_diagnosis : [],
-        plan_terapi : [],
-        plan_edukasi : [],
-        tampil_racikan : [],
-        racikan_obat : [],
-        obat : [],
-        diagnosis : [],
-        tindakan : []
+        pasien_rekmed: [],
+        subjektif: [],
+        objektif: [],
+        assesment: [],
+        plan_diagnosis: [],
+        plan_terapi: [],
+        plan_edukasi: [],
+        tampil_racikan: [],
+        racikan_obat: [],
+        obat: [],
+        diagnosis: [],
+        tindakan: []
       }
     },
     async created() {
@@ -278,5 +321,22 @@
       console.log('obat', this.obat)
     }
   }
-</script>
 
+</script>
+<style>
+@media print {
+    body * {
+      visibility: hidden;
+    }
+    #invoice-payment, #invoice-payment * {
+      visibility: visible;
+    }
+    #invoice-payment {
+      /* position: absolute; */
+      right: 300px;
+      top: 270px;
+      transform: scale(1.9);
+      /* zoom: 100%; */
+    }
+  }
+</style>

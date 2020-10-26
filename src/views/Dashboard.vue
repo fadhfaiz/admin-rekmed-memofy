@@ -11,11 +11,16 @@
       <InfoData/>
 
       <h2 class="my-3 font-weight-bold">Daftar Antrian</h2>
-      <form>
-        <div class="form-inline mb-3">
-          <input type="text" class="form-control mr-2" style="width: 54rem;" id="cari_data_pasien" placeholder="Cari data pasien" v-model="cariPasien">
-          <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Tambah data <i class="fa fa-plus-circle"></i></button></router-link>
+      <div class="row">
+        <div class="col-10">
+          <div class="form-inline mb-3">
+            <input type="text" class="form-control mr-2" style="width: 54rem;" id="cari_data_pasien" placeholder="Cari pasien lama" v-model="cariPasien">
+          </div>
         </div>
+        <div class="col-2">
+          <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Pasien baru <i class="fa fa-plus-circle"></i></button></router-link>
+        </div>
+      </div>
 
         <table class="table table-hover table-bordered" v-if="cariPasien == ''">
           <thead>
@@ -34,7 +39,7 @@
                   <button class="btn btn-danger btn-sm" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#hapus_antrian">Hapus</button>
                 </td>
                 <td class="text-center" v-if="row.status=='proses'">
-                  <span>sedang proses </span>
+                  <span>sedang diproses </span>
                   <button class="btn btn-danger btn-sm" type="button" @click="getPasienID(row.ID_pasien)" data-toggle="modal" data-target="#hapus_antrian">X</button>
 
                 </td>
@@ -70,7 +75,6 @@
             </tr>
           </tbody>
         </table>
-      </form>
 
       <!-- Modal Proses -->
       <div class="modal fade" id="proses_antrian" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -83,10 +87,10 @@
               </button>
             </div>
             <div class="modal-body text-dark">
-              Pastikan pak dokter udah siap ya!
+              Pastikan dokter sudah siap ya!
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
               <button type="button" @click="proses_pasien()" data-dismiss="modal" class="btn btn-info">OK</button>
             </div>
           </div>
@@ -104,10 +108,10 @@
               </button>
             </div>
             <div class="modal-body text-dark">
-              Yakin nih mau hapus aku?
+              Yakin ingin menghapus pasien ini dari antrian?
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-info" data-dismiss="modal">Batal</button>
               <button type="button" class="btn btn-outline-danger" data-dismiss="modal" @click="hapusAntrianPasien()">Hapus</button>
             </div>
           </div>

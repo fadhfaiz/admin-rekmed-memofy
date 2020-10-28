@@ -175,46 +175,6 @@
                     <td>: {{ pasien_rekmed.ID }}</td>
                   </tr>
                 </tbody>
-                <tbody>
-                  <tr>
-                    <th>Nama</th>
-                    <td>: {{ pasien_rekmed.nama }}</td>
-                  </tr>
-                  <tr>
-                    <th>Nomor Rekam Medis</th>
-                    <td>: {{ pasien_rekmed.ID }}</td>
-                  </tr>
-                </tbody>
-                <tbody>
-                  <tr>
-                    <th>Nama</th>
-                    <td>: {{ pasien_rekmed.nama }}</td>
-                  </tr>
-                  <tr>
-                    <th>Nomor Rekam Medis</th>
-                    <td>: {{ pasien_rekmed.ID }}</td>
-                  </tr>
-                </tbody>
-                <tbody>
-                  <tr>
-                    <th>Nama</th>
-                    <td>: {{ pasien_rekmed.nama }}</td>
-                  </tr>
-                  <tr>
-                    <th>Nomor Rekam Medis</th>
-                    <td>: {{ pasien_rekmed.ID }}</td>
-                  </tr>
-                </tbody>
-                <tbody>
-                  <tr>
-                    <th>Nama</th>
-                    <td>: {{ pasien_rekmed.nama }}</td>
-                  </tr>
-                  <tr>
-                    <th>Nomor Rekam Medis</th>
-                    <td>: {{ pasien_rekmed.ID }}</td>
-                  </tr>
-                </tbody>
               </table>
               <hr>
               <div v-for="obat in obat" v-bind:key="obat.id">

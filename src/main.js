@@ -4,6 +4,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VoerroTagsInput from '@voerro/vue-tagsinput'
+import Vuelidate from 'vuelidate'
+
+Vue.use(Vuelidate);
 
 Vue.component('tags-input', VoerroTagsInput);
 

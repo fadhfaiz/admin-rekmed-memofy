@@ -126,7 +126,6 @@
 // @ is an alias to /src
 import SidebarNav from '@/components/SidebarNav.vue'
 import InfoData from '@/components/InfoData.vue'
-import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 
 export default {
@@ -148,8 +147,8 @@ export default {
     }
   },
   async created() {
-    //localStorage.clear();
-    this.tampilDataPasien()
+    /*localStorage.clear();*/
+    /*this.tampilDataPasien()*/
     const parseData = (x) => {
       let y = localStorage.getItem(x);
       return JSON.parse(y) || [];
@@ -159,7 +158,7 @@ export default {
     this.list_pasien = await this.loadPasien();
 
     //console.log('pasien cocok', this.pasien_cocok)
-    //console.log('list_pasien', this.list_pasien)
+    console.log('list_pasien', this.list_pasien)
     console.log('list antrian dashboard',this.list_antrian)
   },
   watch : {
@@ -169,12 +168,10 @@ export default {
         return res.nama.toLowerCase().search(val.toLowerCase()) != -1 || res.NIK.search(val) != -1;
       });
 
-      //console.log('ketemu', this.pasien_cocok)
+      console.log('ketemu', this.pasien_cocok)
     }
   },
-  computed : mapGetters(['allPasien']),
   methods : {
-    ...mapActions(['tampilDataPasien']),
     getPasienID(id, nama=null, status=null) {
       this.ID_pasien = id
       if(nama) this.nama_pasien_antri = nama;
@@ -234,14 +231,14 @@ export default {
           'status': 'Menunggu'
       };
 
-      let antrian = [...this.list_antrian];
+      //let antrian = [...this.list_antrian];
 
-      antrian.push(temp_list_antrian);
+      this.list_antrian.push(temp_list_antrian);
 
-      this.$store.dispatch('tambahListAntrian', antrian);
-      localStorage.setItem('list_antrian', JSON.stringify(antrian));
+      this.$store.dispatch('tambahListAntrian', this.list_antrian);
+      localStorage.setItem('list_antrian', JSON.stringify(this.list_antrian));
 
-      this.list_antrian = [...antrian];
+     // this.list_antrian = [...antrian];
       console.log('list_antrian', this.list_antrian)
 
       this.cariPasien = '';

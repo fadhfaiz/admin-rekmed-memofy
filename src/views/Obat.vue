@@ -78,9 +78,9 @@
         </div>
       </div>
       <div class="row my-3">
-        <div class="col-9"></div>
-        <div class="col-3">
-          <button type="button" @click="simpanObat()" class="btn btn-info">Simpan dan tambah racikan</button>
+        <div class="col-8"></div>
+        <div class="col-4">
+          <button type="button" @click="simpanObat()" class="btn btn-info  float-right">Simpan dan tambah racikan</button>
         </div>
       </div>
       <!-- Modal Riwayat Medis -->
@@ -182,37 +182,7 @@
                               </div>
                               <div>
                                 <div class="card">
-                                  <ul class="list-group">
-                                    <li class="list-group-item font-weight-bold text-center">Subjektif</li>
-                                    <div class="px-5" v-for="(sub, index) in subjektif" v-bind:key="index">
-                                      <span>{{ index+1 }}. {{ sub.subjective }}</span><br>
-                                    </div>
-                                    <li class="list-group-item font-weight-bold text-center">Objektif</li>
-                                    <div class="px-5 my-2" v-for="(obj, index) in objektif" v-bind:key="index">
-                                      <span> Nadi : {{ obj.nadi }}</span><br>
-                                      <span> Tekanan Darah : {{ obj.tekanan_darah }}</span><br>
-                                      <span> Suhu Tubuh : {{ obj.suhu_tubuh }}</span><br>
-                                      <span> Respirator Rate : {{ obj.respirator_rate }}</span><br>
-                                      <span> Berat Badan : {{ obj.berat_badan }}</span><br>
-                                      <span> Tinggi Badan : {{ obj.tinggi_badan }}</span><br>
-                                      <span> Hasil Pemeriksaan : {{ obj.hasil_pemeriksaan }}</span>
-                                    </div>
-                                    <li class="list-group-item font-weight-bold text-center">Assesment</li>
-                                    <div class="px-5" v-for="(ass, index) in assesment" v-bind:key="index">
-                                      <span>{{ index+1 }}. {{ ass.nama_diagnosis }}</span><br>
-                                    </div>
-                                    <li class="list-group-item font-weight-bold text-center">Planning</li>
-                                    <li class="list-group-item">Rencana Diagnostik</li>
-                                    <div class="px-5" v-for="(diag, index) in plan_diagnosis" v-bind:key="index">
-                                      <span>{{ index+1 }}. {{ diag.nama_diagnosis }}</span><br>
-                                    </div>
-                                    <li class="list-group-item">Rencana Terapi</li>
-                                    <li class="list-group-item">Rencana Edukasi</li>
-                                    <!-- <li class="list-group-item font-weight-bold text-center">Resep</li>
-                                    <li class="list-group-item">ALorem Ipsum</li>
-                                    <li class="list-group-item font-weight-bold text-center">Total Pembayaran</li>
-                                    <li class="list-group-item">ALorem Ipsum</li> -->
-                                  </ul>
+                                 
                                 </div>
                               </div>
                             </div>
@@ -308,37 +278,7 @@
                         </div>
                         <div>
                           <div class="card">
-                            <ul class="list-group">
-                              <li class="list-group-item font-weight-bold text-center">Subjektif</li>
-                              <div class="px-5" v-for="(sub, index) in subjektif" v-bind:key="index">
-                                <span>{{ index+1 }}. {{ sub.subjective }}</span><br>
-                              </div>
-                              <li class="list-group-item font-weight-bold text-center">Objektif</li>
-                              <div class="px-5 my-2" v-for="(obj, index) in objektif" v-bind:key="index">
-                                <span> Nadi : {{ obj.nadi }}</span><br>
-                                <span> Tekanan Darah : {{ obj.tekanan_darah }}</span><br>
-                                <span> Suhu Tubuh : {{ obj.suhu_tubuh }}</span><br>
-                                <span> Respirator Rate : {{ obj.respirator_rate }}</span><br>
-                                <span> Berat Badan : {{ obj.berat_badan }}</span><br>
-                                <span> Tinggi Badan : {{ obj.tinggi_badan }}</span><br>
-                                <span> Hasil Pemeriksaan : {{ obj.hasil_pemeriksaan }}</span>
-                              </div>
-                              <li class="list-group-item font-weight-bold text-center">Assesment</li>
-                              <div class="px-5" v-for="(ass, index) in assesment" v-bind:key="index">
-                                <span>{{ index+1 }}. {{ ass.nama_diagnosis }}</span><br>
-                              </div>
-                              <li class="list-group-item font-weight-bold text-center">Planning</li>
-                              <li class="list-group-item">Rencana Diagnostik</li>
-                              <div class="px-5" v-for="(diag, index) in plan_diagnosis" v-bind:key="index">
-                                <span>{{ index+1 }}. {{ diag.nama_diagnosis }}</span><br>
-                              </div>
-                              <li class="list-group-item">Rencana Terapi</li>
-                              <li class="list-group-item">Rencana Edukasi</li>
-                              <!-- <li class="list-group-item font-weight-bold text-center">Resep</li>
-                              <li class="list-group-item">ALorem Ipsum</li>
-                              <li class="list-group-item font-weight-bold text-center">Total Pembayaran</li>
-                              <li class="list-group-item">ALorem Ipsum</li> -->
-                            </ul>
+                           
                           </div>
                         </div>
                       </div>

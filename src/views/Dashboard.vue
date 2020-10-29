@@ -12,13 +12,13 @@
 
       <h2 class="my-3 font-weight-bold">Daftar Antrian</h2>
       <div class="row">
+        <div class="col-2">
+          <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Pasien baru <i class="fa fa-plus-circle"></i></button></router-link>
+        </div>
         <div class="col-10">
           <div class="form-inline mb-3">
             <input type="text" class="form-control mr-2" style="width: 54rem;" id="cari_data_pasien" placeholder="Cari pasien lama" v-model="cariPasien">
           </div>
-        </div>
-        <div class="col-2">
-          <router-link to="/pendaftaran"><button type="submit" class="btn btn-block btn-success">Pasien baru <i class="fa fa-plus-circle"></i></button></router-link>
         </div>
       </div>
 
@@ -55,7 +55,7 @@
           </tbody>
         </table>
 
-        <table class="table table-hover table-bordered" style="width: 54rem;" v-else>
+        <table class="table table-hover table-bordered float-right" style="width: 54rem;" v-else>
           <thead class="text-center">
             <th>NIK</th>
             <th>Nama Pasien</th>
@@ -64,7 +64,7 @@
             <th>Aksi</th>
           </thead>
           <tbody>
-            <tr @click="tambahAntrianPasien(pasien.ID, pasien.nama)" class="text-center" v-for="(pasien, index) in pasien_cocok" v-bind:key="index">
+            <tr class="text-center" v-for="(pasien, index) in pasien_cocok" v-bind:key="index">
               <td>{{pasien.NIK}}</td>
               <td>{{pasien.nama}}</td>
               <td>{{pasien.no_telp}}</td>
@@ -127,6 +127,7 @@
 import SidebarNav from '@/components/SidebarNav.vue'
 import InfoData from '@/components/InfoData.vue'
 import axios from 'axios'
+import swal from 'sweetalert2';
 
 export default {
   name: 'dashboard',
@@ -181,12 +182,13 @@ export default {
     },
     async proses_pasien() {
       let pasien = await this.loadPasien(this.ID_pasien)
-      //console.log('proses',pasien)
-      let list_proses = [...this.list_antrian];
-        this.list_antrian = list_proses.filter(res => {
-             return res.ID_pasien != this.ID_pasien
-        });
       if(pasien) {
+          //console.log('proses',pasien)
+          let list_proses = [...this.list_antrian];
+            this.list_antrian = list_proses.filter(res => {
+                 return res.ID_pasien != this.ID_pasien
+            });
+            
           let proses_pasien = {
             'ID_pasien' : this.ID_pasien,
             'nama' : this.nama_pasien_antri,
@@ -223,17 +225,38 @@ export default {
       localStorage.setItem('list_antrian', JSON.stringify(this.list_antrian));
     },
     tambahAntrianPasien(id, nama = null) {
+
       this.ID_pasien = id
       if(nama) this.nama_pasien_antri = nama;
+
       let temp_list_antrian = {
           'ID_pasien': id,
           'nama': nama,
           'status': 'Menunggu'
       };
+      const parseData = (x) => {
+        let y = localStorage.getItem(x);
+        return JSON.parse(y) || [];
+      } 
+
+      let temp_daftar_antrian = parseData('list_antrian');
+      let ada = false
+      for (var i = temp_daftar_antrian.length - 1; i >= 0; i--) {
+        if(id == temp_daftar_antrian[i].ID_pasien) {
+          ada = true
+          break;
+        }
+
+      }
+      if(ada){
+        swal.fire("Pasien Sudah Terdaftar","","error")
+      } else {
+
+        this.list_antrian.push(temp_list_antrian);
+      }
 
       //let antrian = [...this.list_antrian];
 
-      this.list_antrian.push(temp_list_antrian);
 
       this.$store.dispatch('tambahListAntrian', this.list_antrian);
       localStorage.setItem('list_antrian', JSON.stringify(this.list_antrian));

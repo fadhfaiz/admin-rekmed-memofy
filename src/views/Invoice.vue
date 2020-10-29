@@ -179,11 +179,11 @@
               <hr>
               <div v-for="obat in obat" v-bind:key="obat.id">
                 <div class="row my-3">
-                  <div class="col-1">
+                  <div class="col-2">
                     <span>R /</span>
                   </div>
                   <div class="col-1">:</div>
-                  <div class="col-10">
+                  <div class="col-9">
                     <span class="my-3">{{ obat.nama_obat }}, {{ obat.jumlah }}</span><br>
                     <span> {{ obat.signa }} </span>
                   </div>
@@ -191,11 +191,11 @@
               </div>
               <div v-for="racikan in tampil_racikan" v-bind:key="racikan.id">
                 <div class="row my-3">
-                  <div class="col-1">
+                  <div class="col-2">
                     <span>R /</span>
                   </div>
                   <div class="col-1">:</div>
-                  <div class="col-10">
+                  <div class="col-9">
                     <div v-for="rac_obat in racikan.obat" v-bind:key="rac_obat.id">
                       <span class="my-3">{{ rac_obat.nama_obat }}, {{ rac_obat.jumlah }}</span><br>
                     </div>
@@ -214,7 +214,7 @@
           <!-- <button type="button" @click="SimpanDenganResep()" class="btn btn-success btn-block float-right">Tambah Resep</button> -->
         </div>
         <div class="col col-lg-3">
-          <button type="button" class="btn btn-primary" onclick="window.print();">Cetak invoice</button>
+          <button type="button" class="btn btn-primary float-right" onclick="window.print();">Cetak invoice</button>
         </div>
         <div class="col col-lg-1">
           <button type="button" class="btn btn-info float-right" data-toggle="modal"

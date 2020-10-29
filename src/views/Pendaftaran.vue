@@ -25,20 +25,19 @@
           <div class="form-group col-md-6">
             <label>NIK</label>
             <input type="text" class="form-control" v-model.trim="$v.NIK.$model" :class="{'is-invalid' : $v.NIK.$error, 'is-valid' : !$v.NIK.$invalid}">
-            <div class="valid-feedback">NIK Sudah!</div>
             <div class="invalid-feedback">
               <span v-if="!$v.NIK.required">NIK Tidak Boleh Kosong </span>
               <span v-if="!$v.NIK.numeric">NIK Harus Angka </span>
               <div v-if="$v.NIK.numeric">
                 <span v-if="!$v.NIK.minLength">NIK Wajib Berisi {{ $v.NIK.$params.minLength.min }} Digit </span>
                 <span v-if="!$v.NIK.maxLength">NIK Wajib Berisi {{ $v.NIK.$params.maxLength.max }} Digit </span>
+                <span v-if="!$v.NIK.isUnique">NIK Sudah ada </span>
               </div>
             </div>
           </div>
           <div class="form-group col-md-6">
             <label>Nama Pasien</label>
             <input type="text" class="form-control" v-model.trim="$v.nama.$model" :class="{'is-invalid' : $v.nama.$error, 'is-valid' : !$v.nama.$invalid}">
-            <div class="valid-feedback">Nama Sudah!</div>
             <div class="invalid-feedback">
               <span v-if="!$v.nama.required">Nama Tidak Boleh Kosong </span>
               <span v-if="!$v.nama.isNameValid">Nama Harus Huruf</span>
@@ -49,7 +48,6 @@
           <div class="form-group col-md-6">
             <label>Nomor HP</label>
             <input type="text" class="form-control" v-model.trim="$v.no_telp.$model" :class="{'is-invalid' : $v.no_telp.$error, 'is-valid' : !$v.no_telp.$invalid}">
-            <div class="valid-feedback">Nomor HP Sudah!</div>
             <div class="invalid-feedback">
               <span v-if="!$v.no_telp.required">Nomor HP Tidak Boleh Kosong </span>
               <span v-if="!$v.no_telp.numeric">Nomor HP Harus Angka </span>
@@ -63,7 +61,6 @@
             <select v-model.trim="$v.jenis_kelamin.$model" class="form-control" :class="{'is-invalid' : $v.jenis_kelamin.$error, 'is-valid' : !$v.jenis_kelamin.$invalid}">
               <option v-for="option in options" v-bind:key="option.value" :value="option.value">{{ option.text }}</option>
             </select>
-            <div class="valid-feedback">Jenis Kelamin Sudah!</div>
             <div class="invalid-feedback">
               <span v-if="!$v.jenis_kelamin.required">Jenis Kelamin Tidak Boleh Kosong </span>
             </div>
@@ -73,7 +70,6 @@
           <div class="form-group col-md-6">
             <label>Tanggal Lahir</label>
             <input type="date" class="form-control" v-model.trim="tanggal_lahir" :class="{'is-invalid' : $v.tanggal_lahir.$error, 'is-valid' : !$v.tanggal_lahir.$invalid}">
-            <div class="valid-feedback">Tanggal Lahir Sudah!</div>
             <div class="invalid-feedback">
               <span v-if="!$v.tanggal_lahir.required">Tanggal Lahir Tidak Boleh Kosong </span>
             </div>
@@ -81,7 +77,6 @@
           <div class="form-group col-md-6">
             <label>Alamat</label>
             <input type="text" class="form-control" v-model.trim="$v.alamat.$model" :class="{'is-invalid' : $v.alamat.$error, 'is-valid' : !$v.alamat.$invalid}">
-          <div class="valid-feedback">Alamat Sudah!</div>
           <div class="invalid-feedback">
             <span v-if="!$v.alamat.required">Alamat Tidak Boleh Kosong </span>
           </div>
@@ -130,7 +125,13 @@ export default {
       required,
       numeric,
       minLength: minLength(16),
-      maxLength: maxLength(16)
+      maxLength: maxLength(16),
+      async isUnique (value) {
+        console.log('halooo', value)
+        if (value === '') return false
+        const response = await fetch(`http://localhost/rekmed-server/api/v1/Registrasi/NIK_validate/${value}`)
+        return !Boolean(await response.json())
+      }
     },
     nama : {
       required,

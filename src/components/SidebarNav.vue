@@ -36,10 +36,10 @@
             </li>
           </ul>
         </li> -->
-        <li class="container">
+        <!-- <li class="container">
           <router-link to="/rekmed">Rekam Medis <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
-        </li>
+        </li> -->
         <li class="container">
           <router-link to="/SOAP">SOAP <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>

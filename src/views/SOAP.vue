@@ -45,9 +45,9 @@
               <div class="col-6">
                 <div class="form-row p-4">
                   <div class="col-1">S</div>
-                  <div class="form-group col-11">
+                  <div class="form-group col-11" @mouseover="Shover = true" @mouseleave="Shover = false">
                     <tags-input v-model.trim="$v.input_subjektif.$model" :class="{'is-invalid' : $v.input_subjektif.$error, 'is-valid' : !$v.input_subjektif.$invalid}"></tags-input>
-                    <div class="valid-feedback">Subjektif Sudah!</div>
+                    <small class="text-muted" v-if="Shover">Tekan enter di setiap akhir kalimat</small>
                     <div class="invalid-feedback">
                       <span v-if="!$v.input_subjektif.required">Subjektif Tidak Boleh Kosong </span>
                     </div>
@@ -61,9 +61,8 @@
                         <div class="input-group mb-3">
                           <input type="text" class="form-control" v-model.trim="$v.nadi.$model" placeholder="N" :class="{'is-invalid' : $v.nadi.$error, 'is-valid' : !$v.nadi.$invalid}">
                           <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">x/min</span>
+                            <span class="input-group-text" id="basic-addon2">/min</span>
                           </div>
-                          <div class="valid-feedback">Nadi Sudah!</div>
                           <div class="invalid-feedback">
                             <span v-if="!$v.nadi.required">Nadi Tidak Boleh Kosong </span>
                             <span v-if="!$v.nadi.numeric">Nadi Harus Angka </span>
@@ -77,7 +76,6 @@
                           <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">mmHg</span>
                           </div>
-                          <div class="valid-feedback">Tekanan Darah Sudah!</div>
                           <div class="invalid-feedback">
                             <span v-if="!$v.tekanan_darah.required">Tekanan Darah Tidak Boleh Kosong </span>
                             <span v-if="!$v.tekanan_darah.per">Tekanan Darah Harus Angka </span>
@@ -92,7 +90,6 @@
                           <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">°C</span>
                           </div>
-                          <div class="valid-feedback">Suhu Tubuh Sudah!</div>
                           <div class="invalid-feedback">
                             <span v-if="!$v.suhu_tubuh.required">Suhu Tubuh Tidak Boleh Kosong</span>
                             <span v-if="!$v.suhu_tubuh.koma">Suhu Tubuh Harus Angka</span>
@@ -104,9 +101,8 @@
                           <input type="text" class="form-control" v-model.trim="$v.respirator_rate.$model"
                             placeholder="RR" :class="{'is-invalid' : $v.respirator_rate.$error, 'is-valid' : !$v.respirator_rate.$invalid}">
                           <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">x/min</span>
+                            <span class="input-group-text" id="basic-addon2">/min</span>
                           </div>
-                          <div class="valid-feedback">Respirator Rate Sudah!</div>
                           <div class="invalid-feedback">
                             <span v-if="!$v.respirator_rate.required">Respirator Rate Tidak Boleh Kosong </span>
                             <span v-if="!$v.respirator_rate.numeric">Respirator Rate Harus Angka </span>
@@ -121,9 +117,9 @@
                           <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">kg</span>
                           </div>
-                          <div class="valid-feedback">Berat Badan Sudah!</div>
                           <div class="invalid-feedback">
                             <span v-if="!$v.berat_badan.required">Berat Badan Tidak Boleh Kosong </span>
+                            <span v-if="!$v.berat_badan.numeric">Berat Badan Harus Angka </span>
                           </div>
                         </div>
                       </div>
@@ -134,9 +130,9 @@
                           <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">cm</span>
                           </div>
-                          <div class="valid-feedback">Tinggi Badan Sudah!</div>
                           <div class="invalid-feedback">
                             <span v-if="!$v.tinggi_badan.required">Tinggi Badan Tidak Boleh Kosong </span>
+                            <span v-if="!$v.tinggi_badan.numeric">Tinggi Badan Harus Angka </span>
                           </div>
                         </div>
                       </div>
@@ -144,78 +140,61 @@
                     <div class="form-row">
                       <div class="form-group col-md-12">
                         <textarea class="form-control" rows="3"
-                          v-model.trim="$v.hasil_pemeriksaan.$model" placeholder="Hasil Pemeriksaan" :class="{'is-invalid' : $v.hasil_pemeriksaan.$error, 'is-valid' : !$v.hasil_pemeriksaan.$invalid}"></textarea>
-                        <div class="valid-feedback">Hasil Pemeriksaan Sudah!</div>
-                        <div class="invalid-feedback">
-                          <span v-if="!$v.hasil_pemeriksaan.required">Hasil Pemeriksaan Tidak Boleh Kosong </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-row px-4 mb-4">
-                  <div class="col-1">A</div>
-                  <div class="form-group col-11">
-                    <tags-input v-model="input_assesmen" :existing-tags="cari_asessment" :typeahead="true"
-                      :typeahead-style="typeaheadStyle" :typeahead-show-on-focus="true" ></tags-input>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="form-row p-4">
-                  <div class="col-1">P</div>
-                  <div class="col-11">
-                    <div class="form-row">
-                      <div class="form-group col">
-                        <tags-input v-model.trim="$v.input_plan_diagnostik.$model" placeholder="plan diagnostik"
-                          :existing-tags=" cari_plan_diagnostik" :typeahead="true" :typeahead-style="typeaheadStyle"
-                          :typeahead-show-on-focus="true" :class="{'is-invalid' : $v.input_plan_diagnostik.$error, 'is-valid' : !$v.input_plan_diagnostik.$invalid}"></tags-input>
-                        <div class="valid-feedback">Plan Diagnostik Sudah!</div>
-                        <div class="invalid-feedback">
-                          <span v-if="!$v.input_plan_diagnostik.required">Plan Diagnostik Tidak Boleh Kosong </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-row my-4">
-                      <div class="form-group col">
-                        <tags-input v-model.trim="$v.input_plan_terapi.$model" placeholder="plan terapi" :class="{'is-invalid' : $v.input_plan_terapi.$error, 'is-valid' : !$v.input_plan_terapi.$invalid}"></tags-input>
-                        <div class="valid-feedback">Plan Terapi Sudah!</div>
-                        <div class="invalid-feedback">
-                          <span v-if="!$v.input_plan_terapi.required">Plan Terapi Tidak Boleh Kosong </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="form-group col">
-                        <tags-input v-model.trim="$v.input_plan_edukasi.$model" placeholder="plan edukasi"
-                          :existing-tags=" cari_plan_edukasi" :typeahead="true" :typeahead-style="typeaheadStyle"
-                          :typeahead-show-on-focus="true" :class="{'is-invalid' : $v.input_plan_edukasi.$error, 'is-valid' : !$v.input_plan_edukasi.$invalid}"></tags-input>
-                        <div class="valid-feedback">Plan Edukasi Sudah!</div>
-                        <div class="invalid-feedback">
-                          <span v-if="!$v.input_plan_edukasi.required">Plan Edukasi Tidak Boleh Kosong </span>
-                        </div>
+                          v-model="hasil_pemeriksaan" placeholder="Hasil Pemeriksaan"></textarea>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="form-row px-4">
                   <div class="col-1">D</div>
-                  <div class="form-group col-11">
-                    <tags-input v-model.trim="$v.input_diagnosis.$model" :class="{'is-invalid' : $v.input_diagnosis.$error, 'is-valid' : !$v.input_diagnosis.$invalid}"></tags-input>
-                    <div class="valid-feedback">Diagnosis Sudah!</div>
-                    <div class="invalid-feedback">
-                      <span v-if="!$v.input_diagnosis.required">Diagnosis Tidak Boleh Kosong </span>
+                  <div class="form-group col-11" @mouseover="Dhover = true" @mouseleave="Dhover = false">
+                    <tags-input v-model="input_diagnosis"></tags-input>
+                    <small class="text-muted" v-if="Dhover">Tekan enter di setiap akhir kalimat</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-row p-4">
+                  <div class="col-1">A</div>
+                  <div class="form-group col-11" @mouseover="Ahover = true" @mouseleave="Ahover = false">
+                    <tags-input v-model="input_assesmen" :existing-tags="cari_asessment" :typeahead="true"
+                      :typeahead-style="typeaheadStyle" :typeahead-show-on-focus="true" ></tags-input>
+                    <small class="text-muted" v-if="Ahover">Tekan enter di setiap akhir kalimat</small>
+                  </div>
+                </div>
+                <div class="form-row px-4">
+                  <div class="col-1">P</div>
+                  <div class="col-11">
+                    <div class="form-row">
+                      <div class="form-group col" @mouseover="Dihover = true" @mouseleave="Dihover = false">
+                        <tags-input v-model="input_plan_diagnostik" placeholder="plan diagnostik"
+                          :existing-tags=" cari_plan_diagnostik" :typeahead="true" :typeahead-style="typeaheadStyle"
+                          :typeahead-show-on-focus="true"></tags-input>
+                        <small class="text-muted" v-if="Dihover">Tekan enter di setiap akhir kalimat</small>
+                      </div>
+                    </div>
+                    <div class="form-row my-4">
+                      <div class="form-group col" @mouseover="Thover = true" @mouseleave="Thover = false">
+                        <tags-input v-model="input_plan_terapi" placeholder="plan terapi"></tags-input>
+                        <small class="text-muted" v-if="Thover">Tekan enter di setiap akhir kalimat</small>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col" @mouseover="Ehover = true" @mouseleave="Ehover = false">
+                        <tags-input v-model="input_plan_edukasi" placeholder="plan edukasi"
+                          :existing-tags=" cari_plan_edukasi" :typeahead="true" :typeahead-style="typeaheadStyle"
+                          :typeahead-show-on-focus="true"></tags-input>
+                        <small class="text-muted" v-if="Ehover">Tekan enter di setiap akhir kalimat</small>
+                      </div>
                     </div>
                   </div>
                 </div>
+                
                 <div class="form-row p-4">
                   <div class="col-1">T</div>
-                  <div class="form-group col-11">
-                    <tags-input v-model.trim="$v.input_tindakan.$model" :class="{'is-invalid' : $v.input_tindakan.$error, 'is-valid' : !$v.input_tindakan.$invalid}"></tags-input>
-                    <div class="valid-feedback">Tindakan Sudah!</div>
-                    <div class="invalid-feedback">
-                      <span v-if="!$v.input_tindakan.required">Tindakan Tidak Boleh Kosong </span>
-                    </div>
+                  <div class="form-group col-11" @mouseover="Tihover = true" @mouseleave="Tihover = false">
+                    <tags-input v-model="input_tindakan"></tags-input>
+                    <small class="text-muted" v-if="Tihover">Tekan enter di setiap akhir kalimat</small>
                   </div>
                 </div>
               </div>
@@ -227,6 +206,7 @@
             <div class="col col-lg-3">
             </div>
             <div class="col col-lg-3">
+              <span style="display: none" data-toggle="modal" data-target="#selesai" id="OnModal"></span>
             </div>
             <div class="col col-lg-1">
               <button type="submit" class="btn btn-info float-right">Selesai</button>
@@ -258,7 +238,162 @@
           </div>
         </div>
       </div>
+       <!-- Modal Riwayat Medis -->
+            <div class="modal fade" id="riwayatMedis" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                style="max-width: 100% !important; width: 90% !important;">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Riawayat Medis</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table table-hover table-bordered">
+                <thead>
+                  <tr class="text-center bg-dark" style="color: white;">
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Objektif</th>
+                    <th scope="col">Asesmen</th>
+                    <th scope="col">Rencana</th>
+                    <th scope="col">Resep</th>
+                    <th scope="col">Detail</th>
+                  </tr>
+                </thead>
+                <!-- <tbody>
+                    <tr v-for="(row, index) in list_riwayat" :key="index">
+                      <th scope="row" class="text-center">{{ row.tanggal_periksa }}</th>
+                      <td>{{ row.objektif }}</td>
+                      <td>{{ row.asesmen }}</td>
+                      <td>{{ row.rencana }}</td>
+                      <td>{{ row.resep }}</td>
+                    </tr>
+                  </tbody> -->
+                <tbody>
+                  <tr>
+                    <th scope="row">01 September</th>
+                    <td class="text-center">Objektif 1</td>
+                    <td class="text-center">Assesment 1</td>
+                    <td>Rencana 1</td>
+                    <td>Resep 1</td>
+                    <td class="text-center">
+                      <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#riwayatModal">
+                        Detail Resep
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">02 November</th>
+                    <td class="text-center">Objektif 2</td>
+                    <td class="text-center">Assesment 2</td>
+                    <td>Rencana 2</td>
+                    <td>Resep 2</td>
+                    <td class="text-center">
+                      <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#riwayatModal">
+                        Detail Resep
+                      </button>
+                    </td>
+                  </tr>
 
+                 
+                </tbody>
+              </table>
+                  </div>
+                  <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="window.print();">Cetak invoice</button>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+            <!-- Modal Riwayat Medis -->
+            <div class="modal fade" id="riwayatModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                style="max-width: 100% !important; width: 90% !important;">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div>
+                          <table class="table table-sm table-borderless">
+                            <tbody>
+                              <tr>
+                                <th>Nama</th>
+                                <td>: Shofian Listya</td>
+                              </tr>
+                              <tr>
+                                <th>Nomor Rekam Medis</th>
+                                <td>: RM0004</td>
+                              </tr>
+                              <tr>
+                                <th>Status BPJS</th>
+                                <td>: Tidak</td>
+                              </tr>
+                              <tr>
+                                <th>Tanggal</th>
+                                <td>: 24 Oktober 2020</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <div class="card">
+                            
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6" id="invoice-payment">
+                        <div>
+                          <p class="h4 font-weight-bold text-center">Klink Citra Medika</p>
+                          <hr>
+                        </div>
+                        <div>
+                          <table class="table table-sm table-borderless">
+                            <tbody>
+                              <tr>
+                                <th>Nama</th>
+                                <td>: Shofian Carono</td>
+                              </tr>
+                              <tr>
+                                <th>Nomor Rekam Medis</th>
+                                <td>: RM0004</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <hr>
+                        </div>
+
+                        <div>
+                          <div class="h6 font-weight-bold text-center">Resep</div>
+                          <hr>
+                        </div>
+
+                        <div>
+                          <div class="h6 font-weight-bold text-center">Pembayaran</div>
+                          <hr>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="window.print();">Cetak invoice</button>
+                  </div>
+                </div>
+              </div>
+            </div>
     </div>
   </div>
 </template>
@@ -270,6 +405,7 @@
   import { required, minLength, maxLength, numeric, alpha, helpers } from 'vuelidate/lib/validators'
   import axios from 'axios'
 
+
   export default {
     name: 'SOAP',
     components: {
@@ -279,6 +415,13 @@
     data() {
       return {
         typeahead: true,
+        Shover : false,
+        Dhover : false,
+        Ahover : false,
+        Dihover : false,
+        Thover : false,
+        Ehover : false,
+        Tihover : false,
         typeaheadStyle: 'dropdown',
         typeaheadShowOnFocus: true,
         cari_asessment: [],
@@ -315,28 +458,13 @@
       input_subjektif : {
         required
       },
-      input_tindakan : {
-        required
-      },
-      input_diagnosis : {
-        required
-      },
-      input_plan_terapi : {
-        required
-      },
-      input_plan_edukasi : {
-        required
-      },
-      input_plan_diagnostik : {
-        required
-      },
       nadi : {
         required,
         numeric
       },
       tekanan_darah : {
         required,
-        per: helpers.regex('per',/^[0-9 /]*$/)
+        per: helpers.regex('per',/^[0-9\t\n /]*$/)
       },
       suhu_tubuh : {
         required,
@@ -347,13 +475,12 @@
         numeric
       },
       berat_badan : {
-        required
+        required,
+        numeric
       },
       tinggi_badan : {
-        required
-      },
-      hasil_pemeriksaan : {
-        required
+        required,
+        numeric
       }
     },
     async created() {
@@ -374,6 +501,7 @@
 
     },
     methods: {
+
       async tampilAssesment() {
         return await axios.get('http://localhost/rekmed-server/api/v1/Assesment/get').then(res => res.data)
 
@@ -505,6 +633,9 @@
         if(this.$v.$invalid) {
           this.submit_status = "Gagal"
         } else {
+          let OnModal = document.getElementById("OnModal")
+
+          OnModal.click()
           this.tambahDataSemua()
         }
       }

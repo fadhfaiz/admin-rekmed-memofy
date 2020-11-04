@@ -144,7 +144,8 @@ export default {
       list_pasien: [],
       pasien_cocok: [],
       cariPasien: '',
-      pasien_proses : []
+      proses : [],
+      status_proses : true
     }
   },
   async created() {
@@ -182,7 +183,7 @@ export default {
     },
     async proses_pasien() {
       let pasien = await this.loadPasien(this.ID_pasien)
-      if(pasien) {
+      if(pasien ) {
           //console.log('proses',pasien)
           let list_proses = [...this.list_antrian];
             this.list_antrian = list_proses.filter(res => {
@@ -196,15 +197,18 @@ export default {
           };
 
           this.list_antrian.unshift(proses_pasien);
+          //this.proses.push(proses_pasien);
+
           this.$store.dispatch('tambahListAntrian', this.list_antrian)
           localStorage.setItem('list_antrian', JSON.stringify(this.list_antrian));
+          //localStorage.setItem('proses', JSON.stringify(this.proses));
+          //let coba = JSON.parse(localStorage.getItem('proses')) || [];
 
+          console.log(coba)
           this.$store.dispatch('simpanDataPasien', pasien)
           localStorage.setItem('pasien', JSON.stringify(pasien));
 
-          console.log('proses', list_proses)
-          console.log('proses hasil', this.list_antrian)
-          this.$router.push('/SOAP')
+          //this.$router.push('/SOAP')
       }
 
     },
@@ -255,6 +259,7 @@ export default {
         this.list_antrian.push(temp_list_antrian);
       }
 
+     
       //let antrian = [...this.list_antrian];
 
 

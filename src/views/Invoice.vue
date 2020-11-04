@@ -217,8 +217,7 @@
           <button type="button" class="btn btn-primary float-right" onclick="window.print();">Cetak invoice</button>
         </div>
         <div class="col col-lg-1">
-          <button type="button" class="btn btn-info float-right" data-toggle="modal"
-            data-target="#selesai">Selesai</button>
+          <button type="button" class="btn btn-info float-right" @click="tambahPlanDiagnosis()">Selesai</button>
         </div>
       </div>
     </div>
@@ -227,8 +226,10 @@
 
 <script>
 /*eslint-disable*/
-  // @ is an alias to /src
-  import SidebarNav from '@/components/SidebarNav.vue'
+// @ is an alias to /src
+import SidebarNav from '@/components/SidebarNav.vue'
+import axios from "axios"
+
   export default {
     name: 'invoice',
     components: {
@@ -247,7 +248,8 @@
         racikan_obat: [],
         obat: [],
         diagnosis: [],
-        tindakan: []
+        tindakan: [],
+        
       }
     },
     async created() {
@@ -269,16 +271,63 @@
       //this.racikan_obat = getData('racikan_obat')
       this.obat = getData('obat');
 
-      console.log('pasien', this.pasien_rekmed)
+      console.log('plan_diagnosis', this.plan_diagnosis)
+      //console.log('assesment', this.assesment)
+      /*console.log('pasien', this.pasien_rekmed)
       console.log('subjektif', this.subjektif)
       console.log('objektif', this.objektif)
-      console.log('assesment', this.assesment)
-      console.log('plan_diagnosis', this.plan_diagnosis)
       console.log('plan_terapi', this.plan_terapi)
       console.log('plan_edukasi', this.plan_edukasi)
       console.log('racikan', this.tampil_racikan)
       //console.log('racikan obat', this.racikan_obat)
-      console.log('obat', this.obat)
+      console.log('obat', this.obat)*/
+    },
+    methods : {
+      async tambahSubjektif() {
+        for (var i = this.subjektif.length - 1; i >= 0; i--) {
+          //console.log('subjektif',this.subjektif[i].nama)
+          const sub = await axios.post('http://localhost/rekmed-server/Api/v1/Subjektif/post',{
+            nama : this.subjektif[i].nama,
+            ID_pasien : this.subjektif[i].ID_pasien
+          }).then(res => this.sub = res.data)
+        }
+      },
+      async tambahObjektif() {
+        for (var i = this.objektif.length - 1; i >= 0; i--) {
+          //console.log('objektif', this.objektif[i].nadi)
+          const obj = await axios.post('http://localhost/rekmed-server/Api/v1/Objektif/post',{
+            nadi : this.objektif[i].nadi,
+            tekanan_darah : this.objektif[i].tekanan_darah,
+            suhu_tubuh : this.objektif[i].suhu_tubuh,
+            respiration_rate : this.objektif[i].respirator_rate,
+            berat_badan : this.objektif[i].berat_badan,
+            tinggi_badan : this.objektif[i].tinggi_badan,
+            hasil_pemeriksaan : this.objektif[i].hasil_pemeriksaan,
+            ID_pasien : this.pasien_rekmed.ID
+          }).then(res => this.obj = res.data)
+        }
+      },
+      async tambahAssesment() {
+        for (var i = this.assesment.length - 1; i >= 0; i--) {
+          const ass = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment_terpilih/post',{
+            nama_diagnosis : this.assesment[i].nama_diagnosis,
+            ID_pasien : this.assesment[i].ID_pasien,
+          }).then(res => this.ass = res.data)
+        }
+      },
+      async tambahPlanDiagnosis() {
+        for (var i = this.plan_diagnosis.length - 1; i >= 0; i--) {
+          const pd = await axios.post('http://localhost/rekmed-server/Api/v1/Plan_diagnosis_terpilih/post',{
+            nama_diagnosis : this.plan_diagnosis[i].nama_diagnosis,
+            ID_pasien : this.plan_diagnosis[i].ID_pasien
+          }).then(res => this.pd = res.data)
+        }
+      },
+      selesai() {
+      //post subjektif
+
+      //localStorage.clear();
+      } 
     }
   }
 

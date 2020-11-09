@@ -163,7 +163,7 @@
                   </div>
                 </div>
                 <div class="form-row px-4">
-                  <div class="col-1">P</div>
+                  <div class="col-1" title="Plan / Rencana">P</div>
                   <div class="col-11">
                     <div class="form-row">
                       <div class="form-group col" @mouseover="Dihover = true" @mouseleave="Dihover = false">

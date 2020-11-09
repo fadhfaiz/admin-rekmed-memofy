@@ -217,7 +217,7 @@
           <button type="button" class="btn btn-primary float-right" onclick="window.print();">Cetak invoice</button>
         </div>
         <div class="col col-lg-1">
-          <button type="button" class="btn btn-info float-right" @click="tambahPlanDiagnosis()">Selesai</button>
+          <button type="button" class="btn btn-info float-right" @click="tambahTindakan()">Selesai</button>
         </div>
       </div>
     </div>
@@ -241,6 +241,7 @@ import axios from "axios"
         subjektif: [],
         objektif: [],
         assesment: [],
+        ass : [],
         plan_diagnosis: [],
         plan_terapi: [],
         plan_edukasi: [],
@@ -271,7 +272,7 @@ import axios from "axios"
       //this.racikan_obat = getData('racikan_obat')
       this.obat = getData('obat');
 
-      console.log('plan_diagnosis', this.plan_diagnosis)
+      //console.log('plan_diagnosis', this.plan_diagnosis)
       //console.log('assesment', this.assesment)
       /*console.log('pasien', this.pasien_rekmed)
       console.log('subjektif', this.subjektif)
@@ -281,6 +282,7 @@ import axios from "axios"
       console.log('racikan', this.tampil_racikan)
       //console.log('racikan obat', this.racikan_obat)
       console.log('obat', this.obat)*/
+      //console.log('diagnosis', this.diagnosis)
     },
     methods : {
       async tambahSubjektif() {
@@ -309,18 +311,49 @@ import axios from "axios"
       },
       async tambahAssesment() {
         for (var i = this.assesment.length - 1; i >= 0; i--) {
-          const ass = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment_terpilih/post',{
+          const asses = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment_terpilih/post',{
             nama_diagnosis : this.assesment[i].nama_diagnosis,
             ID_pasien : this.assesment[i].ID_pasien,
-          }).then(res => this.ass = res.data)
+          }).then(res => this.asses = res.data)
+          
+          const tampil = await axios.get('http://localhost/rekmed-server/Api/v1/Assesment/get').then(res => res.data)
+          this.ass = tampil
+          //console.log(this.ass.value)
+          let ada = false
+
+          for (var a = this.ass.length - 1; a >= 0; a--) {
+            //console.log('nama', this.ass[a].value)
+            if(this.assesment[i].nama_diagnosis == this.ass[a].value) {
+              //console.log('data sama', this.ass[a].value)
+              ada = true
+              break;
+            }
+          }
+          if(ada){
+            console.log('sama')
+          } else {
+            console.log('tidak')
+            const simpan_ass = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment/post',{
+              value : this.assesment[i].nama_diagnosis
+            }).then(res => this.simpan_ass = res.data)
+            //console.log('tidak sama', this.ass[a].value)
+          }
         }
       },
-      async tambahPlanDiagnosis() {
-        for (var i = this.plan_diagnosis.length - 1; i >= 0; i--) {
-          const pd = await axios.post('http://localhost/rekmed-server/Api/v1/Plan_diagnosis_terpilih/post',{
-            nama_diagnosis : this.plan_diagnosis[i].nama_diagnosis,
-            ID_pasien : this.plan_diagnosis[i].ID_pasien
-          }).then(res => this.pd = res.data)
+      async tambahDiagnosis() {
+        for (var i = this.diagnosis.length - 1; i >= 0; i--) {
+          const diag = await axios.post('http://localhost/rekmed-server/Api/v1/Diagnosis/post',{
+            ID_pasien : this.diagnosis[i].ID_pasien,
+            diagnosis : this.diagnosis[i].nama
+          }).then(res => this.diag = res.data)
+        }
+      },
+      async tambahTindakan() {
+        for (var i = this.tindakan.length - 1; i >= 0; i--) {
+          const tind = await axios.post('http://localhost/rekmed-server/Api/v1/Tindakan/post',{
+            ID_pasien : this.tindakan[i].ID_pasien,
+            tindakan : this.tindakan[i].nama_tindakan
+          }).then(res => this.tind = res.data)
         }
       },
       selesai() {

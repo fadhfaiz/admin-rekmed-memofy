@@ -28,10 +28,12 @@
             <div class="invalid-feedback">
               <span v-if="!$v.NIK.required">NIK Tidak Boleh Kosong </span>
               <span v-if="!$v.NIK.numeric">NIK Harus Angka </span>
+              <div v-if="$v.NIK.required">
+                <span v-if="!$v.NIK.isUnique">NIK Sudah ada </span>
+              </div>
               <div v-if="$v.NIK.numeric">
                 <span v-if="!$v.NIK.minLength">NIK Wajib Berisi {{ $v.NIK.$params.minLength.min }} Digit </span>
                 <span v-if="!$v.NIK.maxLength">NIK Wajib Berisi {{ $v.NIK.$params.maxLength.max }} Digit </span>
-                <span v-if="!$v.NIK.isUnique">NIK Sudah ada </span>
               </div>
             </div>
           </div>

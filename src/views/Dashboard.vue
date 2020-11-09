@@ -204,11 +204,11 @@ export default {
           //localStorage.setItem('proses', JSON.stringify(this.proses));
           //let coba = JSON.parse(localStorage.getItem('proses')) || [];
 
-          console.log(coba)
+          //console.log(coba)
           this.$store.dispatch('simpanDataPasien', pasien)
           localStorage.setItem('pasien', JSON.stringify(pasien));
 
-          //this.$router.push('/SOAP')
+          this.$router.push('/SOAP')
       }
 
     },

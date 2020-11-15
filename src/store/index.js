@@ -22,6 +22,7 @@ export default new Vuex.Store({
         edukasi : [],
       },
     },
+    biaya : [],
     obat : [],
     diagnosis : [],
     tindakan : [],
@@ -117,7 +118,10 @@ export default new Vuex.Store({
     },
    /* simpan data*/
    async simpanDataPasien({ commit }, pasien) {
-    commit('setDataPasien'. pasien);
+    commit('setDataPasien', pasien);
+   },
+   async simpanBiaya({ commit }, biaya) {
+    commit('setBiaya', biaya)
    }
   },
   mutations: {
@@ -148,7 +152,8 @@ export default new Vuex.Store({
     setNewTindakan : (state, tindakan) => state.tindakan = tindakan,
 
     /*simpan data*/
-    setDataPasien :(state, pasien) => state.pasien = pasien
+    setDataPasien :(state, pasien) => state.pasien = pasien,
+    setBiaya :(state, biaya) => state.biaya = biaya
   },
   modules: {
   }

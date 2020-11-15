@@ -155,6 +155,19 @@
                     </div>
                   </div>
                 </div>
+                <div class="row my-3">
+                  <div class="col-12">
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        <div class="row">
+                          <div class="col-md-6">Total Pembayaran</div>
+                          <div class="col-md-1">:</div>
+                          <div v-for="biaya in biaya" v-bind:key="biaya.id" class="col-md-5">Rp. {{ biaya.biaya }}</div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -217,7 +230,7 @@
           <button type="button" class="btn btn-primary float-right" onclick="window.print();">Cetak invoice</button>
         </div>
         <div class="col col-lg-1">
-          <button type="button" class="btn btn-info float-right" @click="tambahTindakan()">Selesai</button>
+          <button type="button" class="btn btn-info float-right" @click="selesai()">Selesai</button>
         </div>
       </div>
     </div>
@@ -242,6 +255,13 @@ import axios from "axios"
         objektif: [],
         assesment: [],
         ass : [],
+        sub : [],
+        diag : [],
+        tind : [],
+        plan : [],
+        plan_diag : [],
+        plan_ter : [],
+        plan_edu : [],
         plan_diagnosis: [],
         plan_terapi: [],
         plan_edukasi: [],
@@ -250,6 +270,8 @@ import axios from "axios"
         obat: [],
         diagnosis: [],
         tindakan: [],
+        biaya: [],
+        kosong: []
         
       }
     },
@@ -271,6 +293,7 @@ import axios from "axios"
       this.tindakan = getData('tindakan');
       //this.racikan_obat = getData('racikan_obat')
       this.obat = getData('obat');
+      this.biaya = getData('biaya');
 
       //console.log('plan_diagnosis', this.plan_diagnosis)
       //console.log('assesment', this.assesment)
@@ -279,10 +302,10 @@ import axios from "axios"
       console.log('objektif', this.objektif)
       console.log('plan_terapi', this.plan_terapi)
       console.log('plan_edukasi', this.plan_edukasi)
-      console.log('racikan', this.tampil_racikan)
       //console.log('racikan obat', this.racikan_obat)
       console.log('obat', this.obat)*/
       //console.log('diagnosis', this.diagnosis)
+      console.log('racikan', this.tampil_racikan)
     },
     methods : {
       async tambahSubjektif() {
@@ -292,6 +315,25 @@ import axios from "axios"
             nama : this.subjektif[i].nama,
             ID_pasien : this.subjektif[i].ID_pasien
           }).then(res => this.sub = res.data)
+
+          const tampil_sub = await axios.get('http://localhost/rekmed-server/Api/v1/Subjektif_terpilih/get').then(res => res.data)
+          this.sub = tampil_sub
+
+          let ada = false
+          for (var a = this.sub.length - 1; a >= 0; a--) {
+            if(this.subjektif[i].nama == this.sub[a].value) {
+              ada = true
+              break;
+            }
+          }
+          if(ada) {
+            console.log('sama')
+          } else {
+            console.log('tidak')
+            const simpan_sub = await axios.post('http://localhost/rekmed-server/Api/v1/Subjektif_terpilih/post',{
+              value : this.subjektif[i].nama
+            }).then(res => this.simpan_sub = res.data)
+          }
         }
       },
       async tambahObjektif() {
@@ -340,6 +382,92 @@ import axios from "axios"
           }
         }
       },
+      async tambahPlanDiagnostik() {
+        for (var i = this.plan_diagnosis.length - 1; i >= 0; i--) {
+          const diagnos = await axios.post('http://localhost/rekmed-server/Api/v1/plan/post/rencana_diagnostik',{
+            nama_diagnosis : this.plan_diagnosis[i].nama_diagnosis,
+            ID_plan : 1
+          }).then(res => this.diagnos = res.data)
+
+          const tampil_plan = await axios.get('http://localhost/rekmed-server/Api/v1/Plan_diagnosis/get').then(res => res.data)
+          this.plan_diag = tampil_plan
+
+          let ada = false
+
+          for (var a = this.plan_diag.length - 1; a >= 0; a--) {
+            if(this.plan_diagnosis[i].nama_diagnosis == this.plan_diag[a].value) {
+              ada = true
+              break;
+            }
+          }
+          if(ada) {
+            console.log('sama')
+          } else {
+            console.log('tidak')
+            const simpan_plan = await axios.post('http://localhost/rekmed-server/Api/v1/Plan_diagnosis/post',{
+              value : this.plan_diagnosis[i].nama_diagnosis
+            }).then(res => this.simpan_plan = res.data)
+          }
+        }
+      },
+      async tambahPlanTerapi() {
+        for (var i = this.plan_terapi.length - 1; i >= 0; i--) {
+          const terapi = await axios.post('http://localhost/rekmed-server/Api/v1/plan/post/rencana_terapi',{
+            nama_terapi : this.plan_terapi[i].nama_terapi,
+            ID_plan : 1
+          }).then(res => this.terapi = res.data)
+
+          const tampil_terapi = await axios.get('http://localhost/rekmed-server/Api/v1/Plan_terapi/get').then(res => res.data)
+          this.plan_ter = tampil_terapi
+
+          let ada = false 
+
+          for (var a = this.plan_ter.length - 1; a >= 0; a--) {
+            if(this.plan_terapi[i].nama_terapi == this.plan_ter[a].value){
+              ada = true
+              break;
+            }
+          }
+          if(ada) {
+            console.log('sama')
+          } else {
+            console.log('tidak')
+            const simpan_terapi = await axios.post('http://localhost/rekmed-server/Api/v1/Plan_terapi/post',{
+              value : this.plan_terapi[i].nama_terapi
+            }).then(res => this.simpan_terapi = res.data)
+          }
+        }
+      },
+      //validasi kondisi id plan jika null maka melakukan request ke api
+      //kemudian disimpan ke dalam variabel id plan
+      async tambahPlanEdukasi() {
+        for (var i = this.plan_edukasi.length - 1; i >= 0; i--) {
+          const edukasi = await axios.post('http://localhost/rekmed-server/Api/v1/plan/post/rencana_edukasi',{
+            nama_edukasi : this.plan_edukasi[i].nama_edukasi,
+            ID_plan : 1
+          }).then(res => this.edukasi = res.data)
+
+          const tampil_edu = await axios.get('http://localhost/rekmed-server/Api/v1/Plan_edukasi/get').then(res => res.data)
+          this.plan_edu = tampil_edu
+
+          let ada = false
+
+          for (var a = this.plan_edu.length - 1; a >= 0; a--) {
+            if(this.plan_edukasi[i].nama_edukasi == this.plan_edu[a].value) {
+              ada = true
+              break;
+            }
+          }
+          if(ada) {
+            console.log('sama')
+          } else {
+            console.log('tidak')
+            const simpan_edu = await axios.post('http://localhost/rekmed-server/Api/v1/Plan_edukasi/post',{
+              value : this.plan_edukasi[i].nama_edukasi
+            }).then(res => this.simpan_edu = res.data)
+          }
+        }
+      },
       async tambahDiagnosis() {
         for (var i = this.diagnosis.length - 1; i >= 0; i--) {
           const diag = await axios.post('http://localhost/rekmed-server/Api/v1/Diagnosis/post',{
@@ -354,12 +482,65 @@ import axios from "axios"
             ID_pasien : this.tindakan[i].ID_pasien,
             tindakan : this.tindakan[i].nama_tindakan
           }).then(res => this.tind = res.data)
+
+          const tampil_tind = await axios.get('http://localhost/rekmed-server/Api/v1/Tindakan_terpilih/get').then(res => res.data)
+          this.tind = tampil_tind
+
+          let ada = false
+          for (var a = this.tind.length - 1; a >= 0; a--) {
+            if(this.tindakan[i].nama_tindakan == this.tind[a].value){
+              ada = true
+              break;
+            }
+          }
+          if(ada) {
+            console.log('sama')
+          } else {
+            console.log('tidak')
+            const simpan_tind = await axios.post('http://localhost/rekmed-server/Api/v1/Tindakan_terpilih/post',{
+              value : this.tindakan[i].nama_tindakan
+            }).then(res => this.simpan_tind = res.data)
+          }
         }
       },
-      selesai() {
+      async selesai() {
       //post subjektif
+      console.log('kdhfkh')
+        await this.tambahSubjektif()
+        await this.tambahObjektif()
+        await this.tambahAssesment()
+        await this.tambahDiagnosis()
+        await this.tambahTindakan()
+        await this.tambahPlanDiagnostik()
+        await this.tambahPlanTerapi()
+        await this.tambahPlanEdukasi()
 
-      //localStorage.clear();
+        this.subjektif = [...this.kosong]
+        this.objektif = [...this.kosong]
+        this.assesment = [...this.kosong]
+        this.plan_diagnosis = [...this.kosong]
+        this.plan_terapi = [...this.kosong]
+        this.plan_edukasi = [...this.kosong]
+        this.tampil_racikan = [...this.kosong]
+        this.diagnosis = [...this.kosong]
+        this.tindakan = [...this.kosong]
+        this.obat = [...this.kosong]
+        this.biaya = [...this.kosong]
+
+        localStorage.setItem('subjective', JSON.stringify(this.subjektif));
+        localStorage.setItem('objektive', JSON.stringify(this.objektif));
+        localStorage.setItem('assesment', JSON.stringify(this.assesment));
+        localStorage.setItem('plan_diagnosis', JSON.stringify(this.plan_diagnosis));
+        localStorage.setItem('plan_terapi', JSON.stringify(this.plan_terapi));
+        localStorage.setItem('plan_edukasi', JSON.stringify(this.plan_edukasi));
+        localStorage.setItem('racikan', JSON.stringify(this.tampil_racikan));
+        localStorage.setItem('diagnosis', JSON.stringify(this.diagnosis));
+        localStorage.setItem('tindakan', JSON.stringify(this.tindakan));
+        localStorage.setItem('obat', JSON.stringify(this.obat));
+        localStorage.setItem('biaya', JSON.stringify(this.biaya));
+
+        this.$router.push('/');
+
       } 
     }
   }

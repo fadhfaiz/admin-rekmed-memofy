@@ -46,7 +46,8 @@
                 <div class="form-row p-4">
                   <div class="col-1">S</div>
                   <div class="form-group col-11" @mouseover="Shover = true" @mouseleave="Shover = false">
-                    <tags-input v-model.trim="$v.input_subjektif.$model" :class="{'is-invalid' : $v.input_subjektif.$error, 'is-valid' : !$v.input_subjektif.$invalid}"></tags-input>
+                    <tags-input v-model.trim="$v.input_subjektif.$model" :class="{'is-invalid' : $v.input_subjektif.$error, 'is-valid' : !$v.input_subjektif.$invalid}" :existing-tags="cari_subjektif" :typeahead="true"
+                      :typeahead-style="typeaheadStyle" :typeahead-show-on-focus="true"></tags-input>
                     <small class="text-muted" v-if="Shover">Tekan enter di setiap akhir kalimat</small>
                     <div class="invalid-feedback">
                       <span v-if="!$v.input_subjektif.required">Subjektif Tidak Boleh Kosong </span>
@@ -175,7 +176,8 @@
                     </div>
                     <div class="form-row my-4">
                       <div class="form-group col" @mouseover="Thover = true" @mouseleave="Thover = false">
-                        <tags-input v-model="input_plan_terapi" placeholder="plan terapi"></tags-input>
+                        <tags-input v-model="input_plan_terapi" placeholder="plan terapi" :existing-tags=" cari_plan_terapi" :typeahead="true" :typeahead-style="typeaheadStyle"
+                          :typeahead-show-on-focus="true"></tags-input>
                         <small class="text-muted" v-if="Thover">Tekan enter di setiap akhir kalimat</small>
                       </div>
                     </div>
@@ -193,7 +195,8 @@
                 <div class="form-row p-4">
                   <div class="col-1">T</div>
                   <div class="form-group col-11" @mouseover="Tihover = true" @mouseleave="Tihover = false">
-                    <tags-input v-model="input_tindakan"></tags-input>
+                    <tags-input v-model="input_tindakan" :existing-tags="cari_tindakan" :typeahead="true"
+                      :typeahead-style="typeaheadStyle" :typeahead-show-on-focus="true"></tags-input>
                     <small class="text-muted" v-if="Tihover">Tekan enter di setiap akhir kalimat</small>
                   </div>
                 </div>
@@ -232,8 +235,31 @@
             <div class="modal-footer">
               <router-link to="/obat"><button type="button" data-dismiss="modal"
                 class="btn btn-secondary">Ya</button></router-link>
-              <router-link to="/invoice"><button type="button" class="btn btn-info"
-                data-dismiss="modal">Tidak</button></router-link>
+              <button type="button" class="btn btn-info"
+                data-dismiss="modal" data-toggle="modal" data-target="#biaya">Tidak</button>
+            </div>
+          </div>
+        </div>
+      </div>
+       <div class="modal fade" id="biaya" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Total Pembayaran</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-dark">
+              <div class="form-group">
+                <input type="text" class="form-control" v-model="biaya" placeholder="biaya">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-info"
+                data-dismiss="modal" @click="simpanBiaya()">Oke</button>
             </div>
           </div>
         </div>
@@ -427,6 +453,9 @@
         cari_asessment: [],
         cari_plan_diagnostik: [],
         cari_plan_edukasi: [],
+        cari_plan_terapi: [],
+        cari_subjektif: [],
+        cari_tindakan: [],
         pasien_rekmed: [],
         subjektif: [],
         objektif: [],
@@ -450,6 +479,8 @@
         input_plan_terapi: [],
         input_diagnosis: [],
         input_tindakan: [],
+        biaya : '',
+        tampil_biaya : [],
         submit_status : null
 
       }
@@ -494,6 +525,9 @@
       this.cari_asessment = await this.tampilAssesment()
       this.cari_plan_diagnostik = await this.tampilPlanDiagnostik()
       this.cari_plan_edukasi = await this.tampilPlanEdukasi()
+      this.cari_plan_terapi = await this.tampilPlanTerapi()
+      this.cari_subjektif = await this.tampilSubjektif()
+      this.cari_tindakan = await this.tampilTindakan()
 
       /*console.log('pasien', this.pasien_rekmed)
       console.log('ass', this.cari_asessment)
@@ -501,16 +535,36 @@
 
     },
     methods: {
+      simpanBiaya() {
+        let temp_biaya = {
+          'biaya' : this.biaya
+        }
 
+        this.tampil_biaya.push(temp_biaya)
+        this.$store.dispatch('simpanBiaya', this.tampil_biaya)
+        localStorage.setItem('biaya', JSON.stringify(this.tampil_biaya))
+
+        console.log(this.tampil_biaya)
+
+        this.$router.push('/invoice')
+      },
+      async tampilSubjektif() {
+        return await axios.get('http://localhost/rekmed-server/Api/v1/Subjektif_terpilih/get').then(res => res.data)
+      },
       async tampilAssesment() {
         return await axios.get('http://localhost/rekmed-server/api/v1/Assesment/get').then(res => res.data)
-
       },
       async tampilPlanDiagnostik() {
         return await axios.get('http://localhost/rekmed-server/api/v1/Plan_diagnosis/get').then(res => res.data)
       },
       async tampilPlanEdukasi() {
         return await axios.get('http://localhost/rekmed-server/api/v1/Plan_edukasi/get').then(res => res.data)
+      },
+      async tampilPlanTerapi() {
+        return await axios.get('http://localhost/rekmed-server/api/v1/plan_terapi/get').then(res => res.data)
+      },
+      async tampilTindakan() {
+        return await axios.get('http://localhost/rekmed-server/Api/v1/Tindakan_terpilih/get').then(res => res.data)
       },
       async tambahDataSemua() {
         //subjektif

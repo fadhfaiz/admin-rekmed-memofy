@@ -41,7 +41,7 @@
         <div class="card-body plan-card-kotak">
           <div class="row">
             <div class="col-md-12 mb-3">
-              <div class="card-header font-weight-bold bg-dark text-white">
+              <div class="card-header font-weight-bold bg-white text-dark">
                 Obat
               </div>
               <div>

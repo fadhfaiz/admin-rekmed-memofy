@@ -34,7 +34,7 @@
       </div>
       <div class="card mb-2 mt-2">
         <div class="card-body plan-card-kotak" id="card-racikan">
-          <div class="card-header font-weight-bold bg-dark text-white">
+          <div class="card-header font-weight-bold bg-white text-dark">
             <div class="row">
               <div class="col-11">SOAP</div>
             </div>

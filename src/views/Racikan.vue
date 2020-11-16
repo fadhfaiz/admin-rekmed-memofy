@@ -147,13 +147,15 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">lanjut ke proses invoice</h5>
+              <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">Total Pembayaran</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body text-dark">
-              Yakin nih mau proses selanjutnya ke invoice ?
+              <div class="form-group">
+                <input type="text" class="form-control" v-model="biaya" placeholder="biaya">
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -431,9 +433,11 @@
           signa : '',
           obat : []
         },
+        biaya : '',
         kosong : [],
         tampil_racikan : [],
-        tampil_obat : []
+        tampil_obat : [],
+        tampil_biaya : []
       }
     },
     async created() {
@@ -529,6 +533,15 @@
       async prosesTransaksi() {
         let pasien = await this.loadPasien(this.pasien_rekmed.ID)
         if (pasien) {
+          let temp_biaya = {
+            'biaya' : this.biaya
+          }
+          this.tampil_biaya.push(temp_biaya)
+          this.$store.dispatch('simpanBiaya', this.tampil_biaya)
+          localStorage.setItem('biaya', JSON.stringify(this.tampil_biaya))
+
+          console.log(this.tampil_biaya)
+
           this.$store.dispatch('simpanDataPasien', pasien)
           localStorage.setItem('pasien', JSON.stringify(pasien));
           this.$router.push('/invoice')

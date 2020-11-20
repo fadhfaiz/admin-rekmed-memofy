@@ -40,7 +40,7 @@
           <router-link to="/rekmed">Rekam Medis <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
         </li> -->
-        <li class="container">
+        <!-- <li class="container">
           <router-link to="/SOAP">SOAP <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
         </li>
@@ -51,9 +51,9 @@
         <li class="container">
           <router-link to="/racikan">Racikan <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
-        </li>
+        </li> -->
         <li class="container">
-          <router-link to="/invoice">Invoice <i style="float: right;" class="fas fa-angle-right mt-1"></i>
+          <router-link to="/invoicenew">Invoice <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
         </li>
         <hr width="82%" style="background: #D7E0E0;">

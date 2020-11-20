@@ -169,14 +169,15 @@
                     <div class="form-row">
                       <div class="form-group col" @mouseover="Dihover = true" @mouseleave="Dihover = false">
                         <tags-input v-model="input_plan_diagnostik" placeholder="plan diagnostik"
-                          :existing-tags=" cari_plan_diagnostik" :typeahead="true" :typeahead-style="typeaheadStyle"
+                          :existing-tags="cari_plan_diagnostik" :typeahead="true" :typeahead-style="typeaheadStyle"
                           :typeahead-show-on-focus="true"></tags-input>
                         <small class="text-muted" v-if="Dihover">Tekan enter di setiap akhir kalimat</small>
                       </div>
                     </div>
                     <div class="form-row my-4">
                       <div class="form-group col" @mouseover="Thover = true" @mouseleave="Thover = false">
-                        <tags-input v-model="input_plan_terapi" placeholder="plan terapi" :existing-tags=" cari_plan_terapi" :typeahead="true" :typeahead-style="typeaheadStyle"
+                        <tags-input v-model="input_plan_terapi" placeholder="plan terapi" 
+                          :existing-tags="cari_plan_terapi" :typeahead="true" :typeahead-style="typeaheadStyle"
                           :typeahead-show-on-focus="true"></tags-input>
                         <small class="text-muted" v-if="Thover">Tekan enter di setiap akhir kalimat</small>
                       </div>
@@ -184,7 +185,7 @@
                     <div class="form-row">
                       <div class="form-group col" @mouseover="Ehover = true" @mouseleave="Ehover = false">
                         <tags-input v-model="input_plan_edukasi" placeholder="plan edukasi"
-                          :existing-tags=" cari_plan_edukasi" :typeahead="true" :typeahead-style="typeaheadStyle"
+                          :existing-tags="cari_plan_edukasi" :typeahead="true" :typeahead-style="typeaheadStyle"
                           :typeahead-show-on-focus="true"></tags-input>
                         <small class="text-muted" v-if="Ehover">Tekan enter di setiap akhir kalimat</small>
                       </div>
@@ -193,7 +194,7 @@
                 </div>
                 
                 <div class="form-row p-4">
-                  <div class="col-1">T</div>
+                  <div class="col-1" @click="debug()">T</div>
                   <div class="form-group col-11" @mouseover="Tihover = true" @mouseleave="Tihover = false">
                     <tags-input v-model="input_tindakan" :existing-tags="cari_tindakan" :typeahead="true"
                       :typeahead-style="typeaheadStyle" :typeahead-show-on-focus="true"></tags-input>
@@ -458,7 +459,7 @@
         cari_tindakan: [],
         pasien_rekmed: [],
         subjektif: [],
-        objektif: [],
+        objektif: {},
         assesmen: [],
         plan_diagnostik: [],
         plan_edukasi: [],
@@ -535,6 +536,12 @@
 
     },
     methods: {
+      debug() {
+        console.log(this.cari_plan_diagnostik);
+        console.log(this.input_plan_diagnostik);
+
+        console.log(this.input_plan_terapi);
+      },
       simpanBiaya() {
         let temp_biaya = {
           'biaya' : this.biaya
@@ -584,17 +591,17 @@
 
         //objektif
         let temp_objektif = {
-          //'id_pasien' : this.pasien_rekmed.ID,
           'nadi': this.nadi,
           'tekanan_darah': this.tekanan_darah,
           'suhu_tubuh': this.suhu_tubuh,
-          'respirator_rate': this.respirator_rate,
+          'respiration_rate': this.respirator_rate,
           'berat_badan': this.berat_badan,
           'tinggi_badan': this.tinggi_badan,
-          'hasil_pemeriksaan': this.hasil_pemeriksaan
+          'hasil_pemeriksaan': this.hasil_pemeriksaan,
+          'ID_pasien' : this.pasien_rekmed.ID
         };
 
-        this.objektif.push(temp_objektif)
+        this.objektif = temp_objektif
         this.$store.dispatch('tambahDataObjective', this.objektif);
         localStorage.setItem('objektive', JSON.stringify(this.objektif));
         console.log('objektif', this.objektif)
@@ -637,6 +644,7 @@
             'ID_pasien': this.pasien_rekmed.ID,
             'nama_terapi': this.input_plan_terapi[i].value
           }
+          
           this.plan_terapi.push(temp_plan_te)
         }
         this.$store.dispatch('tambahDataPlanTerapi', this.plan_terapi);

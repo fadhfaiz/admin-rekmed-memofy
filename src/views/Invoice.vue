@@ -48,42 +48,40 @@
                   </div>
                   <div class="col-1">:</div>
                   <div class="col-10">
-                    <div v-for="(obj) in objektif" v-bind:key="obj.id">
-                      <div class="row">
-                        <div class="col-5">Nadi</div>
-                        <div class="col-1">:</div>
-                        <div class="col-6">{{ obj.nadi }} x/min</div>
-                      </div>
-                      <div class="row">
-                        <div class="col-5">Tekanan Darah</div>
-                        <div class="col-1">:</div>
-                        <div class="col-6">{{ obj.tekanan_darah }} mmHg</div>
-                      </div>
-                      <div class="row">
-                        <div class="col-5">Suhu Tubuh</div>
-                        <div class="col-1">:</div>
-                        <div class="col-6">{{ obj.suhu_tubuh }} °C</div>
-                      </div>
-                      <div class="row">
-                        <div class="col-5">Respirator Rate</div>
-                        <div class="col-1">:</div>
-                        <div class="col-6">{{ obj.respirator_rate }} x/min</div>
-                      </div>
-                      <div class="row">
-                        <div class="col-5">Berat Badan</div>
-                        <div class="col-1">:</div>
-                        <div class="col-6">{{ obj.berat_badan }} kg</div>
-                      </div>
-                      <div class="row">
-                        <div class="col-5">Tinggi Badan</div>
-                        <div class="col-1">:</div>
-                        <div class="col-6">{{ obj.tinggi_badan }} cm</div>
-                      </div>
-                      <div class="row">
-                        <div class="col-5">Hasil Pemeriksaan</div>
-                        <div class="col-1">:</div>
-                        <div class="col-6">{{ obj.hasil_pemeriksaan }}</div>
-                      </div>
+                    <div class="row">
+                      <div class="col-5">Nadi</div>
+                      <div class="col-1">:</div>
+                      <div class="col-6">{{ objektif.nadi }} x/min</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-5">Tekanan Darah</div>
+                      <div class="col-1">:</div>
+                      <div class="col-6">{{ objektif.tekanan_darah }} mmHg</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-5">Suhu Tubuh</div>
+                      <div class="col-1">:</div>
+                      <div class="col-6">{{ objektif.suhu_tubuh }} °C</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-5">Respirator Rate</div>
+                      <div class="col-1">:</div>
+                      <div class="col-6">{{ objektif.respiration_rate }} x/min</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-5">Berat Badan</div>
+                      <div class="col-1">:</div>
+                      <div class="col-6">{{ objektif.berat_badan }} kg</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-5">Tinggi Badan</div>
+                      <div class="col-1">:</div>
+                      <div class="col-6">{{ objektif.tinggi_badan }} cm</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-5">Hasil Pemeriksaan</div>
+                      <div class="col-1">:</div>
+                      <div class="col-6">{{ objektif.hasil_pemeriksaan }}</div>
                     </div>
                   </div>
                 </div>
@@ -230,7 +228,7 @@
           <button type="button" class="btn btn-primary float-right" onclick="window.print();">Cetak invoice</button>
         </div>
         <div class="col col-lg-1">
-          <button type="button" class="btn btn-info float-right" @click="selesai()">Selesai</button>
+          <button type="button" class="btn btn-info float-right" @click="tambahAssesment()">Selesai</button>
         </div>
       </div>
     </div>
@@ -252,7 +250,7 @@ import axios from "axios"
       return {
         pasien_rekmed: [],
         subjektif: [],
-        objektif: [],
+        objektif: {},
         assesment: [],
         ass : [],
         sub : [],
@@ -295,94 +293,46 @@ import axios from "axios"
       this.obat = getData('obat');
       this.biaya = getData('biaya');
 
+      console.log('objektif', this.objektif)
       //console.log('plan_diagnosis', this.plan_diagnosis)
       //console.log('assesment', this.assesment)
       /*console.log('pasien', this.pasien_rekmed)
       console.log('subjektif', this.subjektif)
-      console.log('objektif', this.objektif)
       console.log('plan_terapi', this.plan_terapi)
       console.log('plan_edukasi', this.plan_edukasi)
       //console.log('racikan obat', this.racikan_obat)
-      console.log('obat', this.obat)*/
       //console.log('diagnosis', this.diagnosis)
-      console.log('racikan', this.tampil_racikan)
+      //console.log('racikan', this.tam
+      pil_racikan)
+      console.log('obat', this.obat)*/
+      //console.log('obat', this.obat)
     },
     methods : {
       async tambahSubjektif() {
-        for (var i = this.subjektif.length - 1; i >= 0; i--) {
-          //console.log('subjektif',this.subjektif[i].nama)
+        console.log('subjektif', this.subjektif)
           const sub = await axios.post('http://localhost/rekmed-server/Api/v1/Subjektif/post',{
-            nama : this.subjektif[i].nama,
-            ID_pasien : this.subjektif[i].ID_pasien
+           data : this.subjektif
           }).then(res => this.sub = res.data)
 
-          const tampil_sub = await axios.get('http://localhost/rekmed-server/Api/v1/Subjektif_terpilih/get').then(res => res.data)
-          this.sub = tampil_sub
-
-          let ada = false
-          for (var a = this.sub.length - 1; a >= 0; a--) {
-            if(this.subjektif[i].nama == this.sub[a].value) {
-              ada = true
-              break;
-            }
-          }
-          if(ada) {
-            console.log('sama')
-          } else {
-            console.log('tidak')
-            const simpan_sub = await axios.post('http://localhost/rekmed-server/Api/v1/Subjektif_terpilih/post',{
-              value : this.subjektif[i].nama
-            }).then(res => this.simpan_sub = res.data)
-          }
-        }
+          const cari_sub = await axios.post('http://localhost/rekmed-server/Api/v1/Subjektif_terpilih/post', {
+            data : this.subjektif
+          }).then(res => this.cari_sub = res.data)
       },
       async tambahObjektif() {
-        for (var i = this.objektif.length - 1; i >= 0; i--) {
-          //console.log('objektif', this.objektif[i].nadi)
-          const obj = await axios.post('http://localhost/rekmed-server/Api/v1/Objektif/post',{
-            nadi : this.objektif[i].nadi,
-            tekanan_darah : this.objektif[i].tekanan_darah,
-            suhu_tubuh : this.objektif[i].suhu_tubuh,
-            respiration_rate : this.objektif[i].respirator_rate,
-            berat_badan : this.objektif[i].berat_badan,
-            tinggi_badan : this.objektif[i].tinggi_badan,
-            hasil_pemeriksaan : this.objektif[i].hasil_pemeriksaan,
-            ID_pasien : this.pasien_rekmed.ID
-          }).then(res => this.obj = res.data)
-        }
+        console.log(this.objektif)
+        const obj = await axios.post('http://localhost/rekmed-server/Api/v1/Objektif/post',
+          this.objektif).then(res => this.obj = res.data)
       },
       async tambahAssesment() {
-        for (var i = this.assesment.length - 1; i >= 0; i--) {
-          const asses = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment_terpilih/post',{
-            nama_diagnosis : this.assesment[i].nama_diagnosis,
-            ID_pasien : this.assesment[i].ID_pasien,
+          const asses = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment/post',{
+            data : this.assesment
           }).then(res => this.asses = res.data)
-          
-          const tampil = await axios.get('http://localhost/rekmed-server/Api/v1/Assesment/get').then(res => res.data)
-          this.ass = tampil
-          //console.log(this.ass.value)
-          let ada = false
 
-          for (var a = this.ass.length - 1; a >= 0; a--) {
-            //console.log('nama', this.ass[a].value)
-            if(this.assesment[i].nama_diagnosis == this.ass[a].value) {
-              //console.log('data sama', this.ass[a].value)
-              ada = true
-              break;
-            }
-          }
-          if(ada){
-            console.log('sama')
-          } else {
-            console.log('tidak')
-            const simpan_ass = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment/post',{
-              value : this.assesment[i].nama_diagnosis
-            }).then(res => this.simpan_ass = res.data)
-            //console.log('tidak sama', this.ass[a].value)
-          }
-        }
+          const cari_asses = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment_terpilih/post',{
+            data : this.assesment
+          }).then(res => this.cari_asses = res.data)
       },
-      async tambahPlanDiagnostik() {
+      /*async tambahPlanDiagnostik() {
         for (var i = this.plan_diagnosis.length - 1; i >= 0; i--) {
           const diagnos = await axios.post('http://localhost/rekmed-server/Api/v1/plan/post/rencana_diagnostik',{
             nama_diagnosis : this.plan_diagnosis[i].nama_diagnosis,
@@ -503,9 +453,17 @@ import axios from "axios"
           }
         }
       },
+      async tambahObat() {
+        for (var i = this.obat.length - 1; i >= 0; i--) {
+          const temp_obat = await axios.post('http://localhost/rekmed-server/Api/v1/Obat/post', {
+            nama_obat : this.obat[i].nama_obat,
+            signa : this.obat[i].signa,
+            jumlah : this.obat[i].jumlah
+          }).then(res => this.temp_obat = res.data)
+          console.log('hhaha')
+        }
+      },
       async selesai() {
-      //post subjektif
-      console.log('kdhfkh')
         await this.tambahSubjektif()
         await this.tambahObjektif()
         await this.tambahAssesment()
@@ -514,6 +472,7 @@ import axios from "axios"
         await this.tambahPlanDiagnostik()
         await this.tambahPlanTerapi()
         await this.tambahPlanEdukasi()
+        await this.tambahObat()
 
         this.subjektif = [...this.kosong]
         this.objektif = [...this.kosong]
@@ -526,6 +485,8 @@ import axios from "axios"
         this.tindakan = [...this.kosong]
         this.obat = [...this.kosong]
         this.biaya = [...this.kosong]
+        this.pasien_rekmed = [...this.kosong]
+
 
         localStorage.setItem('subjective', JSON.stringify(this.subjektif));
         localStorage.setItem('objektive', JSON.stringify(this.objektif));
@@ -538,10 +499,11 @@ import axios from "axios"
         localStorage.setItem('tindakan', JSON.stringify(this.tindakan));
         localStorage.setItem('obat', JSON.stringify(this.obat));
         localStorage.setItem('biaya', JSON.stringify(this.biaya));
+        localStorage.setItem('pasien', JSON.stringify(this.pasien_rekmed));
 
         this.$router.push('/');
 
-      } 
+      }*/ 
     }
   }
 

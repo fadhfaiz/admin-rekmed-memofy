@@ -4,21 +4,21 @@
     <nav id="sidebar">
       <div class="container sidebar-header">
         <img src="/new-gojek.png" class="img-fluid w-50 rounded mx-auto d-block">
-        <h3 class="mt-3 text-center">Klinik Tong Fang</h3>
-        <p class="text-center text-xs" style="color: white;">Selasa, 29 September 2020</p>
+        <h3 class="mt-3 text-center">{{ nama_klinik }}</h3>
+        <p class="text-center text-xs" style="color: white;">{{ tanggal_hari_ini }}</p>
       </div>
 
       <ul class="list-unstyled components">
         <div class="container text-center text-md">
-          <p>dr. Azhari, Sp.PA.</p>
+          <p>{{ nama_dokter }}</p>
         </div>
-        <li class="container">
-          <router-link to="/">Dashboard <i style="float: right;" class="fas fa-angle-right mt-1"></i></router-link>
+        <li class="container" v-for="m in menu" :key="m.id">
+          <router-link :to="m.path">{{ m.name }} <i style="float: right;" class="fas fa-angle-right mt-1"></i></router-link>
         </li>
-        <li class="container">
+        <!-- <li class="container">
           <router-link to="/pendaftaran">Pendaftaran <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
-        </li>
+        </li> -->
         <!-- <li class="container">
           <a href="#soapSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Form SOAP</a>
           <ul class="collapse list-unstyled" id="soapSubmenu">
@@ -43,19 +43,15 @@
         <!-- <li class="container">
           <router-link to="/SOAP">SOAP <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
-        </li>
-        <li class="container">
+        </li> -->
+        <!-- <li class="container">
           <router-link to="/obat">Obat <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
-        </li>
-        <li class="container">
+        </li> -->
+        <!-- <li class="container">
           <router-link to="/racikan">Racikan <i style="float: right;" class="fas fa-angle-right mt-1"></i>
           </router-link>
         </li> -->
-        <li class="container">
-          <router-link to="/invoicenew">Invoice <i style="float: right;" class="fas fa-angle-right mt-1"></i>
-          </router-link>
-        </li>
         <hr width="82%" style="background: #D7E0E0;">
         <li class="container">
           <router-link to="/laporan">Laporan <i style="float: right;" class="fas fa-angle-right mt-1"></i></router-link>
@@ -74,7 +70,37 @@
 
 <script>
 export default {
-  name: 'SidebarNav'
+  /* eslint-disable */
+  name: 'SidebarNav',
+  data() {
+    return {
+      nama_klinik: 'Klinik Tong Fang',
+      nama_dokter: 'dr. Azhari, Sp.PA.',
+      menu: [
+        {id: 1, name: 'Dashboard', path: '/', is_nested: false},
+        {id: 2, name: 'Pendaftaran', path: '/pendaftaran', is_nested: false},
+        {id: 3, name: 'SOAP', path: '/SOAP', is_nested: false},
+        {id: 4, name: 'Obat', path: '/obat', is_nested: false},
+        {id: 5, name: 'Racikan', path: '/racikan', is_nested: false},
+        {id: 6, name: 'Invoice', path: '/invoice', is_nested: false}
+      ]
+    }
+  },
+  computed: {
+    tanggal_hari_ini() {
+      const D = new Date();
+
+      const kumpulan_hari = [ 'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const kumpulan_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'Nopember', 'Desember'];
+
+      let hari = kumpulan_hari[D.getDay()];
+      let tanggal = D.getDate();
+      let bulan = kumpulan_bulan[D.getMonth()];
+      let tahun = D.getFullYear();
+
+      return `${hari}, ${tanggal} ${bulan} ${tahun}`;
+    }
+  }
 }
 
 </script>

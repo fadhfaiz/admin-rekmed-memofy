@@ -530,6 +530,7 @@
       this.cari_subjektif = await this.tampilSubjektif()
       this.cari_tindakan = await this.tampilTindakan()
 
+      console.log('assesmen', this.input_assesmen)
       /*console.log('pasien', this.pasien_rekmed)
       console.log('ass', this.cari_asessment)
       console.log('pd', this.cari_plan_diagnostik)*/
@@ -559,7 +560,7 @@
         return await axios.get('http://localhost/rekmed-server/Api/v1/Subjektif_terpilih/get').then(res => res.data)
       },
       async tampilAssesment() {
-        return await axios.get('http://localhost/rekmed-server/api/v1/Assesment/get').then(res => res.data)
+        return await axios.get('http://localhost/rekmed-server/api/v1/Assesment_terpilih/get').then(res => res.data)
       },
       async tampilPlanDiagnostik() {
         return await axios.get('http://localhost/rekmed-server/api/v1/Plan_diagnosis/get').then(res => res.data)
@@ -578,7 +579,7 @@
         for (var i = this.input_subjektif.length - 1; i >= 0; i--) {
           //let a = this.subjektif[i].value
           let temp_subjektif = {
-            'ID': this.input_subjektif[i].ID,
+            'ID': null,
             'ID_pasien': this.pasien_rekmed.ID,
             'nama': this.input_subjektif[i].value
           }
@@ -609,14 +610,15 @@
         //assesmen
         for (var i = this.input_assesmen.length - 1; i >= 0; i--) {
           let temp_assesmen = {
-            'ID': this.input_assesmen[i].ID,
+            'ID':null,
             'ID_pasien': this.pasien_rekmed.ID,
-            'nama_diagnosis': this.input_assesmen[i].value
+            'nama': this.input_assesmen[i].value
           }
           this.assesmen.push(temp_assesmen)
 
 
         }
+        //console.log("assesmen", this.input_assesmen)
         this.$store.dispatch('tambahDataAssesment', this.assesmen);
         localStorage.setItem('assesment', JSON.stringify(this.assesmen));
         console.log('assesment', this.assesmen)
@@ -682,7 +684,7 @@
           let temp_tindakan = {
             'ID': this.input_tindakan[i].ID,
             'ID_pasien': this.pasien_rekmed.ID,
-            'nama_tindakan': this.input_tindakan[i].value
+            'nama': this.input_tindakan[i].value
           }
           this.tindakan.push(temp_tindakan)
         }

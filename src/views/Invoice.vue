@@ -92,7 +92,7 @@
                   <div class="col-1">:</div>
                   <div class="col-10">
                     <div v-for="(ass) in assesment" v-bind:key="ass.id">
-                      <span>{{ ass.nama_diagnosis }}</span>
+                      <span>{{ ass.nama }}</span>
                     </div>
                   </div>
                 </div>
@@ -149,7 +149,7 @@
                   <div class="col-1">:</div>
                   <div class="col-10">
                     <div v-for="(tindakan) in tindakan" v-bind:key="tindakan.id">
-                      <span>{{ tindakan.nama_tindakan }}</span>
+                      <span>{{ tindakan.nama }}</span>
                     </div>
                   </div>
                 </div>
@@ -228,7 +228,7 @@
           <button type="button" class="btn btn-primary float-right" onclick="window.print();">Cetak invoice</button>
         </div>
         <div class="col col-lg-1">
-          <button type="button" class="btn btn-info float-right" @click="tambahAssesment()">Selesai</button>
+          <button type="button" class="btn btn-info float-right" @click="tambahSOAP()">Selesai</button>
         </div>
       </div>
     </div>
@@ -293,7 +293,8 @@ import axios from "axios"
       this.obat = getData('obat');
       this.biaya = getData('biaya');
 
-      console.log('objektif', this.objektif)
+      console.log('tindakan', this.tindakan)
+      console.log('asesmen', this.assesment)
       //console.log('plan_diagnosis', this.plan_diagnosis)
       //console.log('assesment', this.assesment)
       /*console.log('pasien', this.pasien_rekmed)
@@ -308,7 +309,7 @@ import axios from "axios"
       //console.log('obat', this.obat)
     },
     methods : {
-      async tambahSubjektif() {
+      /*async tambahSubjektif() {
         console.log('subjektif', this.subjektif)
           const sub = await axios.post('http://localhost/rekmed-server/Api/v1/Subjektif/post',{
            data : this.subjektif
@@ -326,11 +327,20 @@ import axios from "axios"
       async tambahAssesment() {
           const asses = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment/post',{
             data : this.assesment
-          }).then(res => this.asses = res.data)
+          }).then(res => this.asses = res.data)*/
 
-          const cari_asses = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment_terpilih/post',{
+         /* const cari_asses = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment_terpilih/post',{
             data : this.assesment
-          }).then(res => this.cari_asses = res.data)
+          }).then(res => this.cari_asses = res.data)*/
+      //},
+      async tambahSOAP() {
+        await axios.post('http://localhost/rekmed-server/Api/v1/SOAP/post',{
+          'asesmen' : this.assesment,
+          'subjektif' : this.subjektif,
+          'rencana_diagnostik': this.plan_diagnosis
+        }, {
+          'Content-Type': 'application/application/json'
+        }).then(res => res.data);
       },
       /*async tambahPlanDiagnostik() {
         for (var i = this.plan_diagnosis.length - 1; i >= 0; i--) {

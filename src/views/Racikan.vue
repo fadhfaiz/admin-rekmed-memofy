@@ -91,7 +91,7 @@
         <div class="card-body plan-card-kotak" id="card-racikan">
           <div class="row">
             <div class="col-md-12 mb-3">
-              <div class="card-header font-weight-bold bg-dark text-white">
+              <div class="card-header font-weight-bold bg-white text-dark">
                 <div class="row">
                   <div class="col-11">Racikan</div>
                 </div>
@@ -189,12 +189,12 @@
                   <div class="modal-body">
                     <table class="table table-hover table-bordered">
                 <thead>
-                  <tr class="text-center bg-dark" style="color: white;">
+                  <tr class="text-center bg-white text-dark" style="color: white;">
                     <th scope="col">Tanggal</th>
-                    <th scope="col">Objektif</th>
+                    <th scope="col">Subjektif</th>
                     <th scope="col">Asesmen</th>
-                    <th scope="col">Rencana</th>
-                    <th scope="col">Resep</th>
+                    <th scope="col">Tindakan</th>
+                    <th scope="col">Obat</th>
                     <th scope="col">Detail</th>
                   </tr>
                 </thead>
@@ -209,18 +209,6 @@
                   </tbody> -->
                 <tbody>
                   <tr>
-                    <th scope="row">01 September</th>
-                    <td class="text-center">Objektif 1</td>
-                    <td class="text-center">Assesment 1</td>
-                    <td>Rencana 1</td>
-                    <td>Resep 1</td>
-                    <td class="text-center">
-                      <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#riwayatModal">
-                        Detail Resep
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
                     <th scope="row">02 November</th>
                     <td class="text-center">Objektif 2</td>
                     <td class="text-center">Assesment 2</td>
@@ -228,7 +216,7 @@
                     <td>Resep 2</td>
                     <td class="text-center">
                       <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#riwayatModal">
-                        Detail Resep
+                        Selengkapnya
                       </button>
                     </td>
                   </tr>
@@ -579,4 +567,8 @@
     padding: 6px 12px;
   }
 
+  .riwayat-medis {
+    height: 37px;
+    padding: 6px 12px;
+}
 </style>

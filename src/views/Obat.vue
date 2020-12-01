@@ -421,6 +421,20 @@
     /* border: 0px !important; */
     margin-bottom: 0.5rem !important;
     border-radius: 0.35rem !important;
+    border: 1px solid #eeeeee;
   }
 
+  #card-racikan {
+    border: 0.5px solid #bdbdbd !important;
+    border-radius: 0.35rem !important;
+  }
+
+  .card-body {
+    padding: 6px 12px;
+  }
+
+  .riwayat-medis {
+    height: 37px;
+    padding: 6px 12px;
+}
 </style>

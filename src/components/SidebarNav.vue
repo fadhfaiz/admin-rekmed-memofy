@@ -79,10 +79,7 @@ export default {
       menu: [
         {id: 1, name: 'Dashboard', path: '/', is_nested: false},
         {id: 2, name: 'Pendaftaran', path: '/pendaftaran', is_nested: false},
-        {id: 3, name: 'SOAP', path: '/SOAP', is_nested: false},
-        {id: 4, name: 'Obat', path: '/obat', is_nested: false},
-        {id: 5, name: 'Racikan', path: '/racikan', is_nested: false},
-        {id: 6, name: 'Invoice', path: '/invoice', is_nested: false}
+        {id: 6, name: 'Invoice', path: '/invoicenew', is_nested: false}
       ]
     }
   },

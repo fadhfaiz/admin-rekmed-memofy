@@ -44,31 +44,40 @@
           <div class="card my-3" v-else>
             <ul v-for="(list_racikan, indexRacikan) in tampil_racikan" v-bind:key="indexRacikan" class="list-group list-group-flush">
               <li class="list-group-item">
-                <div class="row my-3">
-                  <div class="col-3">
-                    <span>M. F. Pulv : {{ list_racikan.pulv }}</span>
-                  </div>
-                  <div class="col-3">
-                    <span>Signa : {{ list_racikan.signa }}</span>
-                  </div>
-                  <div class="col-1">
-                    <button type="button" @click="hapusRacikan(list_racikan.id_racikan, indexRacikan)" class="btn btn-danger"><i style="float: left;"
-                        class="fa fa-times"></i></button>
-                  </div>
-                </div>
+                
                 <!-- <span>Signa : {{ list_racikan.obat }}</span> -->
-                <ul class="list-group" v-for="(list_obat, index) in list_racikan.obat" v-bind:key="index">
-                  <li class="list-group-item">
-                    <div class="row my-3">
-                      <div class="col-4">
-                        <span>Nama Obat : {{ list_obat.nama_obat }}</span>
+                <div class="row">
+                <div class="col-11">
+                  <ul class="list-group" v-for="(list_obat, index) in list_racikan.obat" v-bind:key="index">
+                    <li class="list-group-item">
+                      <div class="row">
+                        <div class="col-2">Nama Obat</div>
+                        <div class="col-1">:</div>
+                        <div class="col-3">{{ list_obat.nama_obat }}</div>
+                        <div class="col-2">Jumlah</div>
+                        <div class="col-1">:</div>
+                        <div class="col-3">{{ list_obat.jumlah }}</div>
                       </div>
-                      <div class="col-4">
-                        <span>Jumlah : {{ list_obat.jumlah }}</span>
+                    </li>
+                  </ul>
+                <ul class="list-group my-3">
+                    <li class="list-group-item bg-light">
+                      <div class="row">
+                        <div class="col-2">M. F. Pulv</div>
+                        <div class="col-1">:</div>
+                        <div class="col-3">{{ list_racikan.pulv }}</div>
+                        <div class="col-2">Signa</div>
+                        <div class="col-1">:</div>
+                        <div class="col-3">{{ list_racikan.signa }}</div>
                       </div>
-                    </div>
-                  </li>
+                    </li>
                 </ul>
+                </div>
+                <div class="col-1">
+                  <button type="button" @click="hapusRacikan(list_racikan.id_racikan, indexRacikan)" class="btn btn-danger"><i style="float: left;"
+                        class="fa fa-times"></i></button>
+                </div>
+                </div>
               </li>
            </ul>
            <!-- <div v-else>

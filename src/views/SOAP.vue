@@ -456,6 +456,7 @@
         cari_plan_edukasi: [],
         cari_plan_terapi: [],
         cari_subjektif: [],
+        cari_diagnosis: [],
         cari_tindakan: [],
         pasien_rekmed: [],
         subjektif: [],
@@ -529,6 +530,7 @@
       this.cari_plan_terapi = await this.tampilPlanTerapi()
       this.cari_subjektif = await this.tampilSubjektif()
       this.cari_tindakan = await this.tampilTindakan()
+      this.cari_diagnosis = await this.tampilDiagnosis()
 
       /*console.log('pasien', this.pasien_rekmed)
       console.log('ass', this.cari_asessment)
@@ -559,7 +561,7 @@
         return await axios.get('http://localhost/rekmed-server/Api/v1/Subjektif_terpilih/get').then(res => res.data)
       },
       async tampilAssesment() {
-        return await axios.get('http://localhost/rekmed-server/api/v1/Assesment/get').then(res => res.data)
+        return await axios.get('http://localhost/rekmed-server/api/v1/Assesment_terpilih/get').then(res => res.data)
       },
       async tampilPlanDiagnostik() {
         return await axios.get('http://localhost/rekmed-server/api/v1/Plan_diagnosis/get').then(res => res.data)
@@ -569,6 +571,9 @@
       },
       async tampilPlanTerapi() {
         return await axios.get('http://localhost/rekmed-server/api/v1/plan_terapi/get').then(res => res.data)
+      },
+      async tampilDiagnosis() {
+        return await axios.get('http://localhost/rekmed-server/api/v1/Diagnosis/all_identify').then(res => res.data)
       },
       async tampilTindakan() {
         return await axios.get('http://localhost/rekmed-server/Api/v1/Tindakan_terpilih/get').then(res => res.data)
@@ -629,7 +634,7 @@
           let temp_plan_diag = {
             'ID': this.input_plan_diagnostik[i].ID,
             'ID_pasien': this.pasien_rekmed.ID,
-            'nama_diagnosis': this.input_plan_diagnostik[i].value
+            'nama': this.input_plan_diagnostik[i].value
           }
           this.plan_diagnostik.push(temp_plan_diag)
         }
@@ -642,7 +647,7 @@
           let temp_plan_te = {
             'ID': this.input_plan_terapi[i].ID,
             'ID_pasien': this.pasien_rekmed.ID,
-            'nama_terapi': this.input_plan_terapi[i].value
+            'nama': this.input_plan_terapi[i].value
           }
           
           this.plan_terapi.push(temp_plan_te)
@@ -656,7 +661,7 @@
           let temp_plan_edu = {
             'ID': this.input_plan_edukasi[i].ID,
             'ID_pasien': this.pasien_rekmed.ID,
-            'nama_edukasi': this.input_plan_edukasi[i].value
+            'nama': this.input_plan_edukasi[i].value
           }
           this.plan_edukasi.push(temp_plan_edu)
         }

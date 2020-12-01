@@ -532,6 +532,7 @@
       this.cari_tindakan = await this.tampilTindakan()
       this.cari_diagnosis = await this.tampilDiagnosis()
 
+      console.log('assesmen', this.input_assesmen)
       /*console.log('pasien', this.pasien_rekmed)
       console.log('ass', this.cari_asessment)
       console.log('pd', this.cari_plan_diagnostik)*/
@@ -583,7 +584,7 @@
         for (var i = this.input_subjektif.length - 1; i >= 0; i--) {
           //let a = this.subjektif[i].value
           let temp_subjektif = {
-            'ID': this.input_subjektif[i].ID,
+            'ID': null,
             'ID_pasien': this.pasien_rekmed.ID,
             'nama': this.input_subjektif[i].value
           }
@@ -614,14 +615,15 @@
         //assesmen
         for (var i = this.input_assesmen.length - 1; i >= 0; i--) {
           let temp_assesmen = {
-            'ID': this.input_assesmen[i].ID,
+            'ID':null,
             'ID_pasien': this.pasien_rekmed.ID,
-            'nama_diagnosis': this.input_assesmen[i].value
+            'nama': this.input_assesmen[i].value
           }
           this.assesmen.push(temp_assesmen)
 
 
         }
+        //console.log("assesmen", this.input_assesmen)
         this.$store.dispatch('tambahDataAssesment', this.assesmen);
         localStorage.setItem('assesment', JSON.stringify(this.assesmen));
         console.log('assesment', this.assesmen)
@@ -633,7 +635,7 @@
         for (var i = this.input_plan_diagnostik.length - 1; i >= 0; i--) {
           let temp_plan_diag = {
             'ID': this.input_plan_diagnostik[i].ID,
-            'ID_pasien': this.pasien_rekmed.ID,
+            'ID_plan': 1,
             'nama': this.input_plan_diagnostik[i].value
           }
           this.plan_diagnostik.push(temp_plan_diag)
@@ -646,7 +648,7 @@
         for (var i = this.input_plan_terapi.length - 1; i >= 0; i--) {
           let temp_plan_te = {
             'ID': this.input_plan_terapi[i].ID,
-            'ID_pasien': this.pasien_rekmed.ID,
+            'ID_plan': 1,
             'nama': this.input_plan_terapi[i].value
           }
           
@@ -660,7 +662,7 @@
         for (var i = this.input_plan_edukasi.length - 1; i >= 0; i--) {
           let temp_plan_edu = {
             'ID': this.input_plan_edukasi[i].ID,
-            'ID_pasien': this.pasien_rekmed.ID,
+            'ID_plan': 1,
             'nama': this.input_plan_edukasi[i].value
           }
           this.plan_edukasi.push(temp_plan_edu)
@@ -672,7 +674,7 @@
         //diagnosis
         for (var i = this.input_diagnosis.length - 1; i >= 0; i--) {
           let temp_diagnosis = {
-            'ID': this.input_diagnosis[i].ID,
+            'ID': null,
             'ID_pasien': this.pasien_rekmed.ID,
             'nama': this.input_diagnosis[i].value
           }
@@ -685,9 +687,9 @@
         //tindakan
         for (var i = this.input_tindakan.length - 1; i >= 0; i--) {
           let temp_tindakan = {
-            'ID': this.input_tindakan[i].ID,
+            'ID': null,
             'ID_pasien': this.pasien_rekmed.ID,
-            'nama_tindakan': this.input_tindakan[i].value
+            'nama': this.input_tindakan[i].value
           }
           this.tindakan.push(temp_tindakan)
         }

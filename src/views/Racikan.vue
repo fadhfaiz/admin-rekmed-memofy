@@ -74,7 +74,7 @@
                 </ul>
                 </div>
                 <div class="col-1">
-                  <button type="button" @click="hapusRacikan(list_racikan.id_racikan, indexRacikan)" class="btn btn-danger"><i style="float: left;"
+                  <button type="button" @click="hapusRacikan(list_racikan.ID)" class="btn btn-danger"><i style="float: left;"
                         class="fa fa-times"></i></button>
                 </div>
                 </div>
@@ -105,7 +105,7 @@
                     <input type="text" class="form-control" v-model="racikan_obat.jumlah" placeholder="Jumlah">
                   </div>
                   <div class="col-1">
-                    <button type="button" @click="hapusObat(racikan_obat.id_obat, indexObat)" class="btn btn-danger"><i style="float: left;"
+                    <button type="button" @click="hapusObat(indexObat)" class="btn btn-danger"><i style="float: left;"
                         class="fa fa-times"></i></button>
                   </div>
                 </div>
@@ -432,12 +432,12 @@
       return {
         pasien_rekmed : [],
         obat : [{
-          id_obat : Math.random(),
+          ID : null,
           nama_obat : '',
           jumlah : '',
         }],
         racikan : {
-          id_racikan : '',
+          ID : '',
           pulv : '',
           signa : '',
           obat : []
@@ -463,7 +463,7 @@
       tambahObat() {
 
         this.obat.push ({
-          id_obat : Math.random(),
+          ID : null,
           nama_obat: '',
           jumlah: ''      
         })
@@ -481,7 +481,7 @@
         this.tampil_obat = [...this.obat];
 
         let racikan = {
-          'id_racikan' : Math.random(),
+          'ID' : Math.random(),
           'pulv' : this.racikan.pulv,
           'signa' : this.racikan.signa,
           'obat' : [...this.tampil_obat]
@@ -508,8 +508,7 @@
         //console.log('obatt', obattt)
 
       },
-      hapusObat(id, indexObat) {
-        this.tampil_obat.id_obat = id
+      hapusObat(indexObat) {
         this.obat.splice(indexObat, 1);
 
         this.tampil_obat = [...this.obat]
@@ -517,12 +516,12 @@
         localStorage.setItem('racikan_obat', JSON.stringify(this.tampil_obat));
         console.log('tampil_obat hapus',this.tampil_obat)
       },
-      hapusRacikan(id_racikan, indexRacikan) {
-        this.tampil_racikan.id_racikan = id_racikan
+      hapusRacikan(ID) {
+        this.tampil_racikan.ID = ID;
 
         let list_racikan = [...this.tampil_racikan];
         this.tampil_racikan = list_racikan.filter(res => {
-          return res.id_racikan != this.tampil_racikan.id_racikan
+          return res.ID != this.tampil_racikan.ID
         });
 
         this.$store.dispatch('tambahDataRacikan', this.tampil_racikan);

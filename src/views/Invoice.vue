@@ -92,7 +92,7 @@
                   <div class="col-1">:</div>
                   <div class="col-10">
                     <div v-for="(ass) in assesment" v-bind:key="ass.id">
-                      <span>{{ ass.nama_diagnosis }}</span>
+                      <span>{{ ass.nama }}</span>
                     </div>
                   </div>
                 </div>
@@ -149,7 +149,7 @@
                   <div class="col-1">:</div>
                   <div class="col-10">
                     <div v-for="(tindakan) in tindakan" v-bind:key="tindakan.id">
-                      <span>{{ tindakan.nama_tindakan }}</span>
+                      <span>{{ tindakan.nama }}</span>
                     </div>
                   </div>
                 </div>
@@ -228,7 +228,7 @@
           <button type="button" class="btn btn-primary float-right" onclick="window.print();">Cetak invoice</button>
         </div>
         <div class="col col-lg-3">
-            <button v-if="proses == false" type="button" class="btn btn-info float-right" @click="Selesai()">Selesai</button>
+            <button v-if="proses == false" type="button" class="btn btn-info float-right" @click="tambahCariSOAP()">Selesai</button>
             <button class="btn btn-info float-right" type="button" disabled="" v-else>
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
              Loading...
@@ -288,6 +288,8 @@ import axios from "axios"
       this.tindakan = getData('tindakan');
       this.obat = getData('obat');
       this.biaya = getData('biaya');
+
+      console.log(this.obat);
     },
     methods : {
       //validasi kondisi id plan jika null maka melakukan request ke api
@@ -297,105 +299,38 @@ import axios from "axios"
         console.log('hahaha')
 
            //SUbjektif
-          const sub = await axios.post('http://localhost/rekmed-server/Api/v1/Subjektif/post',{
-           data : this.subjektif
-          }).then(res => this.sub = res.data)
 
-          const cari_sub = await axios.post('http://localhost/rekmed-server/Api/v1/Subjektif_terpilih/post', {
-            data : this.subjektif
-          }).then(res => this.cari_sub = res.data)
-          
-          //objektif
-          const obj = await axios.post('http://localhost/rekmed-server/Api/v1/Objektif/post',
-            this.objektif).then(res => this.obj = res.data)
-          
-          //assesmen
-          const asses = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment/post',{
-            data : this.assesment
-          }).then(res => this.asses = res.data)
-
-          const cari_asses = await axios.post('http://localhost/rekmed-server/Api/v1/Assesment_terpilih/post',{
-            data : this.assesment
-          }).then(res => this.cari_asses = res.data)
-          
-          //plan diagnosis
-          const plan_diag = await axios.post('http://localhost/rekmed-server/Api/v1/Plan/post/rencana_diagnostik',{
-            data : this.plan_diagnosis
-          }).then(res => this.plan_diag = res.data)
-
-          const cari_plan_diag = await axios.post('http://localhost/rekmed-server/Api/v1/PlanDiag_terpilih/post',{
-            data : this.plan_diagnosis
-          }).then(res => this.cari_plan_diag = res.data)
-          
-          //plan terapi
-          const plan_ter = await axios.post('http://localhost/rekmed-server/Api/v1/Plan/post/rencana_terapi',{
-            data : this.plan_terapi
-          }).then(res => this.plan_ter = res.data)
-
-          const cari_plan_ter = await axios.post('http://localhost/rekmed-server/Api/v1/PlanTer_terpilih/post',{
-            data : this.plan_terapi
-          }).then(res => this.cari_plan_ter = res.data)
-          
-          //plan edukasi
-          const plan_edu = await axios.post('http://localhost/rekmed-server/Api/v1/Plan/post/rencana_edukasi',{
-            data  : this.plan_edukasi
-          }).then(res => this.plan_edu = res.data)
-
-          const cari_plan_edu = await axios.post('http://localhost/rekmed-server/Api/v1/PlanEdu_terpilih/post',{
-            data : this.plan_edukasi
-          }).then(res => this.cari_plan_edu = res.data)
-          
-          //diagnosis
-          const diag = await axios.post('http://localhost/rekmed-server/Api/v1/Diagnosis/post',{
-            data : this.diagnosis
-          }).then(res => this.diag = res.data)
-          
-          //tindakan
-          const tind = await axios.post('http://localhost/rekmed-server/Api/v1/Tindakan/post',{
-            data : this.tindakan
-          }).then(res => this.tind = res.data)
-
-          const cari_tind = await axios.post('http://localhost/rekmed-server/Api/v1/Tindakan_terpilih/post',{
-            data : this.tindakan
-          }).then(res => this.cari_tind = res.data)
-          
-          //obat
-          const temp_obat = await axios.post('http://localhost/rekmed-server/Api/v1/Obat/post',{
-            data : this.obat
-          }).then(res => this.temp_obat = res.data)
-        //await this.tambah()
-
-        /*this.subjektif = [...this.kosong]
-        this.objektif = [...this.kosong]
-        this.assesment = [...this.kosong]
-        this.plan_diagnosis = [...this.kosong]
-        this.plan_terapi = [...this.kosong]
-        this.plan_edukasi = [...this.kosong]
-        this.tampil_racikan = [...this.kosong]
-        this.diagnosis = [...this.kosong]
-        this.tindakan = [...this.kosong]
-        this.obat = [...this.kosong]
-        this.biaya = [...this.kosong]
-        this.pasien_rekmed = [...this.kosong]
-
-
-        localStorage.setItem('subjective', JSON.stringify(this.subjektif));
-        localStorage.setItem('objektive', JSON.stringify(this.objektif));
-        localStorage.setItem('assesment', JSON.stringify(this.assesment));
-        localStorage.setItem('plan_diagnosis', JSON.stringify(this.plan_diagnosis));
-        localStorage.setItem('plan_terapi', JSON.stringify(this.plan_terapi));
-        localStorage.setItem('plan_edukasi', JSON.stringify(this.plan_edukasi));
-        localStorage.setItem('racikan', JSON.stringify(this.tampil_racikan));
-        localStorage.setItem('diagnosis', JSON.stringify(this.diagnosis));
-        localStorage.setItem('tindakan', JSON.stringify(this.tindakan));
-        localStorage.setItem('obat', JSON.stringify(this.obat));
-        localStorage.setItem('biaya', JSON.stringify(this.biaya));
-        localStorage.setItem('pasien', JSON.stringify(this.pasien_rekmed));*/
-
-        this.$router.push('/');
-
+      console.log('tindakan', this.tindakan)
+      console.log('asesmen', this.assesment)
+    },
+      async tambahSOAP() {
+        await axios.post('http://localhost/rekmed-server/Api/v1/SOAP/post',{
+          'subjektif' : this.subjektif,
+          'asesmen' : this.assesment,
+          'rencana_diagnostik': this.plan_diagnosis,
+          'rencana_edukasi' : this.plan_edukasi,
+          'rencana_terapi' : this.plan_terapi,
+          'tindakan' : this.tindakan,
+          'diagnosis' : this.diagnosis,
+          'obat' : this.obat,
+        }, {
+          'Content-Type': 'application/application/json'
+        }).then(res => res.data);
+      },
+      async tambahCariSOAP() {
+        await axios.post('http://localhost/rekmed-server/Api/v1/CariSOAP/post',{
+          'subjektif' : this.subjektif,
+          'asesmen' : this.assesment,
+          'rencana_diagnostik': this.plan_diagnosis,
+          'rencana_edukasi' : this.plan_edukasi,
+          'rencana_terapi' : this.plan_terapi,
+          'tindakan' : this.tindakan,
+        }, {
+          'Content-Type': 'application/application/json'
+        }).then(res => res.data);
       }
     }
+ 
   }
 
 </script>

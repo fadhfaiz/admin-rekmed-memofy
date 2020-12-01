@@ -56,7 +56,7 @@
                     <input type="text" class="form-control" v-model="resep.jumlah" placeholder="Jumlah">
                   </div>
                   <div class="col-1">
-                    <button type="button" @click="hapusResep(resep.id_obat, index)" class="btn btn-danger"><i style="float: left;"
+                    <button type="button" @click="hapusResep(index)" class="btn btn-danger"><i style="float: left;"
                         class="fa fa-times"></i></button>
                   </div>
                 </div>
@@ -343,7 +343,7 @@
       return {
         pasien_rekmed : [],
         obat : [{
-          id_obat : Math.random(),
+          ID : null,
           nama_obat : '',
           jumlah : '',
           signa : ''
@@ -367,7 +367,7 @@
         this.tampil_obat = [...this.obat];
         this.obat.push({
           //id_pasien : this.pasien_rekmed.ID,
-          id_obat : Math.random(),
+          ID : null,
           nama_obat : '',
           jumlah : '',
           signa : ''
@@ -377,8 +377,8 @@
         localStorage.setItem('obat', JSON.stringify(this.tampil_obat));
         console.log('obat',this.tampil_obat)
       },
-      hapusResep(id_obat,index) {
-        this.obat.id_obat = id_obat
+      hapusResep(index) {
+        //this.obat.ID = ID
         this.obat.splice(index,1)
 
         this.tampil_obat = [...this.obat]
